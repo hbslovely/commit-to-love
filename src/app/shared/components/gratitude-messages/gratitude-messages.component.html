@@ -1,0 +1,128 @@
+<!-- Enhanced Gratitude Messages Section -->
+<div class="gratitude-section">
+  <!-- Love-themed watermark icons -->
+  <div class="watermark-icons">
+    <i class="pi pi-heart"></i>
+    <i class="pi pi-heart-fill"></i>
+    <i class="pi pi-home"></i>
+    <i class="pi pi-users"></i>
+    <i class="pi pi-star"></i>
+  </div>
+
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="pi pi-heart"></i>
+        Lời Cảm Ơn
+      </h2>
+      <div class="quote-wrapper">
+        <p class="section-subtitle">"Gratitude is the memory of the heart"</p>
+        <span class="quote-author">- Jean Baptiste Massieu</span>
+      </div>
+    </div>
+
+    <div class="gratitude-content">
+      <!-- Letter Tabs -->
+      <div class="letter-tabs">
+        <button class="tab-button active" (click)="switchLetter(0)">
+          <i class="pi pi-heart-fill"></i>
+          Thư Của Vợ
+        </button>
+        <button class="tab-button" (click)="switchLetter(1)">
+          <i class="pi pi-heart"></i>
+          Thư Của Chồng
+        </button>
+      </div>
+
+      <!-- Swiper container -->
+      <div class="swiper-container letters-container">
+        <div class="swiper-wrapper">
+          <!-- Wife's Letter -->
+          <div class="swiper-slide">
+            <div class="gratitude-letter wife-letter">
+              <!-- Letter frame -->
+              <div class="letter-frame">
+                <div class="frame-border">
+                  <div class="letter-content handwritten">
+                    <p class="gratitude-paragraph">
+                      <span>Anh yêu của em, cảm ơn anh đã luôn là chỗ dựa vững chắc nhất của em. Anh là người chồng tuyệt vời nhất, là người bạn đời mà em luôn tự hào và hạnh phúc khi được ở bên.</span>
+                    </p>
+                    <p class="gratitude-paragraph">
+                      <span>Em cảm ơn anh vì những quan tâm nhỏ nhặt hàng ngày, từ việc nấu cho em những bữa ăn ngon, đến việc luôn lắng nghe và chia sẻ cùng em mọi niềm vui nỗi buồn. Những điều đó tưởng chừng đơn giản nhưng lại khiến trái tim em ấm áp biết bao.</span>
+                    </p>
+                    <p class="gratitude-paragraph">
+                      <span>Cảm ơn anh vì đã luôn kiên nhẫn và thấu hiểu em, vì đã chấp nhận những thiếu sót của em và giúp em hoàn thiện bản thân mỗi ngày. Anh là động lực để em trở thành phiên bản tốt hơn của chính mình.</span>
+                    </p>
+                    <p class="gratitude-paragraph">
+                      <span>Em hứa sẽ luôn là người vợ, người bạn đồng hành đáng tin cậy của anh. Chúng ta sẽ cùng nhau xây dựng tổ ấm hạnh phúc, nơi tình yêu và tiếng cười luôn hiện diện mỗi ngày.</span>
+                    </p>
+                    <div class="gratitude-signature handwritten-signature">
+                      <p>Mãi yêu anh,</p>
+                      <p>Vợ Yêu Dấu</p>
+                    </div>
+                  </div>
+                  <div class="letter-stamp">
+                    <div class="stamp-border"></div>
+                    <div class="stamp-content">
+                      <span>Sent</span>
+                      <span>with love</span>
+                      <i class="pi pi-send"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Husband's Letter -->
+          <div class="swiper-slide">
+            <div class="gratitude-letter husband-letter">
+              <!-- Letter frame -->
+              <div class="letter-frame">
+                <div class="frame-border">
+                  <div class="letter-content handwritten">
+                    <p class="gratitude-paragraph">
+                      <span>Cảm ơn em đã luôn ở bên anh, cùng anh trải qua những thăng trầm của cuộc sống. Em là người vợ tuyệt vời nhất, là người bạn đồng hành đáng yêu nhất mà anh có thể mơ ước.</span>
+                    </p>
+                    <p class="gratitude-paragraph">
+                      <span>Mỗi ngày được thức dậy bên em, được nhìn thấy nụ cười của em là một món quà vô giá với anh. Em đã cho anh một gia đình hạnh phúc, một mái ấm để về, nơi tràn ngập tiếng cười và yêu thương.</span>
+                    </p>
+                    <p class="gratitude-paragraph">
+                      <span>Tình yêu và sự tin tưởng của em là động lực để anh cố gắng mỗi ngày. Em luôn ủng hộ anh trong mọi quyết định, là nguồn cảm hứng bất tận trong cuộc sống của anh.</span>
+                    </p>
+                    <p class="gratitude-paragraph">
+                      <span>Xin cảm ơn em vì đã chọn anh, vì đã để anh được yêu thương và chăm sóc em. Anh hứa sẽ luôn cố gắng để xứng đáng với tình yêu của em, để mỗi ngày của chúng ta đều là một ngày hạnh phúc.</span>
+                    </p>
+                    <div class="gratitude-signature handwritten-signature">
+                      <p>Yêu em rất nhiều,</p>
+                      <p>Chồng "iu" của em</p>
+                    </div>
+                  </div>
+                  <div class="letter-stamp">
+                    <div class="stamp-border"></div>
+                    <div class="stamp-content">
+                      <span>Sent</span>
+                      <span>with love</span>
+                      <i class="pi pi-send"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-section">
+      <div class="quote-content">
+        <i class="pi pi-heart"></i>
+        <blockquote>
+          "Love is not about possession. Love is about appreciation"
+        </blockquote>
+        <span class="quote-author">- Osho</span>
+      </div>
+    </div>
+  </div>
+</div>

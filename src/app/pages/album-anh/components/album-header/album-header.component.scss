@@ -1,0 +1,17 @@
+// Import all separated style files
+@import './album-header-layout.scss';
+@import './album-header-background.scss';
+@import './album-header-content.scss';
+@import './album-header-photos.scss';
+@import './album-header-animations.scss';
+@import './album-header-responsive.scss';
+
+// Original styles have been split into separate files:
+// - Layout and Structure: album-header-layout.scss
+// - Background and Overlays: album-header-background.scss  
+// - Content and Typography: album-header-content.scss
+// - Photo Gallery: album-header-photos.scss
+// - Animations: album-header-animations.scss
+// - Responsive: album-header-responsive.scss
+
+// All original styles are preserved in the separated files above

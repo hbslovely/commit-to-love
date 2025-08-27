@@ -1,0 +1,9 @@
+<div class="image-viewer" *ngIf="isVisible" (click)="closeViewer($event)">
+  <div class="viewer-content">
+    <img [src]="imageUrl" [alt]="imageAlt" (click)="stopPropagation($event)">
+    <button class="close-button" (click)="closeViewer($event)">
+      <i class="pi pi-times"></i>
+    </button>
+    <div class="image-caption" *ngIf="imageAlt">{{ imageAlt }}</div>
+  </div>
+</div> 

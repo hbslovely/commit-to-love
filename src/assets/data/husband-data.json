@@ -1,0 +1,204 @@
+{
+  "basicInfo": {
+    "name": "Bé Báo",
+    "title": "Chồng Yêu Của Em",
+    "description": "Xin chào, anh là Bé Báo - một chàng developer với trái tim ấm áp và đôi bàn tay biết 'code' nên những điều kỳ diệu. Trong thế giới công nghệ đầy số liệu và logic, anh vẫn luôn dành một góc nhỏ trong tim để chứa đựng những điều lãng mạn và ngọt ngào dành cho em. 💻💝\n\nLà một IT boy thế hệ 9x, anh tự hào về khả năng biến những dòng code khô khan thành những ứng dụng sống động, cũng như cách anh biến những khoảnh khắc đời thường thành những memory đặc biệt với em. Với tư duy nhạy bén và tinh thần không ngừng học hỏi, anh luôn cố gắng trở thành phiên bản tốt hơn của chính mình mỗi ngày. 🌟\n\nDù đôi khi hơi cẩu thả trong một số việc nhỏ, nhưng với những điều quan trọng - đặc biệt là tình yêu dành cho em, anh luôn đặt cả trái tim và tâm huyết vào đó. Bởi vì em chính là project quan trọng nhất trong cuộc đời anh, là người truyền cảm hứng để anh trở thành best version của một người chồng trong mơ. ✨💑",
+    "loveMessage": "Gửi em - người vợ yêu dấu của anh 💝\n\nNgày đầu tiên gặp em, anh đã biết rằng cuộc đời anh sẽ thay đổi mãi mãi. Em không chỉ là người yêu, mà còn là người bạn đồng hành tuyệt vời nhất của anh. Mỗi ngày bên em là một ngày anh thấy mình may mắn và hạnh phúc hơn.\n\nAnh yêu tất cả những điều về em - từ nụ cười ấm áp mỗi sáng thức dậy, đến cách em chăm sóc cho gia đình nhỏ của chúng ta. Em là động lực để anh cố gắng mỗi ngày, là niềm vui khi anh trở về nhà, và là người anh muốn chia sẻ mọi khoảnh khắc trong đời.\n\nCó thể anh không phải là người hoàn hảo, đôi khi vẫn còn những thiếu sót. Nhưng anh hứa sẽ luôn cố gắng là người chồng tốt nhất có thể, yêu thương và bảo vệ em suốt cuộc đời này. Cảm ơn em đã luôn ở bên anh, thấu hiểu và nâng đỡ anh trong mọi hoàn cảnh.\n\nMong rằng chúng ta sẽ cùng nhau đi thật xa, xây dựng một tổ ấm thật hạnh phúc, và tạo nên thật nhiều kỷ niệm đẹp. Anh yêu em nhiều lắm - người vợ, người bạn đời, và là một nửa hoàn hảo của anh. ❤️\n\nYêu em vô cùng,\nBé Báo của em",
+    "avatar": "assets/images/phat/phat_dam-cuoi.png",
+    "headerImage": "assets/images/albums/hinh-cuoi-dep/z6839749023128_eb306ff39453aa46d1cad5f0244edc48.jpg",
+    "gender": "male",
+    "tags": ["Bé Báo", "Chồng Yêu", "Developer"],
+    "stats": [
+      {
+        "icon": "pi pi-calendar",
+        "label": "Năm sinh",
+        "value": "Chưa được 1 tỷ giây tuổi 🤖"
+      },
+      {
+        "icon": "pi pi-map-marker",
+        "label": "Nơi sinh",
+        "value": "Nơi có nhiều code và ước mơ 💫"
+      },
+      {
+        "icon": "pi pi-briefcase",
+        "label": "Nghề nghiệp",
+        "value": "Người dịch ngôn ngữ máy tính 💻"
+      }
+    ]
+  },
+  "traits": [
+    {
+      "icon": "pi pi-heart",
+      "title": "Thánh Thiện",
+      "description": "70% - Luôn biết cách làm điều đúng đắn"
+    },
+    {
+      "icon": "pi pi-users",
+      "title": "Tâm Lý",
+      "description": "8.5/10 - Hiểu và thấu cảm với mọi người"
+    },
+    {
+      "icon": "pi pi-bolt",
+      "title": "Nhanh Nhạy",
+      "description": "Rank A - Phản ứng nhanh, xử lý tình huống tốt"
+    }
+  ],
+  "hobbies": [
+    {
+      "icon": "pi pi-globe",
+      "name": "Du lịch",
+      "description": "Đam mê khám phá những địa điểm mới"
+    },
+    {
+      "icon": "pi pi-compass",
+      "name": "Khám phá",
+      "description": "Thích tìm hiểu những điều mới mẻ"
+    },
+    {
+      "icon": "pi pi-heart",
+      "name": "Ẩm thực",
+      "description": "Yêu thích khám phá các món ăn ngon"
+    }
+  ],
+  "professionalSkillCategories": [
+    {
+      "category": "Kỹ năng lập trình",
+      "skills": [
+        "JavaScript/TypeScript",
+        "Angular",
+        "React",
+        "Node.js",
+        "HTML/CSS",
+        "SQL",
+        "Git"
+      ]
+    },
+    {
+      "category": "Kỹ năng chuyên môn",
+      "skills": [
+        "Phân tích yêu cầu",
+        "Thiết kế hệ thống",
+        "Tối ưu hiệu suất",
+        "Kiểm thử",
+        "CI/CD",
+        "Agile/Scrum"
+      ]
+    },
+    {
+      "category": "Kỹ năng mềm",
+      "skills": [
+        "Giao tiếp hiệu quả",
+        "Làm việc nhóm",
+        "Quản lý thời gian",
+        "Giải quyết vấn đề",
+        "Tư duy logic",
+        "Học hỏi nhanh"
+      ]
+    }
+  ],
+  "photos": [
+    {
+      "url": "assets/images/phat/z6843682688942_8ae8a3bccc41f133a7025665a46240d6.jpg",
+      "caption": "Khoảnh Khắc",
+      "description": "Những khoảnh khắc đời thường",
+      "date": "2024"
+    },
+    {
+      "url": "assets/images/phat/z6843682702130_be6dd4103032582d17a53d1ed2acb5ea.jpg",
+      "caption": "Nụ Cười",
+      "description": "Nụ cười hạnh phúc",
+      "date": "2024"
+    },
+    {
+      "url": "assets/images/phat/z6843682736683_12e74d7e2926653e294c7137a25b36a5.jpg",
+      "caption": "Tươi Tắn",
+      "description": "Khoảnh khắc tươi vui",
+      "date": "2024"
+    },
+    {
+      "url": "assets/images/phat/z6843682748876_eed8ca92a6b36b77a096a27fa8415190.jpg",
+      "caption": "Thư Giãn",
+      "description": "Những phút giây thư giãn",
+      "date": "2024"
+    },
+    {
+      "url": "assets/images/phat/z6843682760892_ee2af16154a39a5d771a8ba289770688.jpg",
+      "caption": "Vui Vẻ",
+      "description": "Niềm vui ngập tràn",
+      "date": "2024"
+    },
+    {
+      "url": "assets/images/phat/z6843682799868_df75a26ceef12562600fac23c06b28f1.jpg",
+      "caption": "Hạnh Phúc",
+      "description": "Khoảnh khắc hạnh phúc",
+      "date": "2024"
+    },
+    {
+      "url": "assets/images/phat/z6843682806625_cf8508e3d57defa8e6b30386f4ad55ae.jpg",
+      "caption": "Năng Động",
+      "description": "Những phút giây năng động",
+      "date": "2024"
+    },
+    {
+      "url": "assets/images/phat/z6843682847277_5f8844798c7eaaa90aa6906d50df3f92.jpg",
+      "caption": "Tự Tin",
+      "description": "Khoảnh khắc tự tin",
+      "date": "2024"
+    },
+    {
+      "url": "assets/images/phat/z6843682880102_a975966a4b5f4d0b574da155f338b606.jpg",
+      "caption": "Lãng Mạn",
+      "description": "Những giây phút lãng mạn",
+      "date": "2024"
+    },
+    {
+      "url": "assets/images/phat/z6843682896201_ea5cb269bb14d38255d781d2dd689a28.jpg",
+      "caption": "Đáng Yêu",
+      "description": "Nét đáng yêu trong từng khoảnh khắc",
+      "date": "2024"
+    },
+    {
+      "url": "assets/images/phat/phat_dam-cuoi.png",
+      "caption": "Ngày Cưới",
+      "description": "Khoảnh khắc hạnh phúc trong ngày cưới",
+      "date": "2022"
+    },
+    {
+      "url": "assets/images/phat/phat-nau-an-cho-vo.png",
+      "caption": "Nấu Ăn",
+      "description": "Khoảnh khắc vào bếp nấu ăn cho vợ"
+    }
+  ],
+  "funFacts": [
+    {
+      "icon": "pi pi-heart",
+      "title": "Đồ uống yêu thích",
+      "description": "Soda - Giải khát sảng khoái"
+    },
+    {
+      "icon": "pi pi-star",
+      "title": "Món ăn yêu thích",
+      "description": "Cơm tấm sườn và thịt kho trứng - Đậm đà hương vị nhà. À, còn có cơm vợ nấu nữa"
+    },
+    {
+      "icon": "pi pi-compass",
+      "title": "Ước mơ tương lai",
+      "description": "Có thiệt nhiều tiền để mua nhà đẹp, xe xịn và đưa vợ đi du lịch khắp nơi 🏠🚗✈️"
+    },
+    {
+      "icon": "pi pi-check",
+      "title": "Điểm mạnh",
+      "description": "Nhanh nhẹn, xử lý tình huống tốt và chỉ yêu mỗi vợ"
+    },
+    {
+      "icon": "pi pi-exclamation-circle",
+      "title": "Điểm yếu",
+      "description": "Sợ gián và mê vợ quá nhiều 🪳💝"
+    },
+    {
+      "icon": "pi pi-flag",
+      "title": "Mục tiêu",
+      "description": "Cùng vợ yêu trở nên giàu có và xây dựng một cuộc sống thật hạnh phúc, sung túc 💖💰✨"
+    }
+  ]
+}

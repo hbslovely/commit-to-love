@@ -1,0 +1,32 @@
+{
+  "gifts": [
+    {
+      "id": 1,
+      "title": "Món quà đầu tiên - 4 bức tượng chú tiểu",
+      "date": "2021-08-15",
+      "image": "assets/images/mon-qua/mon-qua-dau-tien-4-buc-tuong-chu-tieu.png",
+      "description": "Món quà đầu tiên thể hiện sự tinh tế và ý nghĩa trong tình yêu"
+    },
+    {
+      "id": 2,
+      "title": "Món quà thứ hai - Nhẫn đôi",
+      "date": "2021-12-25",
+      "image": "assets/images/mon-qua/mon-qua-thu-2-nhan-doi.png",
+      "description": "Biểu tượng của sự gắn kết và cam kết dành cho nhau"
+    },
+    {
+      "id": 3,
+      "title": "Món quà thứ ba - Lá thư tay đầu tiên chồng gửi vợ",
+      "date": "2022-02-14",
+      "image": "assets/images/mon-qua/mon-qua-thu-3-la-thu-tay-dau-tien-vo-gui-chong.png",
+      "description": "Những lời yêu thương được viết ra bằng cả trái tim"
+    },
+    {
+      "id": 4,
+      "title": "Món quà thứ tư - Chuyến du lịch Bắc Nam",
+      "date": "2022-06-01",
+      "image": "assets/images/mon-qua/mon-qua-thu-4-chuyen-du-lich-bac-nam.png",
+      "description": "Hành trình khám phá và tạo nên những kỷ niệm đẹp cùng nhau"
+    }
+  ]
+}

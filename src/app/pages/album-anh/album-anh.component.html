@@ -1,0 +1,89 @@
+<div class="album-page">
+  <!-- Floating Background Icons -->
+  <i class="pi pi-camera floating-icon"></i>
+  <i class="pi pi-heart floating-icon"></i>
+  <i class="pi pi-image floating-icon"></i>
+  <i class="pi pi-images floating-icon"></i>
+  <i class="pi pi-heart-fill floating-icon"></i>
+  <i class="pi pi-camera floating-icon"></i>
+
+  <!-- Album List View -->
+  <div class="album-list">
+    <app-album-header
+      [totalPhotos]="getTotalPhotos()"
+      [previewPhotos]="getRandomPreviewPhotos(3)">
+    </app-album-header>
+
+    <div class="container">
+      <div class="content-wrapper">
+        <!-- Quote Section -->
+        <div class="quote-section">
+          <div class="quote-content">
+            <i class="pi pi-camera"></i>
+            <p>"Mỗi bức ảnh là một khoảnh khắc quý giá, là câu chuyện tình yêu của chúng ta được kể bằng ánh sáng và màu sắc"</p>
+            <span class="quote-author">- Kỷ niệm của chúng ta</span>
+          </div>
+        </div>
+
+        <div class="view-controls">
+          <button class="view-btn" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'" title="Xem dạng lưới">
+            <div class="btn-content">
+              <i class="pi pi-th-large"></i>
+              <span>Dạng lưới</span>
+            </div>
+          </button>
+          <button class="view-btn" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'" title="Xem dạng danh sách">
+            <div class="btn-content">
+              <i class="pi pi-list"></i>
+              <span>Danh sách</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Grid View -->
+        <div class="albums" [class.grid-view]="viewMode === 'grid'" [class.list-view]="viewMode === 'list'">
+          <div class="album-card" *ngFor="let album of albums" (click)="openAlbum(album.id)">
+            <div class="album-cover">
+              <img [src]="album.coverImage" [alt]="album.title">
+              <!-- Title bar for grid view -->
+              <div class="album-title-bar" *ngIf="viewMode === 'grid'">
+                <div class="title-content">
+                  <i class="pi pi-folder"></i>
+                  <h3>{{ album.title }}</h3>
+                </div>
+                <div class="photo-count">
+                  <i class="pi pi-images"></i>
+                  <span>{{ album.photoCount }} ảnh</span>
+                </div>
+              </div>
+              <!-- Overlay for grid view only -->
+              <div class="album-overlay" *ngIf="viewMode === 'grid'">
+                <div class="overlay-content">
+                  <h3 class="album-title">{{ album.title }}</h3>
+                  <p class="album-desc">{{ album.description }}</p>
+                  <div class="photo-count">
+                    <i class="pi pi-images"></i>
+                    <span>{{ album.photoCount }} ảnh</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="album-info">
+              <div class="info-header">
+                <i class="pi pi-folder"></i>
+                <h3>{{ album.title }}</h3>
+              </div>
+              <p>{{ album.description }}</p>
+              <div class="album-stats">
+                <span class="photo-count">
+                  <i class="pi pi-images"></i>
+                  {{ album.photoCount }} ảnh
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

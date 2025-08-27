@@ -1,0 +1,176 @@
+// Variables
+$card-padding: 1.5rem;
+$border-radius: 16px;
+$transition-speed: 0.3s;
+
+// Fun Fact Card
+.fun-fact-card {
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: $card-padding;
+  position: relative;
+  overflow: hidden;
+  transition: all $transition-speed ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+
+    .icon-wrapper {
+      transform: scale(1.1);
+      
+      i {
+        transform: rotate(10deg);
+      }
+
+      .icon-background {
+        transform: scale(1.2);
+        opacity: 0.2;
+      }
+    }
+
+    .decoration-dot {
+      &.dot-1 { transform: translate(-5px, -5px); }
+      &.dot-2 { transform: translate(5px, 5px); }
+      &.dot-3 { transform: translate(-5px, 5px); }
+    }
+
+    .decoration-line {
+      width: 100px;
+      opacity: 0.2;
+    }
+  }
+}
+
+// Card Header
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .icon-wrapper {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform $transition-speed ease;
+
+    i {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      position: relative;
+      z-index: 2;
+      transition: transform $transition-speed ease;
+    }
+
+    .icon-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--primary-color);
+      border-radius: 50%;
+      opacity: 0.1;
+      transition: all $transition-speed ease;
+    }
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    flex: 1;
+  }
+}
+
+// Card Content
+.card-content {
+  p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+}
+
+// Card Decorations
+.card-decorations {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: hidden;
+
+  .decoration-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    opacity: 0.2;
+    transition: transform $transition-speed ease;
+
+    &.dot-1 {
+      top: 20px;
+      right: 20px;
+    }
+
+    &.dot-2 {
+      bottom: 30px;
+      right: 40px;
+    }
+
+    &.dot-3 {
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+
+  .decoration-line {
+    position: absolute;
+    top: 40px;
+    right: -20px;
+    width: 60px;
+    height: 2px;
+    background: var(--primary-color);
+    opacity: 0.1;
+    transform: rotate(-45deg);
+    transition: all $transition-speed ease;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .fun-fact-card {
+    padding: 1rem;
+  }
+
+  .card-header {
+    .icon-wrapper {
+      width: 40px;
+      height: 40px;
+
+      i {
+        font-size: 1.2rem;
+      }
+    }
+
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+
+  .card-content {
+    p {
+      font-size: 0.9rem;
+    }
+  }
+} 

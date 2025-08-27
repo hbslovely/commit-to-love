@@ -1,0 +1,25 @@
+{
+  "promises": [
+    {
+      "id": 1,
+      "icon": "pi-home",
+      "title": "Xây Dựng Tổ Ấm",
+      "description": "Cùng nhau xây dựng một tổ ấm hạnh phúc, nơi tràn ngập tiếng cười.",
+      "tags": ["Gia đình", "Hạnh phúc", "Yêu thương"]
+    }
+  ],
+  "goals": [
+    {
+      "id": 1,
+      "icon": "pi-heart",
+      "title": "Du Lịch 5 Quốc Gia",
+      "timeframe": "2024-2025"
+    },
+    {
+      "id": 2,
+      "icon": "pi-home",
+      "title": "Mua Nhà Mới",
+      "timeframe": "2025"
+    }
+  ]
+} 

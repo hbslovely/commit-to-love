@@ -1,0 +1,140 @@
+<!-- Love Statistics Section -->
+<div class="statistics-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="pi pi-heart-fill"></i>
+        Con Số Tình Yêu
+      </h2>
+      <p class="section-subtitle">Những dấu mốc đáng nhớ trong hành trình yêu thương của chúng ta</p>
+      <p class="touch-hint">
+        <i class="pi pi-hand"></i>
+        Chạm để khám phá thêm
+      </p>
+    </div>
+
+    <!-- Main Stats -->
+    <div class="stats-container">
+      <!-- Days Together -->
+      <div class="stat-card" [ngStyle]="{'background-image': 'url(assets/images/gallery/ben-nhau.png)'}" (click)="navigateToPage('/ve-chung-toi')">
+        <div class="bg-elements">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-icon">
+            <i class="pi pi-calendar"></i>
+          </div>
+          <div class="stat-number">{{ statistics.daysTogether }}</div>
+          <h3 class="stat-title">Ngày Bên Nhau</h3>
+          <p class="stat-desc">Mỗi ngày đều là một kỷ niệm đẹp</p>
+        </div>
+        <div class="touch-indicator">
+          <i class="pi pi-hand"></i>
+        </div>
+      </div>
+
+      <!-- Photos Taken -->
+      <div class="stat-card" [ngStyle]="{'background-image': 'url(assets/images/gallery/so-anh-da-chup.png)'}" (click)="navigateToPage('/album-anh')">
+        <div class="bg-elements">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-icon">
+            <i class="pi pi-camera"></i>
+          </div>
+          <div class="stat-number">{{ statistics.photosTaken }}</div>
+          <h3 class="stat-title">Khoảnh Khắc</h3>
+          <p class="stat-desc">Những bức ảnh ghi lại hạnh phúc</p>
+        </div>
+        <div class="touch-indicator">
+          <i class="pi pi-hand"></i>
+        </div>
+      </div>
+
+      <!-- Places Visited -->
+      <div class="stat-card" [ngStyle]="{'background-image': 'url(assets/images/gallery/chuyen-di.png)'}" (click)="navigateToPage('/memory-places')">
+        <div class="bg-elements">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-icon">
+            <i class="pi pi-map"></i>
+          </div>
+          <div class="stat-number">{{ statistics.placesVisited }}</div>
+          <h3 class="stat-title">Điểm Đến</h3>
+          <p class="stat-desc">Những nơi ta đã cùng nhau đi qua</p>
+        </div>
+        <div class="touch-indicator">
+          <i class="pi pi-hand"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Memory -->
+    <div class="featured-memory">
+      <div class="memory-content">
+        <div class="memory-text">
+          <h3>Khoảnh Khắc Đáng Nhớ</h3>
+          <p>Mỗi bức ảnh là một câu chuyện, mỗi khoảnh khắc là một kỷ niệm đẹp mà chúng ta đã cùng nhau tạo nên</p>
+        </div>
+        <div class="memory-image">
+          <img src="assets/images/albums/hinh-cuoi-dep/z6839748902511_f1b6c4bd0f59bf4d23abd25ffbf8f97b.jpg" alt="Khoảnh khắc hạnh phúc">
+          <div class="image-overlay">
+            <i class="pi pi-heart heart-main"></i>
+            <i class="pi pi-heart heart-float heart-1"></i>
+            <i class="pi pi-heart heart-float heart-2"></i>
+            <i class="pi pi-heart heart-float heart-3"></i>
+            <i class="pi pi-heart heart-float heart-4"></i>
+            <i class="pi pi-heart heart-float heart-5"></i>
+          </div>
+        </div>
+      </div>
+      <div class="memory-stamp">
+        <div class="stamp-inner">
+          <div class="stamp-border"></div>
+          <div class="stamp-content">
+            <i class="pi pi-heart"></i>
+            <span>Love</span>
+            <span>Forever</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Stats Grid -->
+    <div class="mini-stats-grid">
+      <div class="mini-stat">
+        <i class="pi pi-heart"></i>
+        <span class="mini-stat-number">100%</span>
+        <span class="mini-stat-label">Hạnh Phúc</span>
+      </div>
+      <div class="mini-stat">
+        <i class="pi pi-home"></i>
+        <span class="mini-stat-number">1</span>
+        <span class="mini-stat-label">Tổ Ấm</span>
+      </div>
+      <div class="mini-stat">
+        <i class="pi pi-star"></i>
+        <span class="mini-stat-number">∞</span>
+        <span class="mini-stat-label">Yêu Thương</span>
+      </div>
+      <div class="mini-stat">
+        <i class="pi pi-gift"></i>
+        <span class="mini-stat-number">365</span>
+        <span class="mini-stat-label">Ngày Hạnh Phúc/Năm</span>
+      </div>
+    </div>
+  </div>
+</div>

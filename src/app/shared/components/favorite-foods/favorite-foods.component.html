@@ -1,0 +1,102 @@
+<!-- Menu Style Food List -->
+<div class="menu-container">
+  <!-- Menu Header -->
+  <div class="menu-header">
+    <h1>Món Ăn Yêu Thích</h1>
+    <div class="divider">
+      <span>❦</span>
+    </div>
+    <p class="subtitle">Hương vị của tình yêu và hạnh phúc</p>
+  </div>
+
+  <!-- Menu Content -->
+  <div class="menu-content">
+    <!-- His Menu Section -->
+    <div class="menu-section husband-section">
+      <div class="frame-decoration">
+        <div class="corner top-left"></div>
+        <div class="corner top-right"></div>
+        <div class="corner bottom-left"></div>
+        <div class="corner bottom-right"></div>
+      </div>
+      <div class="section-header">
+        <div class="header-icon">
+          <i class="pi pi-heart-fill"></i>
+          <i class="pi pi-user"></i>
+        </div>
+        <h2>Món Anh Yêu Thích</h2>
+      </div>
+      
+      <div class="menu-items">
+        <div class="menu-item" *ngFor="let food of $any(foods) | filter:'Chồng'">
+          <div class="item-content">
+            <div class="item-header">
+              <h3 class="item-name">{{ $any(food).dish }}</h3>
+            </div>
+            <p class="item-description">{{ $any(food).story }}</p>
+          </div>
+          <div class="food-image" (click)="openImageViewer(food.imageUrl, food.dish)">
+            <img [src]="food.imageUrl" [alt]="food.dish" loading="lazy">
+            <div class="image-overlay">
+              <i class="pi pi-search"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Her Menu Section -->
+    <div class="menu-section wife-section">
+      <div class="frame-decoration">
+        <div class="corner top-left"></div>
+        <div class="corner top-right"></div>
+        <div class="corner bottom-left"></div>
+        <div class="corner bottom-right"></div>
+      </div>
+      <div class="section-header">
+        <div class="header-icon">
+          <i class="pi pi-heart-fill"></i>
+          <i class="pi pi-user"></i>
+        </div>
+        <h2>Món Em Yêu Thích</h2>
+      </div>
+      
+      <div class="menu-items">
+        <div class="menu-item" *ngFor="let food of $any(foods) | filter:'Vợ'">
+          <div class="item-content">
+            <div class="item-header">
+              <h3 class="item-name">{{ food.dish }}</h3>
+            </div>
+            <p class="item-description">{{ food.story }}</p>
+          </div>
+          <div class="food-image" (click)="openImageViewer(food.imageUrl, food.dish)">
+            <img [src]="food.imageUrl" [alt]="food.dish" loading="lazy">
+            <div class="image-overlay">
+              <i class="pi pi-search"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Footer -->
+  <div class="menu-footer">
+    <div class="divider">
+      <span>❦</span>
+    </div>
+    <div class="quote">
+      <i class="pi pi-heart"></i>
+      <p>"Tình yêu giống như nấu ăn vậy, cần có đủ gia vị ngọt ngào, cay đắng, và cả những hương vị bất ngờ.
+         Nhưng điều quan trọng nhất là chúng ta cùng nhau thưởng thức bữa ăn cuộc đời."</p>
+    </div>
+  </div>
+</div>
+
+<!-- Image Viewer -->
+<app-image-viewer
+  [imageUrl]="selectedImage?.url || ''"
+  [imageAlt]="selectedImage?.alt || ''"
+  [isVisible]="!!selectedImage"
+  (close)="closeImageViewer()">
+</app-image-viewer>

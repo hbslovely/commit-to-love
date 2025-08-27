@@ -1,0 +1,18 @@
+<section class="profile-section" [class]="class" [class.theme-pink]="theme === 'pink'" [class.theme-blue]="theme === 'blue'">
+  <div class="section-header">
+    <div class="header-content">
+      <i *ngIf="icon" [class]="icon"></i>
+      <h2>{{ title }}</h2>
+      <div class="header-icons">
+        <i class="floating-icon pi pi-star"></i>
+        <i class="floating-icon pi pi-heart"></i>
+        <i class="floating-icon pi pi-circle"></i>
+      </div>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="section-content">
+    <i *ngIf="headerIcon" [class]="headerIcon" [ngClass]="headerIconClass"></i>
+    <ng-content></ng-content>
+  </div>
+</section> 

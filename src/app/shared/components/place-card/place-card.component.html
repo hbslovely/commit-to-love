@@ -1,0 +1,30 @@
+<div class="place-card">
+  <!-- Image Section -->
+  <div class="image-section">
+    <img [src]="place.image" [alt]="place.name">
+  </div>
+
+  <!-- Content Section -->
+  <div class="content-section">
+    <div class="watermark">
+      <i class="pi pi-map-marker"></i>
+    </div>
+    <h3 class="place-name">{{ place.name }}</h3>
+    <div class="location">
+      <i class="pi pi-compass"></i>
+      <span>{{ place.location }}</span>
+    </div>
+  </div>
+
+  <!-- Hover Overlay -->
+  <div class="hover-overlay">
+    <div class="overlay-watermark">
+      <i class="pi pi-heart-fill"></i>
+    </div>
+    <p class="description">{{ place.description }}</p>
+    <a [routerLink]="['/place', place.id]" class="view-more">
+      <span>Xem chi tiết</span>
+      <i class="pi pi-arrow-right"></i>
+    </a>
+  </div>
+</div>

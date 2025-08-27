@@ -1,0 +1,43 @@
+// Background and Overlay Styles
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/assets/images/hinh-cuoi/anh-cuoi-dep.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  transform: scale(1.1);
+  filter: blur(5px);
+  transition: transform 20s ease;
+}
+
+.album-header:hover .background-image {
+  transform: scale(1.2);
+}
+
+.pattern-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(#4CAF50 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.7) 0%, rgba(129, 199, 132, 0.7) 100%);
+  opacity: 0.6;
+  z-index: 2;
+} 

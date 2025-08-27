@@ -1,0 +1,40 @@
+{
+  "menuItems": [
+    {
+      "text": "Trang Chủ Yêu Thương",
+      "link": "/chao-mung",
+      "icon": "pi pi-home",
+      "description": "Nơi bắt đầu câu chuyện tình yêu của chúng ta"
+    },
+    {
+      "text": "Chuyện Tình Đẹp",
+      "link": "/ve-chung-toi",
+      "icon": "pi pi-heart",
+      "description": "Hành trình tình yêu ngọt ngào của đôi ta"
+    },
+    {
+      "text": "Nàng Thơ Của Anh",
+      "link": "/thong-tin-vo",
+      "icon": "pi pi-user-plus",
+      "description": "Người con gái anh yêu nhất"
+    },
+    {
+      "text": "Chàng Trai Của Em",
+      "link": "/thong-tin-chong",
+      "icon": "pi pi-user",
+      "description": "Người đàn ông em yêu thương"
+    },
+    {
+      "text": "Khoảnh Khắc Yêu Thương",
+      "link": "/album-anh",
+      "icon": "pi pi-camera",
+      "description": "Những khoảnh khắc hạnh phúc của chúng ta"
+    },
+    {
+      "text": "Điểm Đến",
+      "link": "/place",
+      "icon": "pi pi-map-marker",
+      "description": "Những nơi chúng ta đã đến cùng nhau"
+    }
+  ]
+}

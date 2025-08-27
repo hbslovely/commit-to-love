@@ -1,0 +1,42 @@
+<!-- Meaningful Gifts Section -->
+<div class="gifts-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="title-decoration">
+        <span class="line"></span>
+        <i class="pi pi-gift"></i>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">Những Món Quà Yêu Thương</h2>
+      <p class="section-subtitle">Mỗi món quà là một kỷ niệm, một câu chuyện về tình yêu của chúng ta</p>
+    </div>
+
+    <!-- Gifts Timeline -->
+    <div class="gifts-timeline">
+      <div class="gift-card" *ngFor="let gift of gifts">
+        <div class="gift-number">{{ gift.id }}</div>
+        <div class="gift-image">
+          <img [src]="gift.image" [alt]="gift.title">
+        </div>
+        <div class="gift-content">
+          <h3 class="gift-title">{{ gift.title }}</h3>
+          <p class="gift-description">{{ gift.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Decoration -->
+    <div class="bottom-decoration">
+      <div class="decoration-item">
+        <i class="pi pi-heart"></i>
+      </div>
+      <div class="decoration-item">
+        <i class="pi pi-gift"></i>
+      </div>
+      <div class="decoration-item">
+        <i class="pi pi-heart"></i>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,28 @@
+<!-- Header Image -->
+<div class="profile-header-image">
+  <img [src]="profile.headerImage || profile.avatar" [alt]="profile.name" class="header-bg">
+  <div class="overlay">
+    <!-- Floating Icons -->
+    <i class="pi pi-heart floating-icon"></i>
+    <i class="pi pi-camera floating-icon"></i>
+    <i class="pi pi-star floating-icon"></i>
+    <i class="pi pi-map-marker floating-icon"></i>
+    <i class="pi pi-calendar floating-icon"></i>
+    <i class="pi pi-heart-fill floating-icon"></i>
+    <i class="pi pi-gift floating-icon"></i>
+    <i class="pi pi-star-fill floating-icon"></i>
+  </div>
+  <div class="header-content">
+    <div class="content-container">
+      <div class="name-with-avatar">
+        <div class="small-avatar">
+          <img [src]="profile.avatar" [alt]="profile.name">
+        </div>
+        <div class="name-title">
+          <h1>{{ profile.name }}</h1>
+          <p>{{ profile.title }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
