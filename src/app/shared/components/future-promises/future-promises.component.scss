@@ -1,0 +1,427 @@
+// Variables
+$primary-green: #4CAF50;
+$light-green: #E8F5E9;
+$lighter-green: #F1F8E9;
+$hover-green: #81C784;
+$text-color: #2E7D32;
+$dark-green: #57955a;
+$white: #fff;
+$border-color: $primary-green;
+
+@keyframes floatQuoteIcon {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-5px, -5px) rotate(-5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes pulseOpacity {
+  0% { opacity: 0.03; }
+  50% { opacity: 0.05; }
+  100% { opacity: 0.03; }
+}
+
+.promises-section {
+  background-color: $light-green;
+  padding: 4rem 2rem;
+  min-height: 100vh;
+}
+
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Header Styles
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+
+  .title-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    i {
+      color: $primary-green;
+      font-size: 2rem;
+    }
+
+    h2 {
+      color: $dark-green;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  .header-quote {
+    position: relative;
+    background: linear-gradient(135deg, $lighter-green 0%, white 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem 0;
+    overflow: hidden;
+
+    &::before {
+      content: '\e908'; // PrimeIcons quote-left
+      font-family: 'PrimeIcons';
+      position: absolute;
+      font-size: 150px;
+      color: $primary-green;
+      opacity: 0.03;
+      left: -20px;
+      top: -20px;
+      z-index: 0;
+      animation: floatQuoteIcon 6s ease-in-out infinite, pulseOpacity 4s ease-in-out infinite;
+    }
+
+    &::after {
+      content: '\e909'; // PrimeIcons quote-right
+      font-family: 'PrimeIcons';
+      position: absolute;
+      font-size: 150px;
+      color: $primary-green;
+      opacity: 0.03;
+      right: -20px;
+      bottom: -20px;
+      z-index: 0;
+      transform: rotate(180deg);
+      animation: floatQuoteIcon 6s ease-in-out infinite reverse, pulseOpacity 4s ease-in-out infinite;
+      animation-delay: 2s;
+    }
+
+    p {
+      position: relative;
+      z-index: 1;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: $text-color;
+      font-style: italic;
+      text-align: center;
+      margin: 0;
+    }
+
+    span {
+      display: block;
+      text-align: right;
+      color: $text-color;
+      font-weight: 500;
+      margin-top: 1rem;
+    }
+  }
+}
+
+// Promises Grid
+.promises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.promise-item {
+  background: $white;
+  padding: 2rem;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: $primary-green;
+  }
+
+  .promise-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    i {
+      color: $primary-green;
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      color: $dark-green;
+      font-size: 1.3rem;
+      margin: 0;
+    }
+  }
+
+  .promise-line {
+    width: 50px;
+    height: 2px;
+    background: $border-color;
+    margin: 1rem 0;
+  }
+
+  .promise-text {
+    color: $dark-green;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .promise-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+
+    .tag {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      background: $light-green;
+      color: $dark-green;
+      font-size: 0.9rem;
+
+      i {
+        font-size: 0.8rem;
+        color: $primary-green;
+      }
+    }
+  }
+}
+
+// Timeline Section
+.goals-timeline {
+  margin: 4rem 0;
+  padding: 2rem 0;
+  position: relative;
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+
+  .line {
+    flex: 1;
+    height: 1px;
+    background: $border-color;
+  }
+
+  .header-content {
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: $dark-green;
+
+    i {
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.timeline-content {
+  position: relative;
+  padding: 2rem 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: $border-color;
+  }
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+  position: relative;
+  width: 50%;
+
+  &.right-aligned {
+    margin-left: 50%;
+    flex-direction: row-reverse;
+
+    .timeline-body {
+      text-align: right;
+    }
+  }
+
+  .timeline-marker {
+    background: $white;
+    border: 2px solid $primary-green;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: -20px;
+    z-index: 1;
+
+    i {
+      color: $primary-green;
+      font-size: 1rem;
+    }
+  }
+
+  .timeline-body {
+    background: $white;
+    padding: 1.5rem;
+    margin: 0 2rem;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+
+    &:nth-child(3n+1) {
+      animation: floatingCard1 2s ease-in-out infinite;
+    }
+
+    &:nth-child(3n+2) {
+      animation: floatingCard2 1.8s ease-in-out infinite;
+      animation-delay: 0.3s;
+    }
+
+    &:nth-child(3n) {
+      animation: floatingCard3 2.2s ease-in-out infinite;
+      animation-delay: 0.6s;
+    }
+
+    h4 {
+      color: $dark-green;
+      margin: 0 0 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .timeline-time {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: $primary-green;
+      font-size: 0.9rem;
+
+      i {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// Footer Quote
+.footer-section {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.quote-box {
+  position: relative;
+  background: linear-gradient(135deg, $lighter-green 0%, white 100%);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem 0;
+  overflow: hidden;
+
+  &::before {
+    content: '\e908'; // PrimeIcons quote-left
+    font-family: 'PrimeIcons';
+    position: absolute;
+    font-size: 180px;
+    color: $primary-green;
+    opacity: 0.03;
+    left: -25px;
+    top: -25px;
+    z-index: 0;
+    animation: floatQuoteIcon 6s ease-in-out infinite, pulseOpacity 4s ease-in-out infinite;
+  }
+
+  &::after {
+    content: '\e909'; // PrimeIcons quote-right
+    font-family: 'PrimeIcons';
+    position: absolute;
+    font-size: 180px;
+    color: $primary-green;
+    opacity: 0.03;
+    right: -25px;
+    bottom: -25px;
+    z-index: 0;
+    transform: rotate(180deg);
+    animation: floatQuoteIcon 6s ease-in-out infinite reverse, pulseOpacity 4s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  .pi-heart {
+    color: $primary-green;
+    font-size: 2rem;
+    opacity: 0.7;
+    display: block;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  blockquote {
+    position: relative;
+    z-index: 1;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: $text-color;
+    font-style: italic;
+    text-align: center;
+    margin: 0;
+  }
+
+  .author {
+    display: block;
+    text-align: right;
+    color: $text-color;
+    font-weight: 500;
+    margin-top: 1rem;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .timeline-content {
+    &::before {
+      left: 0;
+    }
+  }
+
+  .timeline-item {
+    width: 100%;
+    margin-left: 0 !important;
+    padding-left: 3rem;
+
+    &.right-aligned {
+      flex-direction: row;
+
+      .timeline-body {
+        text-align: left;
+      }
+    }
+
+    .timeline-marker {
+      left: 0;
+    }
+
+    .timeline-body {
+      margin-left: 0;
+    }
+  }
+}

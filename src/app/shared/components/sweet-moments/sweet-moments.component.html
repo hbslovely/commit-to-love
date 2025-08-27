@@ -1,0 +1,21 @@
+<section class="sweet-moments-section" [class.theme-pink]="theme === 'pink'" [class.theme-blue]="theme === 'blue'">
+  <div class="section-header">
+    <h2>Những Khoảnh Khắc Ngọt Ngào</h2>
+    <div class="header-line"></div>
+  </div>
+  
+  <div class="moments-container">
+    <div class="gallery-masonry">
+      <div class="gallery-item" *ngFor="let moment of moments">
+        <div class="moment-image">
+          <img [src]="moment.imageUrl" [alt]="moment.title">
+          <div class="moment-overlay">
+            <h3>{{ moment.title }}</h3>
+            <p>{{ moment.description }}</p>
+            <span class="moment-date" *ngIf="moment.date">{{ moment.date }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

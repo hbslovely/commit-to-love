@@ -1,0 +1,65 @@
+<!-- Our Songs Section -->
+<div class="songs-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="pi pi-music"></i>
+        Giai Điệu Tình Yêu
+      </h2>
+      <p class="section-subtitle">"Mỗi bài hát là một kỷ niệm, mỗi giai điệu là một câu chuyện tình"</p>
+    </div>
+
+    <div class="songs-container">
+      <!-- YouTube Player -->
+      <div class="player-wrapper">
+        <div class="player-section">
+          <div id="youtube-player">
+            <iframe
+              width="100%"
+              height="100%"
+              [src]="getCurrentVideoUrl()"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="current-song-info" *ngIf="currentSong">
+            <div class="song-details">
+              <h3 class="mt-0">{{ currentSong.title }}</h3>
+              <p class="mb-0">{{ currentSong.artist }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Song List -->
+      <div class="playlist-wrapper">
+        <div class="playlist-header">
+          <h3>Danh Sách Phát</h3>
+        </div>
+
+        <div class="songs-list">
+          <div class="song-item"
+               *ngFor="let song of filteredSongs; let i = index"
+               [class.active]="currentSong?.id === song.id"
+               (click)="playSong(song)">
+            <div class="song-thumbnail">
+              <img [src]="song.thumbnail" [alt]="song.title">
+              <div class="play-indicator">
+                <i class="pi" [ngClass]="currentSong?.id === song.id ? 'pi-pause' : 'pi-play'"></i>
+              </div>
+            </div>
+            <div class="song-content">
+              <div class="song-number">{{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}</div>
+              <div class="song-info">
+                <h4>{{ song.title }}</h4>
+                <p>{{ song.artist }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

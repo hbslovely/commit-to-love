@@ -1,0 +1,89 @@
+<!-- Main Navigation -->
+<nav class="navbar">
+  <!-- Background Effects -->
+  <div class="nav-background">
+    <div class="bg-pattern"></div>
+    <div class="bg-gradient"></div>
+    <div class="floating-particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    <div class="wave-animation">
+      <div class="wave wave1"></div>
+      <div class="wave wave2"></div>
+      <div class="wave wave3"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Logo/Home Link -->
+    <a routerLink="/chao-mung" class="brand" title="Trang chủ">
+      <div class="avatar-wrapper">
+        <img src="assets/images/anh-chu-dao/avatar-couple.png" alt="Avatar đôi" />
+        <div class="avatar-ring"></div>
+      </div>
+      <div class="brand-text">P&Q</div>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <ul class="nav-menu">
+      <li class="nav-item" *ngFor="let item of menuItems">
+        <a [routerLink]="item.link"
+           routerLinkActive="active"
+           class="nav-link"
+           [title]="item.description">
+          <div class="icon-wrapper">
+            <i [class]="item.icon"></i>
+          </div>
+          <span class="nav-text">{{ getShortText(item.text) }}</span>
+          <div class="link-indicator"></div>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [class.active]="isMobileMenuOpen">
+      <span class="toggle-bar"></span>
+      <span class="toggle-bar"></span>
+      <span class="toggle-bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-drawer" [class.open]="isMobileMenuOpen">
+  <div class="drawer-header">
+    <a routerLink="/chao-mung" class="mobile-brand" title="Trang chủ" (click)="closeMobileMenu()">
+      <div class="mobile-avatar">
+        <img src="assets/images/anh-chu-dao/avatar-couple.png" alt="Avatar đôi" />
+      </div>
+      <div class="mobile-brand-text">P&Q</div>
+    </a>
+    <button class="close-drawer" (click)="toggleMobileMenu()">
+      <i class="pi pi-times"></i>
+    </button>
+  </div>
+
+  <div class="drawer-content">
+    <div class="mobile-menu-items">
+      <a *ngFor="let item of menuItems"
+         [routerLink]="item.link"
+         routerLinkActive="active"
+         class="mobile-menu-item"
+         [title]="item.description"
+         (click)="closeMobileMenu()">
+        <i [class]="item.icon"></i>
+        <span>{{ item.text }}</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" 
+     [class.active]="isMobileMenuOpen" 
+     (click)="closeMobileMenu()">
+</div>

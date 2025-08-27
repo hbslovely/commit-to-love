@@ -1,0 +1,114 @@
+<!-- Happy Moments Section -->
+<section class="happy-moments">
+  <div class="animated-background"></div>
+  <div class="container">
+    <!-- Header -->
+    <header class="section-header">
+      <div class="title-wrapper">
+        <i class="pi pi-heart"></i>
+        <h2>Khoảnh Khắc Hạnh Phúc</h2>
+      </div>
+    </header>
+
+    <!-- Featured Moment - Responsive -->
+    <div class="featured-moment">
+      <div class="featured-image">
+        <img src="assets/images/gallery/su-ben-nhau-moi-luc.png" alt="Khoảnh khắc đặc biệt">
+        <div class="featured-text">
+          <div class="text-content">
+            <h3>Những Giây Phút Bên Nhau</h3>
+            <p>Mỗi khoảnh khắc bên nhau đều là những kỷ niệm đáng nhớ và đáng trân trọng</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categories Strip - Scrollable on Mobile -->
+    <div class="categories-strip">
+      <div class="categories-scroll">
+        <div class="category" *ngFor="let category of categories">
+          <div class="category-inner">
+            <i [class]="'pi ' + category.icon"></i>
+            <span class="category-text">
+              <strong>{{ category.title }}</strong>
+              <small>{{ category.count }} khoảnh khắc</small>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Flow - Mobile Optimized -->
+    <div class="timeline-flow">
+      <div class="timeline-item" *ngFor="let moment of happyMoments">
+        <div class="moment-content">
+          <div class="moment-image">
+            <img [src]="moment.image" [alt]="moment.title" loading="lazy">
+            <span class="moment-date">{{ moment.date }}</span>
+          </div>
+          <div class="moment-text">
+            <h3>{{ moment.title }}</h3>
+            <p>{{ moment.description }}</p>
+            <div class="emotion-tags">
+              <span class="tag" *ngFor="let emotion of moment.emotions">
+                <i [class]="'pi ' + emotion.icon"></i>
+                {{ emotion.text }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo Grid - Responsive Grid -->
+    <div class="photo-grid">
+      <div class="grid-wrapper">
+        <div class="photo-item">
+          <div class="photo-inner">
+            <img src="assets/images/gallery/nu-cuoi.png" alt="Nụ cười hạnh phúc" loading="lazy">
+            <div class="photo-overlay">
+              <div class="overlay-content">
+                <i class="pi pi-heart"></i>
+                <span>Nụ Cười Hạnh Phúc</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-inner">
+            <img src="assets/images/gallery/su-an-ui.png" alt="Sự an ủi" loading="lazy">
+            <div class="photo-overlay">
+              <div class="overlay-content">
+                <i class="pi pi-heart"></i>
+                <span>Sự An Ủi</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-inner">
+            <img src="assets/images/gallery/su-ben-nhau-moi-luc.png" alt="Bên nhau mọi lúc" loading="lazy">
+            <div class="photo-overlay">
+              <div class="overlay-content">
+                <i class="pi pi-heart"></i>
+                <span>Bên Nhau Mọi Lúc</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inspirational Quote - Mobile Friendly -->
+    <div class="quote-strip">
+      <div class="quote-wrapper">
+        <i class="pi pi-quote-left quote-icon"></i>
+        <blockquote>
+          "Yêu không phải là nhìn nhau, mà là cùng nhìn về một hướng"
+          <cite>- Antoine de Saint-Exupéry</cite>
+        </blockquote>
+        <i class="pi pi-quote-right quote-icon"></i>
+      </div>
+    </div>
+  </div>
+</section> 

@@ -1,0 +1,85 @@
+<!-- Enhanced Header with Parallax and Blurred Avatar Backdrop -->
+<div class="parallax-header">
+  <div class="avatar-backdrop"
+       [style.background-image]="'url(assets/images/anh-chu-dao/avatar-couple-back.png)'">
+  </div>
+
+  <div class="header-content">
+    <div class="title-wrapper">
+      <div class="title-decoration">
+        <span class="decoration-item">✦</span>
+        <span class="decoration-item">❀</span>
+        <span class="decoration-item">✦</span>
+      </div>
+      <h1 class="main-title text-center">Phát & Quyên</h1>
+      <div class="subtitle-line">
+        <span class="line"></span>
+        <i class="pi pi-heart-fill"></i>
+        <span class="line"></span>
+      </div>
+      <div class="title-decoration">
+        <span class="decoration-item">✦</span>
+        <span class="decoration-item">❀</span>
+        <span class="decoration-item">✦</span>
+      </div>
+    </div>
+
+    <div class="time-counter">
+      <h2 class="subtitle">
+        <i class="pi pi-clock" style="color: #ff4b4b"></i>
+        Thời Gian Hạnh Phúc Bên Nhau
+      </h2>
+      <div class="counter-grid">
+        <!-- Days -->
+        <div class="counter-card">
+          <div class="flip-card">
+            <div class="number">{{ liveCounter.days }}</div>
+          </div>
+          <div class="label">NGÀY</div>
+        </div>
+
+        <!-- Hours -->
+        <div class="counter-card">
+          <div class="flip-card">
+            <div class="number">{{ liveCounter.hours.toString().padStart(2, '0') }}</div>
+          </div>
+          <div class="label">GIỜ</div>
+        </div>
+
+        <!-- Minutes -->
+        <div class="counter-card">
+          <div class="flip-card">
+            <div class="number">{{ liveCounter.minutes.toString().padStart(2, '0') }}</div>
+          </div>
+          <div class="label">PHÚT</div>
+        </div>
+
+        <!-- Seconds -->
+        <div class="counter-card">
+          <div class="flip-card">
+            <div class="number">{{ liveCounter.seconds.toString().padStart(2, '0') }}</div>
+          </div>
+          <div class="label">GIÂY</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-avatar">
+      <div class="avatar-frame rainbow-border">
+        <img src="assets/images/anh-chu-dao/avatar-couple.png" alt="Phát & Quyên">
+      </div>
+      <div class="avatar-shadow"></div>
+    </div>
+
+    <div class="love-message">
+      <i class="pi pi-heart-fill message-icon"></i>
+      <div class="message-content">
+        <p class="message-text">
+          "The best thing to hold onto in life is each other. Happiness is not a destination, it's a journey we share together."
+        </p>
+        <span class="message-author">- Audrey Hepburn</span>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,32 @@
+<section class="fun-facts-section" *ngIf="facts">
+  <h2 class="section-title">
+    <span class="emoji">✨</span>
+    {{ title }}
+    <span class="emoji">✨</span>
+  </h2>
+  <div class="fun-facts-grid">
+    <div class="fun-fact-card">
+      <!-- Card Header with Icon -->
+      <div class="card-header">
+        <div class="icon-wrapper">
+          <i [class]="fact.icon"></i>
+          <div class="icon-background"></div>
+        </div>
+        <h3>{{ fact.title }}</h3>
+      </div>
+
+      <!-- Card Content -->
+      <div class="card-content">
+        <p>{{ fact.description }}</p>
+      </div>
+
+      <!-- Card Decorations -->
+      <div class="card-decorations">
+        <div class="decoration-dot dot-1"></div>
+        <div class="decoration-dot dot-2"></div>
+        <div class="decoration-dot dot-3"></div>
+        <div class="decoration-line"></div>
+      </div>
+    </div>
+  </div>
+</section> 

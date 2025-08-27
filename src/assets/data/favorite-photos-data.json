@@ -1,0 +1,52 @@
+{
+  "favoritePhotos": [
+    {
+      "id": "wedding-1",
+      "src": "assets/images/hinh-cuoi/dam-cuoi-01-2022.png",
+      "caption": "Ngày cưới hạnh phúc",
+      "description": "Lễ thành hôn tháng 1/2022"
+    },
+    {
+      "id": "first-meet",
+      "src": "assets/images/ki-niem/lan-dau-gap-nhau.png",
+      "caption": "Lần đầu gặp nhau",
+      "description": "Khoảnh khắc định mệnh"
+    },
+    {
+      "id": "couple-avatar",
+      "src": "assets/images/anh-chu-dao/avatar-couple.png",
+      "caption": "Chúng mình",
+      "description": "Hạnh phúc bên nhau"
+    },
+    {
+      "id": "hoi-an",
+      "src": "assets/images/bucket/checkin_hoi-an_quang-nam.jpg",
+      "caption": "Phố cổ Hội An",
+      "description": "Dạo bước trong không gian cổ kính của phố Hội"
+    },
+    {
+      "id": "happy-moment",
+      "src": "assets/images/gallery/nu-cuoi.png",
+      "caption": "Nụ cười hạnh phúc",
+      "description": "Nụ cười rạng rỡ trong ngày vui"
+    },
+    {
+      "id": "together",
+      "src": "assets/images/gallery/ben-nhau.png",
+      "caption": "Bên nhau",
+      "description": "Những khoảnh khắc bên nhau"
+    },
+    {
+      "id": "phat-portrait",
+      "src": "assets/images/phat/phat-portrait.png",
+      "caption": "Anh Phát",
+      "description": "Chân dung anh"
+    },
+    {
+      "id": "quyen-portrait",
+      "src": "assets/images/quyen/quyen-portrait.png",
+      "caption": "Em Quyên",
+      "description": "Chân dung em"
+    }
+  ]
+}

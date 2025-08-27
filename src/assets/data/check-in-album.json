@@ -1,0 +1,140 @@
+{
+  "checkInAlbum": [
+    {
+      "id": "thanh-hoa",
+      "location": "Thanh Hóa",
+      "place": "Bãi biển Sầm Sơn",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_bai-bien-sam-son_thanh-hoa.jpg",
+      "description": "Thư giãn tại bãi biển Sầm Sơn"
+    },
+    {
+      "id": "nghe-an",
+      "location": "Nghệ An",
+      "place": "Thành phố Vinh",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_vinh_nghe-an.jpg",
+      "description": "Khám phá thành phố Vinh"
+    },
+    {
+      "id": "ha-tinh",
+      "location": "Hà Tĩnh - Quảng Bình",
+      "place": "Đèo Ngang",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_deo-ngang.jpg",
+      "description": "Chinh phục đèo Ngang"
+    },
+    {
+      "id": "quang-binh",
+      "location": "Quảng Bình",
+      "place": "Động Phong Nha",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_quang-binh.jpg",
+      "description": "Khám phá vùng đất di sản"
+    },
+    {
+      "id": "hue-1",
+      "location": "Huế",
+      "place": "Chùa Thiên Mụ",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_chua-thien-mu_hue.jpg",
+      "description": "Thăm chùa Thiên Mụ - Biểu tượng của xứ Huế"
+    },
+    {
+      "id": "hue-2",
+      "location": "Huế",
+      "place": "Đại Nội",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_dai-noi_hue.jpg",
+      "description": "Khám phá Hoàng cung xưa"
+    },
+    {
+      "id": "hue-3",
+      "location": "Huế",
+      "place": "Chợ Đông Ba",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_cho-dong-ba_hue.jpg",
+      "description": "Ghé thăm khu chợ truyền thống"
+    },
+    {
+      "id": "da-nang-1",
+      "location": "Đà Nẵng",
+      "place": "Ngũ Hành Sơn",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_ngu-hanh-son_da-nang.jpg",
+      "description": "Chiêm ngưỡng vẻ đẹp của Ngũ Hành Sơn"
+    },
+    {
+      "id": "da-nang-2",
+      "location": "Đà Nẵng",
+      "place": "Chợ Cồn",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_cho-con_da-nang.jpg",
+      "description": "Khám phá chợ Cồn"
+    },
+    {
+      "id": "hoi-an",
+      "location": "Quảng Nam",
+      "place": "Phố cổ Hội An",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_hoi-an_quang-nam.jpg",
+      "description": "Dạo bước trong không gian cổ kính"
+    },
+    {
+      "id": "quang-ngai",
+      "location": "Quảng Ngãi",
+      "place": "Thành phố Quảng Ngãi",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_quang-ngai.jpg",
+      "description": "Thăm thú Quảng Ngãi"
+    },
+    {
+      "id": "binh-dinh",
+      "location": "Bình Định",
+      "place": "Thành phố Quy Nhơn",
+      "date": "2023",
+      "image": "assets/images/bucket/check-in_binh-dinh.jpg",
+      "description": "Khám phá vùng đất võ"
+    },
+    {
+      "id": "phu-yen-1",
+      "location": "Phú Yên",
+      "place": "Mũi Điện",
+      "date": "2023",
+      "image": "assets/images/bucket/mui-dien_Phu-yen.jpg",
+      "description": "Mũi Điện - Điểm Đông cực của Tổ quốc"
+    },
+    {
+      "id": "phu-yen-2",
+      "location": "Phú Yên",
+      "place": "Tuy Hòa",
+      "date": "2023",
+      "image": "assets/images/bucket/checkin_tuy-hoa_phu-yen.jpg",
+      "description": "Thành phố biển Tuy Hòa"
+    },
+    {
+      "id": "ninh-thuan-1",
+      "location": "Ninh Thuận",
+      "place": "Đồi cát trắng",
+      "date": "2023",
+      "image": "assets/images/bucket/Doi-cat-trang_Ninh-thuan.jpg",
+      "description": "Đồi cát trắng - Tiểu sa mạc của Việt Nam"
+    },
+    {
+      "id": "ninh-thuan-2",
+      "location": "Ninh Thuận",
+      "place": "Tháp Chàm",
+      "date": "2023",
+      "image": "assets/images/bucket/thap-cham_ninh-thuan.jpg",
+      "description": "Tháp Chàm - Di sản văn hóa Chăm"
+    },
+    {
+      "id": "sai-gon",
+      "location": "TP.HCM",
+      "place": "Sài Gòn",
+      "date": "2023",
+      "image": "assets/images/bucket/hoang-hon_ho-chi-minh.jpg",
+      "description": "Ngắm hoàng hôn tại Sài Gòn"
+    }
+  ]
+} 

@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+  min-height: 100vh;
+}
+
+.wife-profile-container {
+
+  // Wife Theme Colors
+  :host ::ng-deep .wife-theme {
+    --primary-color: #e91e63;
+    --primary-light: #f8bbd0;
+    --primary-dark: #c2185b;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --background-light: #fff5f8;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  :host {
+    padding: 1rem 0;
+  }
+
+  .wife-profile-container {
+    padding: 0 0.5rem;
+  }
+
+  .fun-facts-section {
+    margin-top: 2rem;
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .fun-facts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

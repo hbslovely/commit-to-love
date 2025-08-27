@@ -1,0 +1,19 @@
+// Responsive Styles
+@media (max-width: 768px) {
+  .album-header {
+    height: 300px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .photo {
+    width: 100px;
+    height: 100px;
+  }
+} 

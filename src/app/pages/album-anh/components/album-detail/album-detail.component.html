@@ -1,0 +1,91 @@
+<div class="album-detail" *ngIf="album">
+  <app-album-detail-header
+    [title]="album.title"
+    [description]="album.description"
+    [coverImage]="album.coverImage"
+    [photoCount]="album.photos?.length ?? 0"
+    [previewPhotos]="getAlbumPreviewPhotos()">
+  </app-album-detail-header>
+
+  <div class="view-controls">
+    <button class="view-btn" (click)="goBack()" title="Quay lại">
+      <div class="btn-content">
+        <i class="pi pi-arrow-left"></i>
+        <span>Quay lại</span>
+      </div>
+    </button>
+    <button class="view-btn" [class.active]="viewMode === 'masonry'" (click)="setViewMode('masonry')" title="Xem dạng lưới">
+      <div class="btn-content">
+        <i class="pi pi-images"></i>
+        <span>Lưới ảnh</span>
+      </div>
+    </button>
+    <button class="view-btn" [class.active]="viewMode === 'carousel'" (click)="setViewMode('carousel')" title="Xem dạng trình chiếu">
+      <div class="btn-content">
+        <i class="pi pi-camera"></i>
+        <span>Trình chiếu</span>
+      </div>
+    </button>
+  </div>
+
+  <div class="container">
+
+    <!-- Masonry View -->
+    <div class="photos-masonry" *ngIf="viewMode === 'masonry'">
+      <div class="masonry-column" *ngFor="let column of getMasonryColumns()">
+        <div class="photo-card" *ngFor="let photo of column" (click)="openPhotoViewer(photo)">
+          <div class="photo-wrapper">
+            <img [src]="photo.url" [alt]="photo.title" title="Click to view fullscreen">
+            <div class="photo-overlay">
+              <div class="photo-info">
+                <h4>{{ photo.title }}</h4>
+                <p *ngIf="photo.description">{{ photo.description }}</p>
+              </div>
+              <div class="fullscreen-hint">
+                <i class="pi pi-search-plus"></i>
+                <span>Click to enlarge</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel View -->
+    <div class="photos-carousel" *ngIf="viewMode === 'carousel'">
+      <div class="carousel-hint">
+        <i class="pi pi-info-circle"></i>
+        <span>Click on any image to view fullscreen</span>
+      </div>
+      <app-album-gallery
+        [images]="albumPhotos"
+        (imageClick)="onCarouselImageClick($event)">
+      </app-album-gallery>
+    </div>
+  </div>
+</div>
+
+<!-- Photo Viewer -->
+<div class="photo-viewer" *ngIf="selectedPhoto" (click)="closePhotoViewer()">
+  <div class="viewer-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closePhotoViewer()">
+      <i class="pi pi-times"></i>
+    </button>
+
+    <button class="nav-btn prev" *ngIf="canNavigatePrev()" (click)="prevPhoto($event)">
+      <i class="pi pi-chevron-left"></i>
+    </button>
+
+    <div class="photo-container">
+      <img [src]="selectedPhoto.url" [alt]="selectedPhoto.title">
+      <div class="photo-info">
+        <h3>{{ selectedPhoto.title }}</h3>
+        <p *ngIf="selectedPhoto.description">{{ selectedPhoto.description }}</p>
+      </div>
+    </div>
+
+    <button class="nav-btn next" *ngIf="canNavigateNext()" (click)="nextPhoto($event)">
+      <i class="pi pi-chevron-right"></i>
+    </button>
+  </div>
+</div>

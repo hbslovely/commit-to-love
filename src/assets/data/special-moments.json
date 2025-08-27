@@ -1,0 +1,42 @@
+{
+  "sectionTitle": "Những Khoảnh Khắc Đặc Biệt",
+  "sectionSubtitle": "Mỗi khoảnh khắc bên nhau là một kỷ niệm đáng trân trọng",
+  "footerQuote": {
+    "text": "Tình yêu là khi hạnh phúc của người kia trở thành hạnh phúc của chính mình",
+    "author": "Lev Tolstoy"
+  },
+  "moments": [
+    {
+      "id": "first-meet",
+      "image": "assets/images/ki-niem/ky-niem-quen-nhau.png",
+      "imageAlt": "Kỷ niệm quen nhau",
+      "date": "Tháng 5/2021",
+      "title": "Lần Đầu Gặp Gỡ",
+      "description": "Khoảnh khắc định mệnh khi hai trái tim tìm thấy nhau"
+    },
+    {
+      "id": "first-date",
+      "image": "assets/images/ki-niem/lan-dau-gap-nhau.png",
+      "imageAlt": "Lần đầu gặp nhau",
+      "date": "13/12/2021",
+      "title": "Buổi Hẹn Đầu Tiên",
+      "description": "Chuyến đi Đắk Lắk tổ chức sinh nhật cho Shi, khởi đầu cho một tình yêu đẹp"
+    },
+    {
+      "id": "engagement",
+      "image": "assets/images/ki-niem/trao-duyen.png",
+      "imageAlt": "Trao duyên",
+      "date": "Tháng 02/2022",
+      "title": "Ngày Trao Duyên",
+      "description": "Khoảnh khắc thiêng liêng khi ta nói lời yêu"
+    },
+    {
+      "id": "wedding",
+      "image": "assets/images/ki-niem/dam-cuoi-nha-hang.png",
+      "imageAlt": "Cưới hỏi",
+      "date": "Tháng 3/2022",
+      "title": "Ngày Trọng Đại",
+      "description": "Hạnh phúc vỡ òa trong ngày chung đôi"
+    }
+  ]
+}

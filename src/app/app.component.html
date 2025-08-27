@@ -1,0 +1,15 @@
+<!-- Floating Background Elements -->
+<div class="floating-elements">
+  <div class="floating-element" *ngFor="let i of [].constructor(30)"></div>
+</div>
+
+<!-- Main Content -->
+<app-navbar></app-navbar>
+<main>
+  <div [@routeAnimations]="prepareRoute(outlet)" class="route-container">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>

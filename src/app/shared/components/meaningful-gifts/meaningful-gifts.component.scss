@@ -1,0 +1,228 @@
+// Variables
+$primary-color: #4CAF50;
+$secondary-color: #E8F5E9;
+$text-color: #333;
+$border-color: #e0e0e0;
+$spacing: 1rem;
+
+.gifts-section {
+  padding: $spacing * 2;
+  background-color: #fafafa;
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 $spacing;
+  }
+}
+
+// Section Header
+.section-header {
+  text-align: center;
+  margin-bottom: $spacing * 4;
+
+  .title-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing;
+
+    .line {
+      height: 2px;
+      width: 40px;
+      background-color: $primary-color;
+      margin: 0 $spacing;
+    }
+
+    i {
+      color: $primary-color;
+      font-size: 1.5rem;
+    }
+  }
+
+  .section-title {
+    color: $text-color;
+    font-size: 2rem;
+    margin-bottom: $spacing;
+    font-weight: 500;
+  }
+
+  .section-subtitle {
+    color: lighten($text-color, 20%);
+    font-size: 1.1rem;
+  }
+}
+
+// Gifts Timeline
+.gifts-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing * 2;
+  padding: $spacing 0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// Gift Card
+.gift-card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid $border-color;
+  position: relative;
+
+  // Random margin-top for visual interest
+  &:nth-child(4n+1) { margin-top: $spacing * 3; }
+  &:nth-child(4n+2) { margin-top: $spacing * 2; }
+  &:nth-child(4n+3) { margin-top: $spacing; }
+  &:nth-child(4n+4) { margin-top: 0; }
+
+  // Gift Number
+  .gift-number {
+    position: absolute;
+    top: $spacing;
+    left: $spacing;
+    width: 32px;
+    height: 32px;
+    background-color: $primary-color;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    z-index: 1;
+  }
+
+  // Gift Image
+  .gift-image {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba($primary-color, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+
+  // Gift Content
+  .gift-content {
+    padding: $spacing * 1.5;
+    background-color: white;
+    flex: 1;
+
+    .gift-title {
+      color: $text-color;
+      font-size: 1.1rem;
+      margin-bottom: $spacing;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .gift-description {
+      color: lighten($text-color, 20%);
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+  }
+
+  &:nth-child(even) {
+    .gift-content {
+      background-color: $secondary-color;
+    }
+  }
+}
+
+// Bottom Decoration
+.bottom-decoration {
+  display: flex;
+  justify-content: center;
+  gap: $spacing * 2;
+  margin-top: $spacing * 4;
+  padding: $spacing 0;
+  border-top: 1px solid $border-color;
+
+  .decoration-item {
+    color: $primary-color;
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+}
+
+// Responsive Design
+@media (max-width: 1200px) {
+  .gifts-timeline {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gift-card {
+    &:nth-child(4n+1), &:nth-child(4n+2), &:nth-child(4n+3), &:nth-child(4n+4) {
+      margin-top: 0;
+    }
+    &:nth-child(3n+1) { margin-top: $spacing * 2; }
+    &:nth-child(3n+2) { margin-top: $spacing; }
+    &:nth-child(3n+3) { margin-top: 0; }
+  }
+}
+
+@media (max-width: 900px) {
+  .gifts-timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gift-card {
+    &:nth-child(3n+1), &:nth-child(3n+2), &:nth-child(3n+3) {
+      margin-top: 0;
+    }
+    &:nth-child(2n+1) { margin-top: $spacing * 2; }
+    &:nth-child(2n+2) { margin-top: 0; }
+  }
+}
+
+@media (max-width: 600px) {
+  .gifts-timeline {
+    grid-template-columns: 1fr;
+    gap: $spacing * 2;
+  }
+
+  .gift-card {
+    &:nth-child(n) {
+      margin-top: 0;
+    }
+
+    .gift-image {
+      height: 200px;
+    }
+
+    .gift-content {
+      padding: $spacing * 1.5;
+    }
+  }
+
+  .section-header {
+    margin-bottom: $spacing * 3;
+
+    .section-title {
+      font-size: 1.75rem;
+    }
+  }
+}

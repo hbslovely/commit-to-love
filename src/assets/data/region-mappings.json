@@ -1,0 +1,130 @@
+{
+  "locations": {
+    "domestic": {
+      "north": [
+        "Hà Nội",
+        "Thanh Hóa",
+        "Nghệ An",
+        "Hà Tĩnh",
+        "Bắc Ninh",
+        "Bắc Giang",
+        "Lạng Sơn",
+        "Quảng Ninh",
+        "Hải Phòng",
+        "Sơn La",
+        "Hà Nam",
+        "Thái Bình",
+        "Nam Định",
+        "Hưng Yên",
+        "Ninh Bình"
+      ],
+      "central": [
+        "Huế",
+        "Thừa Thiên Huế",
+        "Đà Nẵng",
+        "Quảng Nam",
+        "Quảng Ngãi",
+        "Bình Định",
+        "Phú Yên",
+        "Quảng Bình",
+        "Quảng Trị",
+        "Ninh Thuận",
+        "Lâm Đồng",
+        "Bình Thuận"
+      ],
+      "south": [
+        "Hồ Chí Minh",
+        "TP.HCM",
+        "Vũng Tàu",
+        "Bà Rịa - Vũng Tàu",
+        "Cần Thơ",
+        "Phú Quốc",
+        "Tiền Giang",
+        "An Giang",
+        "Cà Mau",
+        "Tây Ninh"
+      ]
+    },
+    "international": {
+      "asia": {
+        "Thailand": [
+          "Thailand",
+          "Thái Lan",
+          "Bangkok",
+          "Băng Cốc",
+          "Phuket",
+          "Pattaya",
+          "Chiang Mai"
+        ],
+        "Singapore": [
+          "Singapore",
+          "Sing",
+          "Singapura"
+        ],
+        "Malaysia": [
+          "Malaysia",
+          "Ma Lai",
+          "Kuala Lumpur",
+          "Penang",
+          "Malacca"
+        ],
+        "Japan": [
+          "Japan",
+          "Nhật Bản",
+          "Tokyo",
+          "Osaka",
+          "Kyoto",
+          "Hokkaido",
+          "Okinawa"
+        ],
+        "Korea": [
+          "Korea",
+          "Hàn Quốc",
+          "Seoul",
+          "Busan",
+          "Jeju"
+        ],
+        "China": [
+          "China",
+          "Trung Quốc",
+          "Beijing",
+          "Bắc Kinh",
+          "Shanghai",
+          "Thượng Hải",
+          "Guangzhou",
+          "Quảng Châu"
+        ],
+        "Cambodia": [
+          "Cambodia",
+          "Campuchia",
+          "Phnom Penh",
+          "Phnompenh",
+          "Siem Reap",
+          "Angkor"
+        ]
+      },
+      "europe": {
+        "France": [
+          "France",
+          "Pháp",
+          "Paris",
+          "Nice",
+          "Lyon",
+          "Marseille"
+        ]
+      },
+      "america": {
+        "USA": [
+          "USA",
+          "United States",
+          "Mỹ",
+          "Hoa Kỳ",
+          "New York",
+          "Los Angeles",
+          "San Francisco",
+          "Washington DC"
+        ]
+      }
+    }
+  }
+} 

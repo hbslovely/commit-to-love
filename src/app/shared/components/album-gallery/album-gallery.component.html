@@ -1,0 +1,32 @@
+<div class="album-gallery">
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!images || images.length === 0">
+    <p>No images available</p>
+  </div>
+
+  <!-- Gallery content -->
+  <ng-container *ngIf="images && images.length > 0">
+    <div class="main-image-wrapper">
+      <div class="main-image-fade" [class.fading]="isTransitioning">
+        <img 
+          class="main-image clickable" 
+          [src]="images[selectedIndex].src" 
+          [alt]="images[selectedIndex].caption || images[selectedIndex].name || 'Main image'"
+          (click)="onImageClick()"
+          title="Click to view fullscreen">
+      </div>
+      <div class="main-info">
+        <div class="place-name" *ngIf="images[selectedIndex].name">{{ images[selectedIndex].name }}</div>
+        <div class="place-description" *ngIf="images[selectedIndex].description">{{ images[selectedIndex].description }}</div>
+        <div class="caption" *ngIf="images[selectedIndex].caption">{{ images[selectedIndex].caption }}</div>
+      </div>
+    </div>
+
+    <div class="thumbnails" *ngIf="images.length > 1">
+      <div class="thumbnail" *ngFor="let img of images; let i = index" [class.selected]="i === selectedIndex" (click)="selectImage(i)">
+        <img [src]="img.src" [alt]="img.caption || img.name || 'Thumbnail'">
+      </div>
+    </div>
+  </ng-container>
+</div>

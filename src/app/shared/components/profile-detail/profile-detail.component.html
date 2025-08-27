@@ -1,0 +1,132 @@
+<div class="profile-container" [class]="themeClass">
+  <!-- Background Icons -->
+  <i class="bg-icon pi pi-heart"></i>
+  <i class="bg-icon pi pi-star"></i>
+  <i class="bg-icon pi pi-camera"></i>
+  <i class="bg-icon pi pi-map-marker"></i>
+  <i class="bg-icon pi pi-heart-fill"></i>
+  <i class="bg-icon pi pi-gift"></i>
+
+  <!-- Profile Header -->
+  <app-profile-header [profile]="profile" [themeClass]="themeClass"></app-profile-header>
+
+  <!-- Profile Content -->
+  <div class="profile-content">
+    <!-- Basic Info Two Column Section -->
+    <div class="basic-info-two-column">
+      <div class="basic-info-column">
+        <app-section-container title="Thông Tin Cơ Bản" icon="pi pi-info-circle" [theme]="profile.gender === 'female' ? 'pink' : 'blue'">
+          <div class="combined-info-content">
+            <div class="basic-info-grid">
+              <div class="info-card" *ngFor="let info of profile.basicInfo">
+                <div class="info-icon">
+                  <i [class]="info.icon"></i>
+                </div>
+                <div class="info-details">
+                  <h3 class="info-label">{{ info.label }}</h3>
+                  <p class="info-value">{{ info.value }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider">
+              <span>Sở Thích</span>
+            </div>
+
+            <div class="compact-hobbies-grid">
+              <div class="hobby-chip" *ngFor="let hobby of profile.hobbies">
+                <i [class]="hobby.icon"></i>
+                <span class="hobby-name">{{ hobby.name }}</span>
+                <div class="hobby-tooltip" *ngIf="hobby.description">
+                  {{ hobby.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </app-section-container>
+      </div>
+      <div class="profile-image-column">
+        <img [src]="profile.gender === 'female' ? 'assets/images/quyen/z6843551866623_ebf56a0d86f9f579fd7cd4d8797c814b.jpg' : 'assets/images/phat/z6843682691039_4659ec69633c02093c6714210b0c61b3.jpg'" [alt]="profile.name" class="profile-side-image">
+      </div>
+    </div>
+
+    <div class="masonry-grid">
+      <!-- About Section -->
+      <app-section-container class="about-section" title="Giới Thiệu" icon="pi pi-user" [theme]="profile.gender === 'female' ? 'pink' : 'blue'">
+        <div class="about-content">
+          <div class="quote-marks">
+            <i class="pi pi-quote-left"></i>
+          </div>
+          <div class="description-text">
+            {{ profile.description }}
+          </div>
+          <div class="quote-marks end">
+            <i class="pi pi-quote-right"></i>
+          </div>
+          <div class="tags">
+            <span class="tag" *ngFor="let tag of profile.tags">
+              <i class="pi pi-heart"></i>
+              {{ tag }}
+            </span>
+          </div>
+        </div>
+      </app-section-container>
+
+      <!-- Decorative Image -->
+      <div class="decorative-image">
+        <div class="image-hover-container" [class.pink-theme]="profile.gender === 'female'" [class.blue-theme]="profile.gender === 'male'">
+          <img [src]="profile.gender === 'female' ?
+            'assets/images/quyen/quyen_style.png' :
+            'assets/images/phat/phat-portrait.png'"
+            alt="Wedding Photo" class="section-divider">
+          <div class="hover-overlay">
+            <i class="pi pi-heart"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Life Goals Section -->
+      <app-section-container title="Mục Tiêu Sống" icon="pi pi-flag" [theme]="profile.gender === 'female' ? 'pink' : 'blue'" class="goals-section">
+        <div class="goals-grid">
+          <div class="goal-card" *ngFor="let goal of profile.lifeGoals; let i = index">
+            <div class="goal-number">{{ i + 1 }}</div>
+            <div class="goal-content">
+              <i class="pi pi-star goal-star"></i>
+              <p class="goal-text">{{ goal }}</p>
+            </div>
+          </div>
+        </div>
+      </app-section-container>
+
+      <!-- Love Message Section -->
+      <app-section-container title="Lời Yêu Thương" icon="pi pi-heart-fill" class="love-message" headerIcon="pi pi-heart" [theme]="profile.gender === 'female' ? 'pink' : 'blue'">
+        <p>{{ profile.loveMessage }}</p>
+      </app-section-container>
+
+      <!-- Fun Facts Section -->
+      <ng-container *ngIf="funFacts && funFacts.length > 0">
+        <ng-container *ngFor="let fact of funFacts; let i = index">
+          <app-section-container [title]="fact.title" [icon]="fact.icon" class="fun-fact" [theme]="profile.gender === 'female' ? 'pink' : 'blue'">
+            <p>{{ fact.description }}</p>
+          </app-section-container>
+
+          <!-- Add decorative image in the middle of fun facts -->
+          <div class="decorative-image" *ngIf="i === 2">
+            <div class="image-hover-container" [class.pink-theme]="profile.gender === 'female'" [class.blue-theme]="profile.gender === 'male'">
+              <img [src]="profile.gender === 'female' ?
+                'assets/images/quyen/z6884282082398_1ef38d289f5299eb583648a04acbc3d4.jpg' :
+                'assets/images/phat/img_2.png'"
+                alt="Wedding Photo" class="section-divider">
+              <div class="hover-overlay">
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- Sweet Moments Section -->
+<app-sweet-moments [moments]="profile.sweetMoments" [theme]="profile.gender === 'female' ? 'pink' : 'blue'"></app-sweet-moments>

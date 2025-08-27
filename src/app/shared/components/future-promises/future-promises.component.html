@@ -1,0 +1,47 @@
+<!-- Future Promises Section -->
+<div class="promises-section">
+  <!-- Main Content -->
+  <div class="content-container">
+    <!-- Header -->
+    <div class="section-header">
+      <div class="title-group">
+        <i class="pi pi-heart-fill"></i>
+        <h2>Lời Hứa Cho Tương Lai</h2>
+      </div>
+      <div class="header-quote">
+        <p>"The future belongs to those who believe in the beauty of their dreams"</p>
+        <span>- Eleanor Roosevelt</span>
+      </div>
+    </div>
+
+    <!-- Promises Grid -->
+    <div class="promises-grid">
+      <div class="promise-item" *ngFor="let promise of promises">
+        <div class="promise-header">
+          <i [class]="'pi ' + promise.icon"></i>
+          <h3>{{ promise.title }}</h3>
+        </div>
+        <div class="promise-line"></div>
+        <p class="promise-text">{{ promise.description }}</p>
+        <div class="promise-tags">
+          <div class="tag" *ngFor="let tag of promise.tags">
+            <i class="pi pi-check"></i>
+            <span>{{ tag }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Quote -->
+    <div class="footer-section">
+      <div class="quote-box">
+        <i class="pi pi-heart"></i>
+        <blockquote>
+          "Love is not about how many days, months, or years you have been together.
+          Love is about how much you love each other every single day"
+        </blockquote>
+        <span class="author">- Steve Maraboli</span>
+      </div>
+    </div>
+  </div>
+</div>

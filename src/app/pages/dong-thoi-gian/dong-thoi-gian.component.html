@@ -1,0 +1,27 @@
+<div class="text-center mb-6">
+  <h1>⏰ Dòng Thời Gian Tình Yêu</h1>
+  <p class="text-lg text-secondary">Hành trình tình yêu của chúng ta qua từng cột mốc</p>
+</div>
+
+<div class="max-w-4xl mx-auto">
+  <p-timeline [value]="events" layout="vertical" styleClass="custom-timeline">
+    <ng-template let-event pTemplate="marker">
+      <div class="timeline-marker">
+        <i [class]="event.icon" class="text-white text-xl"></i>
+      </div>
+    </ng-template>
+    <ng-template let-event pTemplate="content">
+      <div class="timeline-content p-4">
+        <h3 class="text-xl font-bold text-primary mb-2">{{event.status}}</h3>
+        <p class="text-secondary mb-1">
+          <i class="pi pi-calendar mr-2"></i>
+          {{event.date}}
+        </p>
+        <div class="text-sm text-600">
+          <i class="pi pi-heart mr-1"></i>
+          Một khoảnh khắc đáng nhớ
+        </div>
+      </div>
+    </ng-template>
+  </p-timeline>
+</div>

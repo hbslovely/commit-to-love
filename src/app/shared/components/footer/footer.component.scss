@@ -1,0 +1,165 @@
+.app-footer {
+  background: linear-gradient(to right, rgba(74, 222, 128, 0.2), rgba(253, 164, 175, 0.2));
+  padding: 1.5rem 0;
+  color: #374151;
+  margin-top: 0;
+  position: relative;
+  overflow: hidden;
+
+  // Watermark background icons
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(74, 222, 128, 0.1)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'%3E%3C/path%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(253, 164, 175, 0.1)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'%3E%3C/path%3E%3C/svg%3E");
+    background-position: 0 0, 50px 50px;
+    background-repeat: repeat;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::after {
+    transform: rotate(30deg);
+    opacity: 0.3;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer-text {
+    .love-quote {
+      font-size: 1.1rem;
+      font-style: italic;
+      margin-bottom: 0.75rem;
+      max-width: 600px;
+      line-height: 1.5;
+      color: #1f2937;
+      text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-hearts {
+      margin: 0.75rem 0;
+      span {
+        margin: 0 0.25rem;
+        animation: heartbeat 1.5s ease-in-out infinite;
+        font-size: 1.2rem;
+        display: inline-block;
+        filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.5));
+
+        &:nth-child(2) {
+          animation-delay: 0.5s;
+        }
+        &:nth-child(3) {
+          animation-delay: 1s;
+        }
+      }
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1rem 0 0.5rem 0;
+      .nav-link {
+        color: #2e7d32;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.2s;
+        &:hover {
+          color: #4caf50;
+          text-decoration: underline;
+        }
+      }
+      .separator {
+        color: #bdbdbd;
+        font-size: 1.2rem;
+        user-select: none;
+      }
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0 0.5rem 0;
+      .social-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #e8f5e9;
+        color: #2e7d32;
+        font-size: 1.4rem;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        box-shadow: 0 1px 4px rgba(76, 175, 80, 0.08);
+        &:hover {
+          background: #4caf50;
+          color: #fff;
+          box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+        }
+        i {
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin: 0;
+      color: #4b5563;
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.1) translateY(-2px); }
+}
+
+// Responsive adjustments for mobile
+@media (max-width: 600px) {
+  .footer-text {
+    .footer-nav {
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      .nav-link, .separator {
+        font-size: 0.95rem;
+      }
+    }
+    .social-links {
+      gap: 0.5rem;
+      .social-link {
+        width: 30px;
+        height: 30px;
+        font-size: 1.1rem;
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}

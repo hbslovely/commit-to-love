@@ -1,0 +1,460 @@
+// Variables
+$primary-green: #4CAF50;
+$light-green: #E8F5E9;
+$hover-green: #81C784;
+$text-color: #2E7D32;
+$overlay-bg: rgba(46, 125, 50, 0.7);
+$white: #ffffff;
+
+// Background Animations
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes dotFloat {
+  0% {
+    background-position: 0 0;
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    background-position: 30px 30px;
+    opacity: 0.5;
+  }
+}
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin smooth-transition {
+  transition: all 0.3s ease;
+}
+
+// Base Album Detail Styles
+.album-detail {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fdf8 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba($primary-green, 0.1) 1px,
+      transparent 0
+    );
+    background-size: 30px 30px;
+    animation: dotFloat 15s linear infinite;
+    pointer-events: none;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+// Sticky Header for View Controls - Flat & Beautiful Design
+.view-controls-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #ffffff;
+  border-bottom: 2px solid #f0f4f0;
+  margin-bottom: 0;
+  padding: 1.25rem 0;
+  box-shadow: 0 2px 20px rgba(76, 175, 80, 0.12);
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+}
+
+// View Controls - Flat & Beautiful Design
+.view-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  background: #f8fdf8;
+  border-radius: 16px;
+  padding: 0.5rem;
+  max-width: fit-content;
+  margin: 0 auto 2rem;
+  border: 2px solid #e8f5e8;
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.08);
+}
+
+.view-btn {
+  background: #ffffff;
+  padding: 0.875rem 1.5rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: $text-color;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.06);
+
+  .btn-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      font-size: 1.1rem;
+      transition: transform 0.2s ease;
+    }
+
+    span {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+  }
+
+  &:hover {
+    background: #f0f8f0;
+    border-color: rgba($primary-green, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba($primary-green, 0.12);
+
+    .btn-content i {
+      transform: scale(1.1);
+    }
+  }
+
+  &.active {
+    background: $primary-green;
+    color: white;
+    border-color: $primary-green;
+    box-shadow: 0 4px 16px rgba($primary-green, 0.25);
+
+    .btn-content {
+      color: white;
+    }
+
+    &:hover {
+      background: darken($primary-green, 5%);
+      border-color: darken($primary-green, 5%);
+    }
+  }
+}
+
+// Masonry Layout
+.photos-masonry {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem;
+}
+
+.photo-card {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background: $light-green;
+  @include smooth-transition;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+    .photo-overlay {
+      opacity: 1;
+    }
+  }
+}
+
+.photo-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: pointer;
+    @include smooth-transition;
+    transform: scale(1);
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.photo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $overlay-bg;
+  opacity: 0;
+  @include smooth-transition;
+  @include flex-center;
+  padding: 1rem;
+}
+
+.photo-info {
+  color: white;
+  text-align: center;
+
+  h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+}
+
+// Carousel View
+.photos-carousel {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: $light-green;
+  border-radius: 12px;
+}
+
+// Photo Viewer
+.photo-viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  @include flex-center;
+}
+
+.viewer-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  margin: auto;
+}
+
+.close-btn {
+  position: absolute;
+  top: -3rem;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  @include smooth-transition;
+
+  &:hover {
+    color: $hover-green;
+  }
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  padding: 1rem 0.8rem;
+  cursor: pointer;
+  @include smooth-transition;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  &.prev {
+    left: -4rem;
+  }
+
+  &.next {
+    right: -4rem;
+  }
+}
+
+.photo-container {
+  position: relative;
+
+  img {
+    max-width: 100%;
+    max-height: 80vh;
+    display: block;
+    margin: auto;
+  }
+
+  .photo-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+    color: white;
+
+    h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .view-controls-sticky {
+    padding: 1rem 0;
+
+    .container {
+      padding: 0 0.5rem;
+    }
+  }
+
+  .view-controls {
+    padding: 0.4rem;
+    gap: 0.2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 14px;
+  }
+
+  .view-btn {
+    padding: 0.75rem 1rem;
+
+    .btn-content {
+      gap: 0.375rem;
+
+      span {
+        font-size: 0.8rem;
+      }
+
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .photos-masonry {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .nav-btn {
+    &.prev { left: 1rem; }
+    &.next { right: 1rem; }
+  }
+
+  .carousel-hint {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    background: #f0f8f0;
+    border: 1px solid #e0f0e0;
+  }
+
+  .fullscreen-hint {
+    bottom: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+}
+
+// Carousel hint styles - Flat Design
+.carousel-hint {
+  @include flex-center;
+  gap: 0.5rem;
+  background: #f0f8f0;
+  border: 2px solid #e0f0e0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 1.5rem;
+  color: $text-color;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.08);
+
+  i {
+    color: $primary-green;
+    font-size: 1rem;
+  }
+}
+
+// Fullscreen hint for masonry photos - Flat Design
+.fullscreen-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  @include flex-center;
+  gap: 0.4rem;
+  background: #ffffff;
+  color: $text-color;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+
+  i {
+    font-size: 0.9rem;
+    color: $primary-green;
+  }
+}
+
+.photo-card:hover .fullscreen-hint {
+  opacity: 1;
+  transform: translateY(0);
+}

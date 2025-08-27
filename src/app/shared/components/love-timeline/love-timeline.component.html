@@ -1,0 +1,107 @@
+<!-- Timeline Section -->
+<section class="timeline-section">
+  <!-- Background Decorations with Multiple Icons -->
+  <div class="bg-decorations">
+    <i class="pi pi-heart decoration-icon"></i>
+    <i class="pi pi-clock decoration-icon"></i>
+    <i class="pi pi-camera decoration-icon"></i>
+    <i class="pi pi-calendar decoration-icon"></i>
+    <i class="pi pi-star decoration-icon"></i>
+    <i class="pi pi-map-marker decoration-icon"></i>
+  </div>
+
+  <!-- Timeline Header -->
+  <div class="timeline-header">
+    <h2>Hành Trình Tình Yêu</h2>
+    <p>Những dấu mốc đáng nhớ trong chuyện tình của chúng ta</p>
+  </div>
+
+  <!-- Timeline Container -->
+  <div class="timeline-container">
+    <!-- Timeline Line -->
+    <div class="timeline-line"></div>
+
+    <!-- Timeline Items -->
+    <div class="timeline-items">
+      <div class="timeline-item" *ngFor="let moment of timelineMoments; let i = index" 
+           [class.right]="i % 2 !== 0">
+        <!-- Timeline Dot -->
+        <div class="timeline-dot">
+          <i class="pi" [ngClass]="moment.icon || 'pi-heart-fill'"></i>
+        </div>
+        
+        <!-- Timeline Content -->
+        <div class="timeline-content">
+          <!-- Date Badge -->
+          <div class="date-badge">
+            {{ moment.date | date:'dd/MM/yyyy' }}
+          </div>
+
+          <!-- Card -->
+          <div class="timeline-card">
+            <!-- Image Container -->
+            <div class="image-container" *ngIf="moment.image">
+              <img [src]="moment.image" [alt]="moment.title" loading="lazy">
+              
+              <!-- Hover Overlay -->
+              <div class="hover-overlay">
+                <!-- Background Icons -->
+                <div class="overlay-icons">
+                  <i class="pi pi-heart"></i>
+                  <i class="pi pi-camera"></i>
+                  <i class="pi pi-map"></i>
+                  <i class="pi pi-calendar"></i>
+                  <i class="pi pi-clock"></i>
+                  <i class="pi pi-star"></i>
+                </div>
+                <p class="description">{{ moment.description }}</p>
+              </div>
+
+              <!-- Location Tag -->
+              <div class="location-tag" *ngIf="moment.location">
+                <i class="pi pi-tag"></i>
+                {{ moment.location }}
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="card-content">
+              <h3 class="title">{{ moment.title }}</h3>
+              
+              <!-- Tags -->
+              <div class="tags" *ngIf="moment.tags && moment.tags.length">
+                <span class="tag" *ngFor="let tag of moment.tags">{{ tag }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inspirational Quotes -->
+  <div class="quotes-container">
+    <div class="quote-cards">
+      <div class="quote-card" *ngFor="let quote of [
+        {
+          text: 'Tình yêu không cần phải hoàn hảo, chỉ cần chân thành và cùng nhau trưởng thành',
+          author: 'Khuyết danh'
+        },
+        {
+          text: 'Yêu không phải là nhìn thấy điều hoàn hảo ở một ai đó mà là nhìn thấy sự không hoàn hảo một cách hoàn hảo',
+          author: 'Sam Keen'
+        },
+        {
+          text: 'Hạnh phúc là được nắm tay người mình yêu và cùng bước đi trên con đường dài của cuộc đời',
+          author: 'Khuyết danh'
+        }
+      ]">
+        <div class="quote-content">
+          <i class="pi pi-quote-right quote-icon"></i>
+          <p class="quote-text">{{ quote.text }}</p>
+          <p class="quote-author">- {{ quote.author }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

@@ -1,0 +1,100 @@
+{
+  "favoriteFoods": [
+    {
+      "dish": "Bún bò Huế",
+      "person": "Vợ",
+      "story": "Món ăn truyền thống đậm đà hương vị",
+      "imageUrl": "assets/images/foods/vo_bun-bo-hue.jpg"
+    },
+    {
+      "dish": "Nước chè xanh",
+      "person": "Vợ",
+      "story": "Thức uống yêu thích mỗi ngày",
+      "imageUrl": "assets/images/foods/vo_nuoc-che-xanh-tuoi-nong_buoi-sang-trua.jpg"
+    },
+    {
+      "dish": "Sầu riêng",
+      "person": "Vợ",
+      "story": "Món tráng miệng không thể thiếu",
+      "imageUrl": "assets/images/foods/vo_sau-rieng_moi-ngay.jpg"
+    },
+    {
+      "dish": "Bún riêu cua",
+      "person": "Vợ",
+      "story": "Hương vị đậm đà của món ăn dân dã",
+      "imageUrl": "assets/images/foods/vo_bun-rieu-cua_buoi-sang.png"
+    },
+    {
+      "dish": "Gà Ta Lá Chanh",
+      "person": "Vợ",
+      "story": "Món ăn sáng tươi ngon, hương vị đậm đà của gà ta và lá chanh",
+      "imageUrl": "assets/images/foods/vo_ga-ta-la-chanh_buoi-sang.png"
+    },
+    {
+      "dish": "Bánh flan nước cốt dừa",
+      "person": "Vợ",
+      "story": "Món tráng miệng ngọt ngào",
+      "imageUrl": "assets/images/foods/vo_banh-flan-nuoc-cot-dua_buoi-toi.png"
+    },
+    {
+      "dish": "Cà phê đen đá không đường",
+      "person": "Vợ",
+      "story": "Thức uống thức thần mỗi sáng",
+      "imageUrl": "assets/images/foods/vo_ca-phe-den-da-khong-duong_buoi-sang.png"
+    },
+    {
+      "dish": "Cơm tấm sườn bì chả trứng",
+      "person": "Chồng",
+      "story": "Món ăn sáng yêu thích nhất",
+      "imageUrl": "assets/images/foods/chong_com-tam-suon-bi-cha-trung_buoi-toi.jpg"
+    },
+    {
+      "dish": "Phở xíu Nam Định",
+      "person": "Chồng",
+      "story": "Hương vị đặc trưng Nam Định",
+      "imageUrl": "assets/images/foods/chong_pho-xiu-nam-dinh_buoi-sang.png"
+    },
+    {
+      "dish": "Xíu mại",
+      "person": "Chồng",
+      "story": "Món ăn gắn liền với tuổi thơ, từng viên xíu mại nóng hổi thơm ngon",
+      "imageUrl": "assets/images/foods/chong_xiu-mai_buoi-trua.png"
+    },
+    {
+      "dish": "Thịt kho tiêu",
+      "person": "Chồng",
+      "story": "Món ăn trưa đậm đà",
+      "imageUrl": "assets/images/foods/chong_thit-kho-tieu_buoi-trua.png"
+    },
+    {
+      "dish": "Nước soda trái cây",
+      "person": "Chồng",
+      "story": "Thức uống sảng khoái giải nhiệt những ngày hè oi bức, hương vị trái cây tươi mát hòa quyện cùng những bọt ga nhảy múa",
+      "imageUrl": "assets/images/foods/chong_nuoc-soda-trai-cay_moi-ngay.jpg"
+    },
+    {
+      "dish": "Xoài chín",
+      "person": "Chồng",
+      "story": "Trái cây yêu thích mỗi mùa",
+      "imageUrl": "assets/images/foods/chong_qua-xoai-chin_buoi-toi.jpg"
+    },
+    {
+      "dish": "Pizza",
+      "person": "Chồng",
+      "story": "Món ăn phương Tây yêu thích, đặc biệt là những lớp phô mai tan chảy béo ngậy",
+      "imageUrl": "assets/images/foods/chong_pizza.png"
+    },
+    {
+      "dish": "Gỏi cá trích",
+      "person": "Vợ",
+      "story": "Món ăn đặc sản miền biển, vị chua ngọt hài hòa cùng rau sống tươi mát",
+      "imageUrl": "assets/images/foods/vo_goi-ca-trich_buoi-toi.png"
+    },
+    {
+      "dish": "Nem nướng que",
+      "person": "Chồng",
+      "story": "Món ăn vặt đường phố yêu thích, thơm nức mùi thịt nướng, vị ngọt đậm đà của thịt hòa quyện với nước sốt đặc biệt",
+      "imageUrl": "assets/images/foods/chong_nem-nuong-que.png"
+    }
+  ]
+} 

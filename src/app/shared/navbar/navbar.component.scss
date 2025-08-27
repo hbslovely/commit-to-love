@@ -1,0 +1,798 @@
+// Flat UI Color Palette - Light Green Theme
+$primary-green: #66BB6A;
+$light-green: #C8E6C9;
+$dark-green: #388E3C;
+$accent-green: #4CAF50;
+$white: #FFFFFF;
+$text-primary: #2E7D32;
+$text-secondary: #4A4A4A;
+$shadow-light: rgba(102, 187, 106, 0.1);
+$shadow-medium: rgba(102, 187, 106, 0.2);
+
+// Animation Keyframes
+@keyframes floatParticles {
+  0% { 
+    transform: translateY(100px) translateX(0px) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(-100px) translateX(20px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes waveFlow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes patternShift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes bounceIcon {
+  0%, 20%, 60%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  80% {
+    transform: translateY(-4px);
+  }
+}
+
+// Mixins
+@mixin flat-transition {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flat-shadow($intensity: light) {
+  @if $intensity == light {
+    box-shadow: 0 2px 8px $shadow-light;
+  } @else if $intensity == medium {
+    box-shadow: 0 4px 16px $shadow-medium;
+  }
+}
+
+// Main Navigation Styles
+.navbar {
+  background: $white;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  @include flat-shadow(light);
+  animation: slideDown 0.6s ease-out;
+  overflow: hidden;
+
+  // Background Effects
+  .nav-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+
+    .bg-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(45deg, $light-green 1px, transparent 1px),
+        linear-gradient(-45deg, $light-green 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.05;
+      animation: patternShift 20s linear infinite;
+    }
+
+    .bg-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        rgba($light-green, 0.1) 0%,
+        rgba($primary-green, 0.05) 50%,
+        rgba($light-green, 0.1) 100%
+      );
+      background-size: 300% 100%;
+      animation: gradientMove 8s ease-in-out infinite;
+    }
+
+    .floating-particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: $primary-green;
+        border-radius: 50%;
+        opacity: 0.6;
+
+        &:nth-child(1) {
+          left: 10%;
+          animation: floatParticles 6s ease-in-out infinite;
+        }
+        &:nth-child(2) {
+          left: 25%;
+          animation: floatParticles 8s ease-in-out infinite 2s;
+        }
+        &:nth-child(3) {
+          left: 50%;
+          animation: floatParticles 7s ease-in-out infinite 4s;
+        }
+        &:nth-child(4) {
+          left: 75%;
+          animation: floatParticles 9s ease-in-out infinite 1s;
+        }
+        &:nth-child(5) {
+          left: 90%;
+          animation: floatParticles 6s ease-in-out infinite 3s;
+        }
+      }
+    }
+
+    .wave-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      .wave {
+        position: absolute;
+        width: 200px;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba($primary-green, 0.1), transparent);
+        animation: waveFlow 8s linear infinite;
+
+        &.wave1 {
+          animation-delay: 0s;
+        }
+        &.wave2 {
+          animation-delay: 2s;
+        }
+        &.wave3 {
+          animation-delay: 4s;
+        }
+      }
+    }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+// Brand/Logo Styles
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  @include flat-transition;
+
+  &:hover {
+    transform: translateY(-2px);
+
+    .avatar-wrapper {
+      .avatar-ring {
+        opacity: 1;
+        animation: pulseRing 2s infinite;
+      }
+    }
+
+    .brand-text {
+      color: $primary-green;
+    }
+  }
+
+  .avatar-wrapper {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid $light-green;
+    @include flat-transition;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border: 2px solid $primary-green;
+      border-radius: 50%;
+      opacity: 0;
+      @include flat-transition;
+    }
+  }
+
+  .brand-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $text-primary;
+    letter-spacing: 1px;
+    @include flat-transition;
+  }
+}
+
+// Desktop Navigation
+.nav-menu {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: $text-secondary;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 12px;
+  background: transparent;
+  @include flat-transition;
+  position: relative;
+  overflow: hidden;
+
+  .icon-wrapper {
+    @include flex-center;
+    width: 24px;
+    height: 24px;
+
+    i {
+      font-size: 1.1rem;
+      @include flat-transition;
+    }
+  }
+
+  .nav-text {
+    font-weight: 500;
+  }
+
+  .link-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 20px;
+    height: 3px;
+    background: $primary-green;
+    border-radius: 2px;
+    @include flat-transition;
+  }
+
+  &:hover {
+    background: $light-green;
+    color: $text-primary;
+    transform: translateY(-2px);
+
+    .icon-wrapper i {
+      animation: bounceIcon 0.6s ease;
+    }
+  }
+
+  &.active {
+    background: $light-green;
+    color: $primary-green;
+
+    .link-indicator {
+      transform: translateX(-50%) scaleX(1);
+    }
+  }
+}
+
+// Mobile Navigation Styles
+.mobile-nav {
+  background: $white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 0;
+  @include flat-shadow(medium);
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideUp 0.6s ease-out;
+
+  // Mobile Background Effects
+  .mobile-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+
+    .mobile-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba($light-green, 0.3) 2px, transparent 2px),
+        radial-gradient(circle at 80% 20%, rgba($primary-green, 0.2) 1px, transparent 1px);
+      background-size: 30px 30px, 20px 20px;
+      animation: patternShift 15s linear infinite;
+    }
+
+    .mobile-wave {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+
+      .wave-layer {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+          transparent 0%, 
+          $primary-green 50%, 
+          transparent 100%
+        );
+        animation: waveFlow 4s ease-in-out infinite;
+      }
+    }
+
+    .mobile-particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      .mobile-particle {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: $primary-green;
+        border-radius: 50%;
+        opacity: 0.4;
+
+        &:nth-child(1) {
+          left: 20%;
+          top: 20%;
+          animation: floatParticles 4s ease-in-out infinite;
+        }
+        &:nth-child(2) {
+          left: 60%;
+          top: 30%;
+          animation: floatParticles 5s ease-in-out infinite 1s;
+        }
+        &:nth-child(3) {
+          left: 80%;
+          top: 40%;
+          animation: floatParticles 6s ease-in-out infinite 2s;
+        }
+      }
+    }
+  }
+
+  // Mobile Menu Container
+  .mobile-menu {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    padding: 0 1rem;
+  }
+
+  // Mobile Navigation Link
+  .mobile-nav-link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding: 0.5rem 0.25rem;
+    text-decoration: none;
+    color: $text-secondary;
+    @include flat-transition;
+
+    .mobile-icon-wrapper {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      @include flex-center;
+      margin-bottom: 4px;
+      border-radius: 12px;
+      @include flat-transition;
+
+      i {
+        font-size: 1.2rem;
+        z-index: 2;
+        @include flat-transition;
+      }
+
+      .icon-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $light-green;
+        border-radius: 12px;
+        transform: scale(0);
+        @include flat-transition;
+      }
+    }
+
+    .mobile-text {
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-align: center;
+      opacity: 0.8;
+      @include flat-transition;
+    }
+
+    .active-bar {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 30px;
+      height: 3px;
+      background: $primary-green;
+      border-radius: 0 0 2px 2px;
+      @include flat-transition;
+    }
+
+    &:hover {
+      color: $primary-green;
+
+      .mobile-icon-wrapper {
+        .icon-bg {
+          transform: scale(1);
+        }
+
+        i {
+          animation: bounceIcon 0.6s ease;
+        }
+      }
+
+      .mobile-text {
+        opacity: 1;
+      }
+    }
+
+    &.active {
+      color: $primary-green;
+
+      .mobile-icon-wrapper {
+        .icon-bg {
+          transform: scale(1);
+          background: $light-green;
+        }
+      }
+
+      .mobile-text {
+        opacity: 1;
+        font-weight: 600;
+      }
+
+      .active-bar {
+        transform: translateX(-50%) scaleX(1);
+      }
+    }
+  }
+
+  // Safe Area Support
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+}
+
+// Mobile Menu Toggle Button
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1001;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .toggle-bar {
+    width: 24px;
+    height: 2px;
+    background-color: $text-primary;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  &.active {
+    .toggle-bar {
+      &:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      &:nth-child(2) {
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+    }
+  }
+}
+
+// Mobile Navigation Drawer
+.mobile-nav-drawer {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh;
+  background: $white;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+  @include flat-shadow(medium);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &.open {
+    transform: translateX(-300px);
+  }
+
+  .drawer-header {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba($text-primary, 0.1);
+
+    .mobile-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+
+      .mobile-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid $light-green;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .mobile-brand-text {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: $text-primary;
+      }
+    }
+
+    .close-drawer {
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      color: $text-secondary;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $primary-green;
+      }
+    }
+  }
+
+  .drawer-content {
+    padding: 1rem;
+
+    .mobile-menu-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .mobile-menu-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        text-decoration: none;
+        color: $text-secondary;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+
+        i {
+          font-size: 1.2rem;
+          width: 24px;
+          text-align: center;
+        }
+
+        span {
+          font-weight: 500;
+        }
+
+        &:hover {
+          background: $light-green;
+          color: $primary-green;
+          transform: translateX(4px);
+        }
+
+        &.active {
+          background: $light-green;
+          color: $primary-green;
+        }
+      }
+    }
+  }
+}
+
+// Mobile Menu Overlay
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// Media Queries
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    display: block;
+    padding: 0.75rem 0;
+
+    .container {
+      padding: 0 1rem;
+    }
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+}
+
+// Body Padding Adjustment
+:host {
+  display: block;
+  
+  & + * {
+    padding-top: 80px;
+    
+    @media (max-width: 768px) {
+      padding-top: 0;
+      padding-bottom: 80px;
+    }
+  }
+}

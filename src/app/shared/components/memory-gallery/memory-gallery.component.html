@@ -1,0 +1,167 @@
+<!-- Static Travel Header -->
+<div class="travel-header">
+  <div class="travel-header-image">
+    <div class="header-overlay"></div>
+    <img src="assets/images/gallery/ben-nhau.png" alt="Travel Memories Header">
+    <div class="overlay-content">
+      <div class="overlay-text">
+        <h1>Hành Trình Kỷ Niệm</h1>
+        <p>"Không phải đích đến, mà là hành trình cùng nhau mới là điều ý nghĩa nhất"</p>
+      </div>
+
+      <!-- Filter Controls moved to header -->
+      <div class="header-controls">
+        <div class="filter-chips">
+          <button class="filter-chip"
+                  *ngFor="let control of galleryControls"
+                  [class.active]="currentFilter === control.id"
+                  (click)="filterImages(control.id)">
+            <i class="pi" [ngClass]="control.icon"></i>
+            <span>{{ control.title }}</span>
+            <span class="count" *ngIf="getFilterCount(control.id) > 0">
+              {{ getFilterCount(control.id) }}
+            </span>
+          </button>
+        </div>
+
+        <div class="view-controls">
+          <button class="view-btn"
+                  [class.active]="viewMode === 'carousel'"
+                  (click)="changeView('carousel')"
+                  pTooltip="Xem dạng trình chiếu"
+                  tooltipPosition="top">
+            <i class="pi pi-images"></i>
+          </button>
+          <button class="view-btn"
+                  [class.active]="viewMode === 'masonry'"
+                  (click)="changeView('masonry')"
+                  pTooltip="Xem dạng thác nước"
+                  tooltipPosition="top">
+            <i class="pi pi-th-large"></i>
+          </button>
+          <button class="view-btn"
+                  [class.active]="viewMode === 'cards'"
+                  (click)="changeView('cards')"
+                  pTooltip="Xem dạng thẻ"
+                  tooltipPosition="top">
+            <i class="pi pi-id-card"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Gallery Section -->
+<div class="gallery-section">
+  <div class="container" style="padding: 0 8rem;">
+    <!-- Active Filters -->
+    <div class="active-filters" *ngIf="currentFilter !== 'all'">
+      <div class="filter-tag" *ngIf="currentFilter !== 'all'">
+        {{ getActiveFilterName() }}
+        <i class="pi pi-times" (click)="clearFilter()"></i>
+      </div>
+    </div>
+
+    <!-- Album Frame -->
+    <div class="album-frame">
+      <!-- Carousel View -->
+      <div class="gallery-carousel" *ngIf="viewMode === 'carousel'">
+        <div class="carousel-container">
+          <!-- Main Carousel -->
+          <div class="carousel-track">
+            <div class="carousel-slide" *ngFor="let memory of displayedMemories; let i = index"
+                 [class.active]="i === currentSlideIndex"
+                 [class.next]="i === (currentSlideIndex + 1) % displayedMemories.length"
+                 [class.prev]="i === (currentSlideIndex - 1 + displayedMemories.length) % displayedMemories.length">
+              <div class="slide-content">
+                <div class="image-container">
+                  <img [src]="memory.src" [alt]="memory.description" (load)="onImageLoad($event)">
+
+                  <!-- Navigation Arrows -->
+                  <div class="carousel-navigation">
+                    <button class="nav-btn prev" (click)="prevSlide()" [class.disabled]="currentSlideIndex === 0">
+                      <i class="pi pi-chevron-left"></i>
+                    </button>
+                    <button class="nav-btn next" (click)="nextSlide()" [class.disabled]="currentSlideIndex === displayedMemories.length - 1">
+                      <i class="pi pi-chevron-right"></i>
+                    </button>
+                  </div>
+
+                  <!-- Progress Bar -->
+                  <div class="carousel-progress">
+                    <div class="progress-bar" [style.width.%]="(currentSlideIndex + 1) / displayedMemories.length * 100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Image Info -->
+          <div class="slide-info" *ngIf="displayedMemories[currentSlideIndex]">
+            <h3>{{ displayedMemories[currentSlideIndex].name }}</h3>
+            <p>{{ displayedMemories[currentSlideIndex].description }}</p>
+          </div>
+
+          <!-- Thumbnail Navigation -->
+          <div class="carousel-thumbnails">
+            <div class="thumbnails-track">
+              <button *ngFor="let memory of displayedMemories; let i = index"
+                      class="thumbnail-item"
+                      [class.active]="i === currentSlideIndex"
+                      (click)="goToSlide(i)">
+                <img [src]="memory.src" [alt]="memory.name">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Masonry View -->
+      <div class="gallery-masonry" *ngIf="viewMode === 'masonry'">
+        <ng-container *ngFor="let memory of displayedMemories">
+          <div class="gallery-item" (click)="openLightbox(memory)">
+            <div class="image-wrapper">
+              <img [src]="memory.src"
+                   [alt]="memory.description"
+                   loading="lazy"
+                   (load)="onImageLoad($event)">
+              <div class="hover-overlay">
+                <p class="memory-description">{{ memory.description }}</p>
+                <div class="zoom-icon">
+                  <i class="pi pi-search-plus"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Cards View -->
+      <div class="gallery-cards" *ngIf="viewMode === 'cards'">
+        <ng-container *ngFor="let memory of displayedMemories">
+          <div class="memory-card">
+            <div class="card-image">
+              <img [src]="memory.src" [alt]="memory.description">
+            </div>
+            <div class="card-content">
+              <h3>{{ memory.name }}</h3>
+              <p class="card-description">{{ memory.description }}</p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Load More Button - Hidden in carousel view -->
+      <div class="load-more" *ngIf="hasMoreImages && viewMode !== 'carousel'">
+        <button class="load-more-btn"
+                (click)="loadMore()"
+                [disabled]="loading">
+          <i class="pi pi-spinner pi-spin" *ngIf="loading"></i>
+          <span>{{ loading ? 'Đang tải...' : 'Xem thêm kỷ niệm' }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

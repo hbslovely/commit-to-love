@@ -1,0 +1,99 @@
+<div class="filters-container">
+  <div class="filters-content">
+    <!-- Search Section -->
+    <div class="filter-section search-section">
+      <h3 class="filter-label">
+        <i class="pi pi-search"></i>
+        Tìm kiếm
+      </h3>
+      <div class="search-container">
+        <i class="pi pi-search search-icon"></i>
+        <input
+          type="text"
+          [(ngModel)]="searchText"
+          (input)="onSearchInput($event)"
+          placeholder="Tìm theo tên, địa điểm..."
+          class="search-input"
+        />
+        <button
+          *ngIf="searchText"
+          class="clear-button"
+          (click)="onSearchClear()"
+          title="Xóa tìm kiếm"
+        >
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Location Types Section -->
+    <div class="filter-section">
+      <h3 class="filter-label">
+        <i class="pi pi-map-marker"></i>
+        Loại địa điểm
+      </h3>
+      <div class="filter-chips">
+        <button
+          *ngFor="let type of locationTypes"
+          [class.active]="selectedFilters.locationType.includes(type.value)"
+          (click)="toggleFilter('locationType', type.value)"
+          class="filter-chip"
+          [attr.title]="type.label"
+        >
+          <i [class]="type.icon"></i>
+          {{ type.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Regions Section -->
+    <div class="filter-section">
+      <h3 class="filter-label">
+        <i class="pi pi-globe"></i>
+        Vùng miền
+      </h3>
+      <div class="filter-chips">
+        <button
+          *ngFor="let region of regions"
+          [class.active]="selectedFilters.region.includes(region.value)"
+          (click)="toggleFilter('region', region.value)"
+          class="filter-chip"
+          [attr.title]="region.label"
+        >
+          {{ region.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="filter-section">
+      <h3 class="filter-label">
+        <i class="pi pi-star"></i>
+        Đặc điểm
+      </h3>
+      <div class="filter-chips">
+        <button
+          *ngFor="let feature of features"
+          [class.active]="selectedFilters.features.includes(feature.value)"
+          (click)="toggleFilter('features', feature.value)"
+          class="filter-chip"
+          [attr.title]="feature.label"
+        >
+          {{ feature.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset Button Section -->
+  <div class="reset-section" *ngIf="hasActiveFilters()">
+    <button
+      class="reset-button"
+      (click)="onResetFilters()"
+      title="Đặt lại tất cả bộ lọc"
+    >
+      <i class="pi pi-refresh"></i>
+      Đặt lại bộ lọc
+    </button>
+  </div>
+</div>
