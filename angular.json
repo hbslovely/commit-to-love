@@ -27,6 +27,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.png",
+              "src/AgodaPartnerVerification.htm",
               {
                 "glob": "**/*",
                 "input": "src/assets",
