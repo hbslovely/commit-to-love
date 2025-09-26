@@ -4,9 +4,10 @@ export interface CustomSection {
 }
 
 export interface Food {
-  name: string;
-  description: string;
+  name?: string;
+  description?: string;
   image?: string;
+  imageUrl?: string;
   restaurant?: string;
   where?: string;
   price?: string;
