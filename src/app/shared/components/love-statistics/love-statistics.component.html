@@ -1,139 +1,183 @@
-<!-- Love Statistics Section -->
-<div class="statistics-section">
+<!-- Modern Love Statistics Section -->
+<div class="love-statistics">
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+    </div>
+    <div class="sparkles">
+      <div class="sparkle" *ngFor="let i of [].constructor(15)"></div>
+    </div>
+  </div>
+
   <div class="container">
+    <!-- Modern Header -->
     <div class="section-header">
-      <h2 class="section-title">
-        <i class="pi pi-heart-fill"></i>
-        Con Số Tình Yêu
+      <h2 class="main-title">
+        <span class="title-gradient">Con Số</span>
+        <span class="title-highlight">Tình Yêu</span>
       </h2>
-      <p class="section-subtitle">Những dấu mốc đáng nhớ trong hành trình yêu thương của chúng ta</p>
-      <p class="touch-hint">
-        <i class="pi pi-hand"></i>
-        Chạm để khám phá thêm
-      </p>
+      <p class="subtitle">Những dấu mốc đáng nhớ trong hành trình yêu thương</p>
+      <div class="interaction-hint">
+        <div class="hint-icon">
+          <i class="pi pi-hand"></i>
+        </div>
+        <span>Chạm để khám phá thêm</span>
+      </div>
     </div>
 
-    <!-- Main Stats -->
-    <div class="stats-container">
-      <!-- Days Together -->
-      <div class="stat-card" [ngStyle]="{'background-image': 'url(assets/images/gallery/ben-nhau.png)'}" (click)="navigateToPage('/ve-chung-toi')">
-        <div class="bg-elements">
-          <div class="circle"></div>
-          <div class="circle"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div>
-        <div class="stat-content">
+    <!-- Main Statistics Cards -->
+    <div class="stats-grid">
+      <!-- Days Together Card -->
+      <div class="stat-card" (click)="navigateToPage('/ve-chung-toi')">
+        <div class="card-glow"></div>
+        <div class="card-content">
           <div class="stat-icon">
+            <div class="icon-bg"></div>
             <i class="pi pi-calendar"></i>
+            <div class="icon-sparkles">
+              <div class="sparkle-dot"></div>
+              <div class="sparkle-dot"></div>
+              <div class="sparkle-dot"></div>
+            </div>
           </div>
-          <div class="stat-number">{{ statistics.daysTogether }}</div>
-          <h3 class="stat-title">Ngày Bên Nhau</h3>
-          <p class="stat-desc">Mỗi ngày đều là một kỷ niệm đẹp</p>
+          <div class="stat-info">
+            <div class="stat-number" [attr.data-count]="statistics.daysTogether">
+              {{ statistics.daysTogether }}
+            </div>
+            <h3 class="stat-title">Ngày Bên Nhau</h3>
+            <p class="stat-desc">Mỗi ngày đều là kỷ niệm đẹp</p>
+          </div>
         </div>
-        <div class="touch-indicator">
-          <i class="pi pi-hand"></i>
+        <div class="card-particles">
+          <div class="particle" *ngFor="let i of [].constructor(8)"></div>
+        </div>
+        <div class="hover-indicator">
+          <i class="pi pi-arrow-right"></i>
         </div>
       </div>
 
-      <!-- Photos Taken -->
-      <div class="stat-card" [ngStyle]="{'background-image': 'url(assets/images/gallery/so-anh-da-chup.png)'}" (click)="navigateToPage('/album-anh')">
-        <div class="bg-elements">
-          <div class="circle"></div>
-          <div class="circle"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div>
-        <div class="stat-content">
+      <!-- Photos Card -->
+      <div class="stat-card featured" (click)="navigateToPage('/album-anh')">
+        <div class="card-glow"></div>
+        <div class="card-content">
           <div class="stat-icon">
+            <div class="icon-bg"></div>
             <i class="pi pi-camera"></i>
+            <div class="icon-sparkles">
+              <div class="sparkle-dot"></div>
+              <div class="sparkle-dot"></div>
+              <div class="sparkle-dot"></div>
+            </div>
           </div>
-          <div class="stat-number">{{ statistics.photosTaken }}</div>
-          <h3 class="stat-title">Khoảnh Khắc</h3>
-          <p class="stat-desc">Những bức ảnh ghi lại hạnh phúc</p>
+          <div class="stat-info">
+            <div class="stat-number" [attr.data-count]="statistics.photosTaken">
+              {{ statistics.photosTaken }}
+            </div>
+            <h3 class="stat-title">Khoảnh Khắc</h3>
+            <p class="stat-desc">Những bức ảnh ghi lại hạnh phúc</p>
+          </div>
         </div>
-        <div class="touch-indicator">
-          <i class="pi pi-hand"></i>
+        <div class="card-particles">
+          <div class="particle" *ngFor="let i of [].constructor(8)"></div>
+        </div>
+        <div class="hover-indicator">
+          <i class="pi pi-arrow-right"></i>
+        </div>
+        <div class="featured-badge">
+          <i class="pi pi-star-fill"></i>
+          <span>Hot</span>
         </div>
       </div>
 
-      <!-- Places Visited -->
-      <div class="stat-card" [ngStyle]="{'background-image': 'url(assets/images/gallery/chuyen-di.png)'}" (click)="navigateToPage('/memory-places')">
-        <div class="bg-elements">
-          <div class="circle"></div>
-          <div class="circle"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div>
-        <div class="stat-content">
+      <!-- Places Card -->
+      <div class="stat-card" (click)="navigateToPage('/memory-places')">
+        <div class="card-glow"></div>
+        <div class="card-content">
           <div class="stat-icon">
-            <i class="pi pi-map"></i>
+            <div class="icon-bg"></div>
+            <i class="pi pi-map-marker"></i>
+            <div class="icon-sparkles">
+              <div class="sparkle-dot"></div>
+              <div class="sparkle-dot"></div>
+              <div class="sparkle-dot"></div>
+            </div>
           </div>
-          <div class="stat-number">{{ statistics.placesVisited }}</div>
-          <h3 class="stat-title">Điểm Đến</h3>
-          <p class="stat-desc">Những nơi ta đã cùng nhau đi qua</p>
+          <div class="stat-info">
+            <div class="stat-number" [attr.data-count]="statistics.placesVisited">
+              {{ statistics.placesVisited }}
+            </div>
+            <h3 class="stat-title">Điểm Đến</h3>
+            <p class="stat-desc">Những nơi ta đã cùng đi qua</p>
+          </div>
         </div>
-        <div class="touch-indicator">
-          <i class="pi pi-hand"></i>
+        <div class="card-particles">
+          <div class="particle" *ngFor="let i of [].constructor(8)"></div>
+        </div>
+        <div class="hover-indicator">
+          <i class="pi pi-arrow-right"></i>
         </div>
       </div>
     </div>
 
-    <!-- Featured Memory -->
-    <div class="featured-memory">
-      <div class="memory-content">
-        <div class="memory-text">
-          <h3>Khoảnh Khắc Đáng Nhớ</h3>
-          <p>Mỗi bức ảnh là một câu chuyện, mỗi khoảnh khắc là một kỷ niệm đẹp mà chúng ta đã cùng nhau tạo nên</p>
+    <!-- Quick Stats -->
+    <div class="quick-stats">
+      <div class="quick-stat">
+        <div class="quick-icon">
+          <i class="pi pi-heart-fill"></i>
         </div>
-        <div class="memory-image">
-          <img src="assets/images/albums/hinh-cuoi-dep/z6839748902511_f1b6c4bd0f59bf4d23abd25ffbf8f97b.jpg" alt="Khoảnh khắc hạnh phúc">
-          <div class="image-overlay">
-            <i class="pi pi-heart heart-main"></i>
-            <i class="pi pi-heart heart-float heart-1"></i>
-            <i class="pi pi-heart heart-float heart-2"></i>
-            <i class="pi pi-heart heart-float heart-3"></i>
-            <i class="pi pi-heart heart-float heart-4"></i>
-            <i class="pi pi-heart heart-float heart-5"></i>
-          </div>
+        <div class="quick-info">
+          <span class="quick-number">100%</span>
+          <span class="quick-label">Hạnh Phúc</span>
         </div>
       </div>
-      <div class="memory-stamp">
-        <div class="stamp-inner">
-          <div class="stamp-border"></div>
-          <div class="stamp-content">
-            <i class="pi pi-heart"></i>
-            <span>Love</span>
-            <span>Forever</span>
-          </div>
+      
+      <div class="quick-stat">
+        <div class="quick-icon">
+          <i class="pi pi-home"></i>
+        </div>
+        <div class="quick-info">
+          <span class="quick-number">1</span>
+          <span class="quick-label">Tổ Ấm</span>
+        </div>
+      </div>
+      
+      <div class="quick-stat">
+        <div class="quick-icon">
+          <i class="pi pi-star-fill"></i>
+        </div>
+        <div class="quick-info">
+          <span class="quick-number">∞</span>
+          <span class="quick-label">Yêu Thương</span>
+        </div>
+      </div>
+      
+      <div class="quick-stat">
+        <div class="quick-icon">
+          <i class="pi pi-gift"></i>
+        </div>
+        <div class="quick-info">
+          <span class="quick-number">365</span>
+          <span class="quick-label">Ngày/Năm</span>
         </div>
       </div>
     </div>
 
-    <!-- Additional Stats Grid -->
-    <div class="mini-stats-grid">
-      <div class="mini-stat">
-        <i class="pi pi-heart"></i>
-        <span class="mini-stat-number">100%</span>
-        <span class="mini-stat-label">Hạnh Phúc</span>
-      </div>
-      <div class="mini-stat">
-        <i class="pi pi-home"></i>
-        <span class="mini-stat-number">1</span>
-        <span class="mini-stat-label">Tổ Ấm</span>
-      </div>
-      <div class="mini-stat">
-        <i class="pi pi-star"></i>
-        <span class="mini-stat-number">∞</span>
-        <span class="mini-stat-label">Yêu Thương</span>
-      </div>
-      <div class="mini-stat">
-        <i class="pi pi-gift"></i>
-        <span class="mini-stat-number">365</span>
-        <span class="mini-stat-label">Ngày Hạnh Phúc/Năm</span>
+    <!-- Love Quote -->
+    <div class="love-quote-section">
+      <div class="quote-card">
+        <div class="quote-decoration">
+          <i class="pi pi-heart-fill"></i>
+        </div>
+        <blockquote class="quote-text">
+          "Mỗi khoảnh khắc bên nhau là một trang sách đẹp trong câu chuyện tình yêu của chúng ta"
+        </blockquote>
+        <div class="quote-author">
+          - Phát & Quyên
+        </div>
       </div>
     </div>
   </div>

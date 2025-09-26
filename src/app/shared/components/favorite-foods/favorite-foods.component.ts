@@ -33,4 +33,16 @@ export class FavoriteFoodsComponent implements OnInit {
         this.foods = data.favoriteFoods;
       });
   }
+
+  getHusbandFoods(): Food[] {
+    return this.foods.filter(food => food.person === 'Chồng');
+  }
+
+  getWifeFoods(): Food[] {
+    return this.foods.filter(food => food.person === 'Vợ');
+  }
+
+  getTotalFoods(): number {
+    return this.foods.length;
+  }
 }

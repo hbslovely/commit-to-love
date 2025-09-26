@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -9,6 +9,7 @@ interface Song {
   youtubeUrl: string;
   thumbnail: string;
   category: string;
+  story?: string;
 }
 
 declare global {
@@ -34,6 +35,7 @@ export class OurSongsComponent implements OnInit, OnDestroy {
   player: any;
   private playerReady = false;
   private sanitizer = inject(DomSanitizer);
+  private cdr = inject(ChangeDetectorRef);
 
   constructor() {
     // Load YouTube IFrame API
@@ -59,9 +61,10 @@ export class OurSongsComponent implements OnInit, OnDestroy {
         const uniqueCategories = new Set(this.songs.map(song => song.category));
         this.categories = ['Tất cả', ...Array.from(uniqueCategories)];
 
-        if (this.songs.length > 0) {
-          this.playSong(this.songs[0]);
-        }
+        // Don't auto-play first song, let user choose
+        // if (this.songs.length > 0) {
+        //   this.playSong(this.songs[0]);
+        // }
       });
   }
 
@@ -75,7 +78,7 @@ export class OurSongsComponent implements OnInit, OnDestroy {
     if (!this.currentSong) return this.sanitizer.bypassSecurityTrustResourceUrl('');
     const videoId = this.getYouTubeVideoId(this.currentSong.youtubeUrl);
     return this.sanitizer.bypassSecurityTrustResourceUrl(
-      `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=${window.location.origin}`
+      `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&modestbranding=1&rel=0`
     );
   }
 
@@ -115,12 +118,15 @@ export class OurSongsComponent implements OnInit, OnDestroy {
   }
 
   playSong(song: Song): void {
-    this.currentSong = song;
-    const videoId = this.getYouTubeVideoId(song.youtubeUrl);
-
-    if (this.playerReady) {
-      this.initializePlayer(videoId);
-    }
+    // Temporarily set currentSong to null to force iframe recreation
+    this.currentSong = null;
+    this.cdr.detectChanges();
+    
+    // Set the new song after a brief delay
+    setTimeout(() => {
+      this.currentSong = song;
+      this.cdr.detectChanges();
+    }, 50);
   }
 
   playNextSong(): void {

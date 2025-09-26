@@ -1,107 +1,181 @@
-<!-- Timeline Section -->
-<section class="timeline-section">
-  <!-- Background Decorations with Multiple Icons -->
-  <div class="bg-decorations">
-    <i class="pi pi-heart decoration-icon"></i>
-    <i class="pi pi-clock decoration-icon"></i>
-    <i class="pi pi-camera decoration-icon"></i>
-    <i class="pi pi-calendar decoration-icon"></i>
-    <i class="pi pi-star decoration-icon"></i>
-    <i class="pi pi-map-marker decoration-icon"></i>
+<!-- Modern Love Timeline Section -->
+<div class="love-timeline">
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="floating-timeline">
+      <div class="timeline-icon timeline-1">⏰</div>
+      <div class="timeline-icon timeline-2">💕</div>
+      <div class="timeline-icon timeline-3">📅</div>
+      <div class="timeline-icon timeline-4">💫</div>
+      <div class="timeline-icon timeline-5">🌟</div>
+    </div>
+    <div class="sparkles">
+      <div class="sparkle" *ngFor="let i of [].constructor(12)"></div>
+    </div>
   </div>
 
-  <!-- Timeline Header -->
-  <div class="timeline-header">
-    <h2>Hành Trình Tình Yêu</h2>
-    <p>Những dấu mốc đáng nhớ trong chuyện tình của chúng ta</p>
+  <div class="container">
+    <!-- Modern Header -->
+    <div class="section-header">
+      <h2 class="main-title">
+        <span class="title-gradient">Hành Trình</span>
+        <span class="title-highlight">Tình Yêu</span>
+      </h2>
+      <p class="subtitle">Những dấu mốc đáng nhớ trong câu chuyện tình của chúng ta</p>
+    </div>
+
+    <!-- Timeline Container -->
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+      
+      <div class="timeline-items">
+        <div class="timeline-item" *ngFor="let moment of timelineMoments; let i = index" 
+             [class.left]="i % 2 === 0"
+             [class.right]="i % 2 !== 0">
+          
+          <div class="timeline-dot">
+            <div class="dot-glow"></div>
+            <i class="pi" [ngClass]="moment.icon || 'pi-heart-fill'"></i>
+          </div>
+          
+          <div class="timeline-card">
+            <div class="card-glow"></div>
+            
+            <div class="timeline-date">
+              {{ moment.date | date:'dd/MM/yyyy' }}
+            </div>
+            
+            <div class="timeline-content">
+              <div class="moment-image" *ngIf="moment.image" (click)="openLightbox(moment)">
+                <img [src]="moment.image" [alt]="moment.title" loading="lazy">
+                <div class="image-overlay">
+                  <i class="pi pi-search-plus"></i>
+                </div>
+                
+                <div class="location-tag" *ngIf="moment.location">
+                  <i class="pi pi-map-marker"></i>
+                  {{ moment.location }}
+                </div>
+              </div>
+              
+              <div class="moment-info">
+                <h3 class="moment-title">{{ moment.title }}</h3>
+                <p class="moment-description">{{ moment.description }}</p>
+                
+                <div class="moment-tags" *ngIf="moment.tags && moment.tags.length">
+                  <span class="tag" *ngFor="let tag of moment.tags">{{ tag }}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card-particles">
+              <div class="particle" *ngFor="let p of [].constructor(5)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Stats -->
+    <div class="timeline-stats">
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-calendar"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">{{ timelineMoments.length || 0 }}</span>
+          <span class="stat-label">Kỷ Niệm</span>
+        </div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-heart-fill"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Tình Yêu</span>
+        </div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-clock"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">{{ getYearsCount() }}</span>
+          <span class="stat-label">Năm Bên Nhau</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Love Quote -->
+    <div class="love-quote-section">
+      <div class="quote-card">
+        <div class="quote-decoration">
+          <i class="pi pi-clock"></i>
+        </div>
+        <blockquote class="quote-text">
+          "Thời gian không làm phai mờ tình yêu chân thành, mà chỉ làm cho nó thêm sâu đậm và bền vững."
+        </blockquote>
+      </div>
+    </div>
   </div>
 
-  <!-- Timeline Container -->
-  <div class="timeline-container">
-    <!-- Timeline Line -->
-    <div class="timeline-line"></div>
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" [class.active]="lightboxActive" (keydown.escape)="closeLightbox()">
+    <div class="lightbox-backdrop" (click)="closeLightbox()"></div>
+    <div class="lightbox-content" *ngIf="selectedImage">
+      <div class="lightbox-header">
+        <h3 class="lightbox-title">{{ selectedImage.title }}</h3>
+        <button class="close-btn" (click)="closeLightbox()" aria-label="Đóng">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
 
-    <!-- Timeline Items -->
-    <div class="timeline-items">
-      <div class="timeline-item" *ngFor="let moment of timelineMoments; let i = index" 
-           [class.right]="i % 2 !== 0">
-        <!-- Timeline Dot -->
-        <div class="timeline-dot">
-          <i class="pi" [ngClass]="moment.icon || 'pi-heart-fill'"></i>
+      <div class="lightbox-image">
+        <img [src]="selectedImage.image" [alt]="selectedImage.title" loading="lazy">
+        
+        <!-- Navigation buttons -->
+        <button class="navigation-btn prev" 
+                (click)="previousImage()" 
+                [disabled]="currentLightboxIndex === 0"
+                *ngIf="timelineMoments.length > 1"
+                aria-label="Ảnh trước">
+          <i class="pi pi-chevron-left"></i>
+        </button>
+        
+        <button class="navigation-btn next" 
+                (click)="nextImage()" 
+                [disabled]="currentLightboxIndex === timelineMoments.length - 1"
+                *ngIf="timelineMoments.length > 1"
+                aria-label="Ảnh tiếp theo">
+          <i class="pi pi-chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="lightbox-description">
+        <div class="moment-meta">
+          <div class="moment-date">
+            <i class="pi pi-calendar"></i>
+            {{ selectedImage.date | date:'dd/MM/yyyy' }}
+          </div>
+          <div class="moment-location" *ngIf="selectedImage.location">
+            <i class="pi pi-map-marker"></i>
+            {{ selectedImage.location }}
+          </div>
         </div>
         
-        <!-- Timeline Content -->
-        <div class="timeline-content">
-          <!-- Date Badge -->
-          <div class="date-badge">
-            {{ moment.date | date:'dd/MM/yyyy' }}
-          </div>
-
-          <!-- Card -->
-          <div class="timeline-card">
-            <!-- Image Container -->
-            <div class="image-container" *ngIf="moment.image">
-              <img [src]="moment.image" [alt]="moment.title" loading="lazy">
-              
-              <!-- Hover Overlay -->
-              <div class="hover-overlay">
-                <!-- Background Icons -->
-                <div class="overlay-icons">
-                  <i class="pi pi-heart"></i>
-                  <i class="pi pi-camera"></i>
-                  <i class="pi pi-map"></i>
-                  <i class="pi pi-calendar"></i>
-                  <i class="pi pi-clock"></i>
-                  <i class="pi pi-star"></i>
-                </div>
-                <p class="description">{{ moment.description }}</p>
-              </div>
-
-              <!-- Location Tag -->
-              <div class="location-tag" *ngIf="moment.location">
-                <i class="pi pi-tag"></i>
-                {{ moment.location }}
-              </div>
-            </div>
-
-            <!-- Content -->
-            <div class="card-content">
-              <h3 class="title">{{ moment.title }}</h3>
-              
-              <!-- Tags -->
-              <div class="tags" *ngIf="moment.tags && moment.tags.length">
-                <span class="tag" *ngFor="let tag of moment.tags">{{ tag }}</span>
-              </div>
-            </div>
-          </div>
+        <p class="description-text">{{ selectedImage.description }}</p>
+        
+        <div class="moment-tags" *ngIf="selectedImage.tags && selectedImage.tags.length">
+          <span class="tag" *ngFor="let tag of selectedImage.tags">{{ tag }}</span>
+        </div>
+        
+        <div class="image-counter" *ngIf="timelineMoments.length > 1">
+          <span class="counter-text">{{ currentLightboxIndex + 1 }} / {{ timelineMoments.length }}</span>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Inspirational Quotes -->
-  <div class="quotes-container">
-    <div class="quote-cards">
-      <div class="quote-card" *ngFor="let quote of [
-        {
-          text: 'Tình yêu không cần phải hoàn hảo, chỉ cần chân thành và cùng nhau trưởng thành',
-          author: 'Khuyết danh'
-        },
-        {
-          text: 'Yêu không phải là nhìn thấy điều hoàn hảo ở một ai đó mà là nhìn thấy sự không hoàn hảo một cách hoàn hảo',
-          author: 'Sam Keen'
-        },
-        {
-          text: 'Hạnh phúc là được nắm tay người mình yêu và cùng bước đi trên con đường dài của cuộc đời',
-          author: 'Khuyết danh'
-        }
-      ]">
-        <div class="quote-content">
-          <i class="pi pi-quote-right quote-icon"></i>
-          <p class="quote-text">{{ quote.text }}</p>
-          <p class="quote-author">- {{ quote.author }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> 
+</div> 

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
+import { Router } from '@angular/router';
 
 interface GalleryImage {
   src: string;
@@ -32,7 +33,7 @@ interface GalleryData {
 @Component({
   selector: 'app-memory-gallery',
   templateUrl: './memory-gallery.component.html',
-  styleUrls: ['./memory-gallery.component.scss'],
+  styleUrls: [ './memory-gallery.component.scss' ],
   standalone: true,
   imports: [
     CommonModule,
@@ -40,15 +41,20 @@ interface GalleryData {
     TooltipModule
   ]
 })
-export class MemoryGalleryComponent implements OnInit {
+export class MemoryGalleryComponent implements OnInit, OnDestroy {
   currentFilter: string = 'all';
-  viewMode: 'carousel' | 'masonry' | 'cards' = 'carousel';
+  viewMode: 'masonry' | 'cards' = 'masonry';
   displayedMemories: GalleryImage[] = [];
   galleryData!: GalleryData;
   loading: boolean = false;
   hasMoreImages: boolean = false;
   currentSlideIndex: number = 0;
   galleryControls: GalleryControl[] = [];
+
+  // Lightbox properties
+  lightboxActive: boolean = false;
+  selectedImage: GalleryImage | null = null;
+  currentLightboxIndex: number = 0;
 
   // Pagination
   private readonly itemsPerPage = 12;
@@ -88,38 +94,60 @@ export class MemoryGalleryComponent implements OnInit {
     }
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   ngOnInit() {
     this.loadGalleryData();
+    this.setupKeyboardListeners();
   }
 
   ngOnDestroy() {
     // this.stopAutoPlay(); // Removed as per edit hint
+    this.removeKeyboardListeners();
+  }
+
+  private setupKeyboardListeners() {
+    document.addEventListener('keydown', this.handleKeydown.bind(this));
+  }
+
+  private removeKeyboardListeners() {
+    document.removeEventListener('keydown', this.handleKeydown.bind(this));
+  }
+
+  private handleKeydown(event: KeyboardEvent) {
+    if (!this.lightboxActive) return;
+
+    switch (event.key) {
+      case 'Escape':
+        this.closeLightbox();
+        break;
+      case 'ArrowLeft':
+        event.preventDefault();
+        this.previousImage();
+        break;
+      case 'ArrowRight':
+        event.preventDefault();
+        this.nextImage();
+        break;
+    }
   }
 
   private loadGalleryData() {
     this.http.get<GalleryData>('assets/data/gallery-data.json').subscribe(data => {
       this.galleryData = data;
-      this.galleryControls = [
-        { id: 'all', title: 'Tất Cả', icon: data.config.icons['all'] },
-        ...data.galleries.map(gallery => ({
-          id: gallery.id,
-          title: gallery.title,
-          icon: data.config.icons[gallery.id]
-        }))
-      ];
+      this.setupGalleryControls();
       this.filterImages('all');
     });
   }
 
   private setupGalleryControls() {
     // Add the "All" control first
-    this.galleryControls = [{
+    this.galleryControls = [ {
       id: 'all',
       title: 'Tất cả',
       icon: this.galleryData.config.icons['all']
-    }];
+    } ];
 
     // Add controls for each gallery
     this.galleryData.galleries.forEach(gallery => {
@@ -133,40 +161,50 @@ export class MemoryGalleryComponent implements OnInit {
 
   filterImages(filterId: string) {
     this.currentFilter = filterId;
-    this.currentPage = 1; // Reset pagination when filter changes
-    
+    this.currentPage = 1;
+
+    let allImages: GalleryImage[] = [];
+
     if (filterId === 'all') {
-      this.displayedMemories = this.galleryData.galleries.reduce((all, gallery) => {
-        return [...all, ...gallery.images.map(img => ({
-          ...img,
-          galleryId: gallery.id
-        }))];
-      }, [] as (GalleryImage & { galleryId: string })[]);
+      allImages = this.galleryData.galleries.reduce((all, gallery) => {
+        return [ ...all, ...gallery.images ];
+      }, [] as GalleryImage[]);
     } else {
       const gallery = this.galleryData.galleries.find(g => g.id === filterId);
-      this.displayedMemories = gallery ? gallery.images.map(img => ({
-        ...img,
-        galleryId: gallery.id
-      })) : [];
+      allImages = gallery ? gallery.images : [];
     }
 
-    // Apply pagination
-    const startIndex = 0;
+    // Apply pagination - show first batch
     const endIndex = this.currentPage * this.itemsPerPage;
-    this.displayedMemories = this.displayedMemories.slice(startIndex, endIndex);
+    this.displayedMemories = allImages.slice(0, endIndex);
 
     // Check if there are more images to load
-    this.hasMoreImages = this.displayedMemories.length < this.displayedMemories.length; // This logic needs to be re-evaluated based on the new structure
+    this.hasMoreImages = allImages.length > endIndex;
+    this.currentSlideIndex = 0; // Reset carousel index
   }
 
   loadMore() {
     if (this.loading || !this.hasMoreImages) return;
 
     this.loading = true;
+
+    // Get all images for current filter
+    let allImages: GalleryImage[] = [];
+    if (this.currentFilter === 'all') {
+      allImages = this.galleryData.galleries.reduce((all, gallery) => {
+        return [ ...all, ...gallery.images ];
+      }, [] as GalleryImage[]);
+    } else {
+      const gallery = this.galleryData.galleries.find(g => g.id === this.currentFilter);
+      allImages = gallery ? gallery.images : [];
+    }
+
     // Simulate loading delay
     setTimeout(() => {
       this.currentPage++;
-      this.filterImages(this.currentFilter); // Re-apply filter to get the next set
+      const endIndex = this.currentPage * this.itemsPerPage;
+      this.displayedMemories = allImages.slice(0, endIndex);
+      this.hasMoreImages = allImages.length > endIndex;
       this.loading = false;
     }, 500);
   }
@@ -188,13 +226,39 @@ export class MemoryGalleryComponent implements OnInit {
     this.currentSlideIndex = index;
   }
 
-  changeView(mode: 'carousel' | 'masonry' | 'cards'): void {
+  changeView(mode: 'masonry' | 'cards'): void {
     this.viewMode = mode;
   }
 
   openLightbox(memory: GalleryImage) {
-    // Implement lightbox functionality here
-    console.log('Opening lightbox for:', memory);
+    this.selectedImage = memory;
+    this.currentLightboxIndex = this.displayedMemories.findIndex(img => img.src === memory.src);
+    this.lightboxActive = true;
+    
+    // Prevent body scroll when lightbox is open
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeLightbox() {
+    this.lightboxActive = false;
+    this.selectedImage = null;
+    
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
+  }
+
+  nextImage() {
+    if (this.currentLightboxIndex < this.displayedMemories.length - 1) {
+      this.currentLightboxIndex++;
+      this.selectedImage = this.displayedMemories[this.currentLightboxIndex];
+    }
+  }
+
+  previousImage() {
+    if (this.currentLightboxIndex > 0) {
+      this.currentLightboxIndex--;
+      this.selectedImage = this.displayedMemories[this.currentLightboxIndex];
+    }
   }
 
   onImageLoad(event: Event) {
@@ -206,11 +270,11 @@ export class MemoryGalleryComponent implements OnInit {
 
   getFilterCount(filterId: string): number {
     if (!this.galleryData) return 0;
-    
+
     if (filterId === 'all') {
       return this.galleryData.galleries.reduce((total, gallery) => total + gallery.images.length, 0);
     }
-    
+
     const gallery = this.galleryData.galleries.find(g => g.id === filterId);
     return gallery ? gallery.images.length : 0;
   }
@@ -223,5 +287,20 @@ export class MemoryGalleryComponent implements OnInit {
   clearFilter(): void {
     this.currentFilter = 'all';
     this.filterImages('all');
+  }
+
+  getTotalMemories(): number {
+    return this.displayedMemories.length;
+  }
+
+  getYearsCount(): number {
+    // Calculate years since a specific date, or return a default
+    const startYear = 2020; // Adjust this to your actual start year
+    const currentYear = new Date().getFullYear();
+    return currentYear - startYear + 1;
+  }
+
+  navigateToAlbum(): void {
+    this.router.navigate([ '/album-anh' ]);
   }
 }

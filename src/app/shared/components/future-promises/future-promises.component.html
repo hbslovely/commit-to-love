@@ -1,46 +1,101 @@
-<!-- Future Promises Section -->
-<div class="promises-section">
-  <!-- Main Content -->
-  <div class="content-container">
-    <!-- Header -->
+<!-- Modern Future Promises Section -->
+<div class="future-promises">
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="floating-promises">
+      <div class="promise-icon promise-1">🌟</div>
+      <div class="promise-icon promise-2">💕</div>
+      <div class="promise-icon promise-3">🏠</div>
+      <div class="promise-icon promise-4">✨</div>
+      <div class="promise-icon promise-5">💫</div>
+    </div>
+    <div class="sparkles">
+      <div class="sparkle" *ngFor="let i of [].constructor(12)"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Modern Header -->
     <div class="section-header">
-      <div class="title-group">
-        <i class="pi pi-heart-fill"></i>
-        <h2>Lời Hứa Cho Tương Lai</h2>
-      </div>
-      <div class="header-quote">
-        <p>"The future belongs to those who believe in the beauty of their dreams"</p>
-        <span>- Eleanor Roosevelt</span>
-      </div>
+      <h2 class="main-title">
+        <span class="title-gradient">Lời Hứa</span>
+        <span class="title-highlight">Tương Lai</span>
+      </h2>
+      <p class="subtitle">Những cam kết và ước mơ chúng ta sẽ cùng nhau thực hiện</p>
     </div>
 
     <!-- Promises Grid -->
     <div class="promises-grid">
-      <div class="promise-item" *ngFor="let promise of promises">
+      <div class="promise-card" *ngFor="let promise of promises; let i = index">
+        <div class="card-glow"></div>
+        
         <div class="promise-header">
-          <i [class]="'pi ' + promise.icon"></i>
-          <h3>{{ promise.title }}</h3>
-        </div>
-        <div class="promise-line"></div>
-        <p class="promise-text">{{ promise.description }}</p>
-        <div class="promise-tags">
-          <div class="tag" *ngFor="let tag of promise.tags">
-            <i class="pi pi-check"></i>
-            <span>{{ tag }}</span>
+          <div class="promise-icon">
+            <i class="pi" [ngClass]="promise.icon"></i>
           </div>
+          <div class="promise-number">{{ i + 1 }}</div>
+        </div>
+        
+        <div class="promise-content">
+          <h3 class="promise-title">{{ promise.title }}</h3>
+          <p class="promise-description">{{ promise.description }}</p>
+          
+          <div class="promise-tags" *ngIf="promise.tags && promise.tags.length">
+            <span class="tag" *ngFor="let tag of promise.tags">
+              <i class="pi pi-check"></i>
+              {{ tag }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="card-particles">
+          <div class="particle" *ngFor="let p of [].constructor(5)"></div>
         </div>
       </div>
     </div>
 
-    <!-- Footer Quote -->
-    <div class="footer-section">
-      <div class="quote-box">
-        <i class="pi pi-heart"></i>
-        <blockquote>
-          "Love is not about how many days, months, or years you have been together.
-          Love is about how much you love each other every single day"
+    <!-- Promise Stats -->
+    <div class="promise-stats">
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-star-fill"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">{{ promises?.length || 0 }}</span>
+          <span class="stat-label">Lời Hứa</span>
+        </div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-heart-fill"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Tình Yêu</span>
+        </div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-calendar"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">Mãi Mãi</span>
+          <span class="stat-label">Bên Nhau</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Love Quote -->
+    <div class="love-quote-section">
+      <div class="quote-card">
+        <div class="quote-decoration">
+          <i class="pi pi-star-fill"></i>
+        </div>
+        <blockquote class="quote-text">
+          "Tương lai thuộc về những ai tin vào vẻ đẹp của ước mơ và sự kiên định của tình yêu."
         </blockquote>
-        <span class="author">- Steve Maraboli</span>
       </div>
     </div>
   </div>

@@ -1,85 +1,92 @@
-<!-- Enhanced Header with Parallax and Blurred Avatar Backdrop -->
+<!-- Modern Parallax Header with Advanced Effects -->
 <div class="parallax-header">
-  <div class="avatar-backdrop"
-       [style.background-image]="'url(assets/images/anh-chu-dao/avatar-couple-back.png)'">
+  <!-- Animated Background Layers -->
+  <div class="background-layers">
+    <div class="gradient-overlay"></div>
+    <div class="avatar-backdrop"
+         [style.background-image]="'url(assets/images/anh-chu-dao/avatar-couple-back.png)'">
+    </div>
+    <div class="geometric-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
   </div>
 
+  <!-- Floating Particles -->
+  <div class="floating-particles">
+    <div class="particle" *ngFor="let i of [].constructor(20)"></div>
+  </div>
+
+  <!-- Main Content -->
   <div class="header-content">
-    <div class="title-wrapper">
-      <div class="title-decoration">
-        <span class="decoration-item">✦</span>
-        <span class="decoration-item">❀</span>
-        <span class="decoration-item">✦</span>
-      </div>
-      <h1 class="main-title text-center">Phát & Quyên</h1>
-      <div class="subtitle-line">
-        <span class="line"></span>
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="hero-badge">
         <i class="pi pi-heart-fill"></i>
-        <span class="line"></span>
+        <span>Love Story</span>
       </div>
-      <div class="title-decoration">
-        <span class="decoration-item">✦</span>
-        <span class="decoration-item">❀</span>
-        <span class="decoration-item">✦</span>
+      
+      <div class="hero-title-wrapper">
+        <h1 class="hero-title">
+          <span class="title-part">Phát</span>
+          <span class="title-connector">
+            <i class="pi pi-heart-fill"></i>
+          </span>
+          <span class="title-part">Quyên</span>
+        </h1>
+        <div class="hero-subtitle">
+          <span class="typing-text">{{ currentText }}</span>
+          <span class="cursor">|</span>
+        </div>
       </div>
-    </div>
 
-    <div class="time-counter">
-      <h2 class="subtitle">
-        <i class="pi pi-clock" style="color: #ff4b4b"></i>
-        Thời Gian Hạnh Phúc Bên Nhau
-      </h2>
-      <div class="counter-grid">
-        <!-- Days -->
-        <div class="counter-card">
-          <div class="flip-card">
-            <div class="number">{{ liveCounter.days }}</div>
-          </div>
-          <div class="label">NGÀY</div>
-        </div>
-
-        <!-- Hours -->
-        <div class="counter-card">
-          <div class="flip-card">
-            <div class="number">{{ liveCounter.hours.toString().padStart(2, '0') }}</div>
-          </div>
-          <div class="label">GIỜ</div>
-        </div>
-
-        <!-- Minutes -->
-        <div class="counter-card">
-          <div class="flip-card">
-            <div class="number">{{ liveCounter.minutes.toString().padStart(2, '0') }}</div>
-          </div>
-          <div class="label">PHÚT</div>
-        </div>
-
-        <!-- Seconds -->
-        <div class="counter-card">
-          <div class="flip-card">
-            <div class="number">{{ liveCounter.seconds.toString().padStart(2, '0') }}</div>
-          </div>
-          <div class="label">GIÂY</div>
+      <!-- Floating Avatar -->
+      <div class="floating-avatar">
+        <div class="avatar-container">
+          <div class="avatar-glow"></div>
+          <img src="assets/images/anh-chu-dao/avatar-couple.png" alt="Phát & Quyên">
+          <div class="avatar-ring"></div>
         </div>
       </div>
     </div>
 
-    <div class="bottom-avatar">
-      <div class="avatar-frame rainbow-border">
-        <img src="assets/images/anh-chu-dao/avatar-couple.png" alt="Phát & Quyên">
+    <!-- Counter Section -->
+    <div class="counter-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="pi pi-clock"></i>
+          Thời Gian Hạnh Phúc Bên Nhau
+        </h2>
+        <p class="section-subtitle">Mỗi giây phút đều là kỷ niệm đẹp</p>
       </div>
-      <div class="avatar-shadow"></div>
+
+      <div class="modern-counter">
+        <div class="counter-item" *ngFor="let item of counterItems; let i = index">
+          <div class="counter-card" [class.flip]="item.shouldFlip">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="number">{{ item.value }}</div>
+              </div>
+              <div class="card-back">
+                <div class="number">{{ item.value }}</div>
+              </div>
+            </div>
+            <div class="card-glow"></div>
+          </div>
+          <div class="counter-label">{{ item.label }}</div>
+        </div>
+      </div>
     </div>
 
-    <div class="love-message">
-      <i class="pi pi-heart-fill message-icon"></i>
-      <div class="message-content">
-        <p class="message-text">
-          "The best thing to hold onto in life is each other. Happiness is not a destination, it's a journey we share together."
-        </p>
-        <span class="message-author">- Audrey Hepburn</span>
-      </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator">
+    <div class="scroll-arrow">
+      <i class="pi pi-chevron-down"></i>
     </div>
+    <span class="scroll-text">Khám phá thêm</span>
   </div>
 </div>
 

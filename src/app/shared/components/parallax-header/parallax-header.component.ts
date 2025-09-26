@@ -28,6 +28,17 @@ export class ParallaxHeaderComponent implements OnInit, OnDestroy {
     seconds: 0
   };
 
+  counterItems: Array<{
+    value: string;
+    label: string;
+    shouldFlip: boolean;
+  }> = [
+    { value: '0', label: 'NGÀY', shouldFlip: false },
+    { value: '00', label: 'GIỜ', shouldFlip: false },
+    { value: '00', label: 'PHÚT', shouldFlip: false },
+    { value: '00', label: 'GIÂY', shouldFlip: false }
+  ];
+
   private counterInterval: any;
   private typingInterval: any;
   private previousValues = { ...this.liveCounter };
@@ -66,8 +77,36 @@ export class ParallaxHeaderComponent implements OnInit, OnDestroy {
     this.liveCounter.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     this.liveCounter.seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    // Thêm hiệu ứng lật
-    this.addFlipAnimation();
+    // Cập nhật counterItems với hiệu ứng flip
+    this.updateCounterItems();
+  }
+
+  private updateCounterItems() {
+    const values = [
+      this.liveCounter.days.toString(),
+      this.liveCounter.hours.toString().padStart(2, '0'),
+      this.liveCounter.minutes.toString().padStart(2, '0'),
+      this.liveCounter.seconds.toString().padStart(2, '0')
+    ];
+
+    const previousValues = [
+      this.previousValues.days.toString(),
+      this.previousValues.hours.toString().padStart(2, '0'),
+      this.previousValues.minutes.toString().padStart(2, '0'),
+      this.previousValues.seconds.toString().padStart(2, '0')
+    ];
+
+    values.forEach((value, index) => {
+      if (value !== previousValues[index]) {
+        this.counterItems[index].shouldFlip = true;
+        setTimeout(() => {
+          this.counterItems[index].value = value;
+          this.counterItems[index].shouldFlip = false;
+        }, 300);
+      } else {
+        this.counterItems[index].value = value;
+      }
+    });
   }
 
   private startTypingAnimation() {
@@ -84,19 +123,4 @@ export class ParallaxHeaderComponent implements OnInit, OnDestroy {
     }, 100);
   }
 
-  private addFlipAnimation() {
-    const flipCards = document.querySelectorAll('.flip-card');
-    
-    flipCards.forEach((card: Element, index) => {
-      const currentValue = Object.values(this.liveCounter)[index];
-      const previousValue = Object.values(this.previousValues)[index];
-      
-      if (currentValue !== previousValue) {
-        card.classList.add('flip');
-        setTimeout(() => {
-          card.classList.remove('flip');
-        }, 600); // Match với thời gian transition trong CSS
-      }
-    });
-  }
 }

@@ -1,42 +1,227 @@
-<!-- Meaningful Gifts Section -->
-<div class="gifts-section">
+<!-- Modern Meaningful Gifts Section -->
+<div class="meaningful-gifts">
+  <!-- Watermark Background Icons -->
+  <div class="bg-animation">
+    <div class="floating-shapes">
+      <div class="shape shape-1">
+        <i class="pi pi-gift"></i>
+      </div>
+      <div class="shape shape-2">
+        <i class="pi pi-heart-fill"></i>
+      </div>
+      <div class="shape shape-3">
+        <i class="pi pi-star-fill"></i>
+      </div>
+      <div class="shape shape-4">
+        <i class="pi pi-sparkles"></i>
+      </div>
+      <div class="shape shape-5">
+        <i class="pi pi-crown"></i>
+      </div>
+      <div class="shape shape-6">
+        <i class="pi pi-diamond"></i>
+      </div>
+    </div>
+    <div class="sparkles">
+      <div class="sparkle" *ngFor="let i of [].constructor(15)"></div>
+    </div>
+  </div>
+
   <div class="container">
-    <!-- Section Header -->
+    <!-- Modern Header -->
     <div class="section-header">
-      <div class="title-decoration">
-        <span class="line"></span>
-        <i class="pi pi-gift"></i>
-        <span class="line"></span>
+      <h2 class="main-title">
+        <span class="title-gradient">Những Món Quà</span>
+        <span class="title-highlight">Ý Nghĩa</span>
+      </h2>
+      <p class="subtitle">Mỗi món quà đều mang trong mình một câu chuyện tình yêu đặc biệt</p>
+      <div class="interaction-hint">
+        <i class="pi pi-hand-point-right"></i>
+        <span>Nhấn vào từng món quà để khám phá câu chuyện</span>
       </div>
-      <h2 class="section-title">Những Món Quà Yêu Thương</h2>
-      <p class="section-subtitle">Mỗi món quà là một kỷ niệm, một câu chuyện về tình yêu của chúng ta</p>
     </div>
 
-    <!-- Gifts Timeline -->
-    <div class="gifts-timeline">
-      <div class="gift-card" *ngFor="let gift of gifts">
-        <div class="gift-number">{{ gift.id }}</div>
-        <div class="gift-image">
-          <img [src]="gift.image" [alt]="gift.title">
+    <!-- Enhanced Gifts Grid -->
+    <div class="gifts-grid">
+      <div class="gift-card" *ngFor="let gift of gifts; let i = index"
+           [class.featured]="i === 0"
+           (click)="selectGift(gift)">
+        <div class="card-glow"></div>
+
+        <!-- Gift Image with Enhanced Overlay -->
+        <div class="gift-image" (click)="openLightbox(gift)">
+          <img [src]="gift.image" [alt]="gift.title" loading="lazy">
+          <div class="image-overlay">
+            <div class="overlay-content">
+              <div class="gift-date-overlay">{{ gift.date | date: 'dd/MM' }}</div>
+              <i class="pi pi-search-plus zoom-icon"></i>
+            </div>
+          </div>
+          <div class="gift-category">{{ gift.category || 'Đặc biệt' }}</div>
         </div>
+
+        <!-- Enhanced Gift Content -->
         <div class="gift-content">
-          <h3 class="gift-title">{{ gift.title }}</h3>
+          <div class="gift-header">
+            <h3 class="gift-title">{{ gift.title }}</h3>
+          </div>
+
           <p class="gift-description">{{ gift.description }}</p>
+
+          <!-- Gift Meta Info -->
+          <div class="gift-meta">
+            <div class="meta-item" *ngIf="gift.occasion">
+              <i class="pi pi-flag"></i>
+              <span>{{ gift.occasion }}</span>
+            </div>
+            <div class="meta-item" *ngIf="gift.sentiment">
+              <i class="pi pi-heart"></i>
+              <span>{{ gift.sentiment }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Particles -->
+        <div class="card-particles">
+          <div class="particle" *ngFor="let p of [].constructor(8)"></div>
         </div>
       </div>
     </div>
 
-    <!-- Bottom Decoration -->
-    <div class="bottom-decoration">
-      <div class="decoration-item">
-        <i class="pi pi-heart"></i>
+    <!-- Enhanced Gift Statistics -->
+    <div class="gift-stats">
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-gift"></i>
+          <div class="icon-sparkles">
+            <div class="sparkle-dot" *ngFor="let s of [].constructor(4)"></div>
+          </div>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">{{ gifts.length }}</span>
+          <span class="stat-label">Món Quà Trao Tặng</span>
+          <span class="stat-desc">Những món quà đặc biệt</span>
+        </div>
       </div>
-      <div class="decoration-item">
-        <i class="pi pi-gift"></i>
+
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-heart-fill"></i>
+          <div class="icon-sparkles">
+            <div class="sparkle-dot" *ngFor="let s of [].constructor(4)"></div>
+          </div>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Tình Yêu Chân Thành</span>
+          <span class="stat-desc">Từ trái tim đến trái tim</span>
+        </div>
       </div>
-      <div class="decoration-item">
-        <i class="pi pi-heart"></i>
+
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-star-fill"></i>
+          <div class="icon-sparkles">
+            <div class="sparkle-dot" *ngFor="let s of [].constructor(4)"></div>
+          </div>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Kỷ Niệm Vĩnh Cửu</span>
+          <span class="stat-desc">Mãi mãi trong tim</span>
+        </div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-calendar-plus"></i>
+          <div class="icon-sparkles">
+            <div class="sparkle-dot" *ngFor="let s of [].constructor(4)"></div>
+          </div>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">{{ getYearsOfGifts() }}</span>
+          <span class="stat-label">Năm Trao Tặng</span>
+          <span class="stat-desc">Hành trình yêu thương</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Love Quote Section -->
+    <div class="love-quote-section">
+      <div class="quote-card">
+        <div class="quote-decoration">
+          <i class="pi pi-gift"></i>
+        </div>
+        <blockquote class="quote-text">
+          "Món quà tốt nhất không phải là thứ đắt nhất, mà là thứ được trao tặng
+          với tất cả tình yêu thương và sự chân thành từ trái tim."
+        </blockquote>
       </div>
     </div>
   </div>
-</div> 
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" [class.active]="lightboxActive" (keydown.escape)="closeLightbox()">
+    <div class="lightbox-backdrop" (click)="closeLightbox()"></div>
+    <div class="lightbox-content" *ngIf="selectedImage">
+      <div class="lightbox-header">
+        <h3 class="lightbox-title">{{ selectedImage.title }}</h3>
+        <button class="close-btn" (click)="closeLightbox()" aria-label="Đóng">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+
+      <div class="lightbox-image">
+        <img [src]="selectedImage.image" [alt]="selectedImage.title" loading="lazy">
+
+        <!-- Navigation buttons -->
+        <button class="navigation-btn prev"
+                (click)="previousImage()"
+                [disabled]="currentLightboxIndex === 0"
+                *ngIf="gifts.length > 1"
+                aria-label="Ảnh trước">
+          <i class="pi pi-chevron-left"></i>
+        </button>
+
+        <button class="navigation-btn next"
+                (click)="nextImage()"
+                [disabled]="currentLightboxIndex === gifts.length - 1"
+                *ngIf="gifts.length > 1"
+                aria-label="Ảnh tiếp theo">
+          <i class="pi pi-chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="lightbox-description">
+        <div class="gift-meta-info">
+          <div class="gift-date-info">
+            <i class="pi pi-calendar"></i>
+            {{ selectedImage.date | date:'dd/MM/yyyy' }}
+          </div>
+          <div class="gift-category-info" *ngIf="selectedImage.category">
+            <i class="pi pi-tag"></i>
+            {{ selectedImage.category }}
+          </div>
+        </div>
+
+        <p class="description-text">{{ selectedImage.description }}</p>
+
+        <div class="gift-details" *ngIf="selectedImage.occasion || selectedImage.sentiment">
+          <div class="detail-item" *ngIf="selectedImage.occasion">
+            <i class="pi pi-flag"></i>
+            <span>{{ selectedImage.occasion }}</span>
+          </div>
+          <div class="detail-item" *ngIf="selectedImage.sentiment">
+            <i class="pi pi-heart"></i>
+            <span>{{ selectedImage.sentiment }}</span>
+          </div>
+        </div>
+
+        <div class="image-counter" *ngIf="gifts.length > 1">
+          <span class="counter-text">{{ currentLightboxIndex + 1 }} / {{ gifts.length }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

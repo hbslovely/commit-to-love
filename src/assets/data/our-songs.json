@@ -6,7 +6,8 @@
       "title": "Hơn Cả Yêu",
       "youtubeUrl": "https://www.youtube.com/watch?v=__kGJZ-kPno",
       "thumbnail": "https://img.youtube.com/vi/__kGJZ-kPno/0.jpg",
-      "category": "Tình yêu đầu"
+      "category": "Tình yêu đầu",
+      "story": "Bài hát đầu tiên chúng ta cùng nghe và yêu thích"
     },
     {
       "id": 2,
@@ -14,7 +15,8 @@
       "title": "Beautiful In White",
       "youtubeUrl": "https://www.youtube.com/watch?v=06-XXOTP3Gc",
       "thumbnail": "https://img.youtube.com/vi/06-XXOTP3Gc/0.jpg",
-      "category": "Đám cưới"
+      "category": "Đám cưới",
+      "story": "Bài hát trong ngày cưới của chúng ta"
     },
     {
       "id": 3,
@@ -22,7 +24,8 @@
       "title": "Làm Vợ Anh Nhé",
       "youtubeUrl": "https://www.youtube.com/watch?v=3sxk_GgpJpc",
       "thumbnail": "https://img.youtube.com/vi/3sxk_GgpJpc/0.jpg",
-      "category": "Cầu hôn"
+      "category": "Cầu hôn",
+      "story": "Bài hát anh dành để cầu hôn em"
     },
     {
       "id": 4,

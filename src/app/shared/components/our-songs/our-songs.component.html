@@ -1,20 +1,36 @@
-<!-- Our Songs Section -->
-<div class="songs-section">
+<!-- Modern Our Songs Section -->
+<div class="our-songs">
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="floating-notes">
+      <div class="note note-1">♪</div>
+      <div class="note note-2">♫</div>
+      <div class="note note-3">♪</div>
+      <div class="note note-4">♫</div>
+      <div class="note note-5">♪</div>
+    </div>
+    <div class="sparkles">
+      <div class="sparkle" *ngFor="let i of [].constructor(12)"></div>
+    </div>
+  </div>
+
   <div class="container">
+    <!-- Modern Header -->
     <div class="section-header">
-      <h2 class="section-title">
-        <i class="pi pi-music"></i>
-        Giai Điệu Tình Yêu
+      <h2 class="main-title">
+        <span class="title-gradient">Giai Điệu</span>
+        <span class="title-highlight">Tình Yêu</span>
       </h2>
-      <p class="section-subtitle">"Mỗi bài hát là một kỷ niệm, mỗi giai điệu là một câu chuyện tình"</p>
+      <p class="subtitle">Mỗi bài hát là một kỷ niệm, mỗi giai điệu là một câu chuyện tình</p>
     </div>
 
-    <div class="songs-container">
-      <!-- YouTube Player -->
-      <div class="player-wrapper">
-        <div class="player-section">
-          <div id="youtube-player">
+    <div class="music-container">
+      <!-- Video Player Section -->
+      <div class="video-section">
+        <div class="video-player">
+          <div class="video-wrapper">
             <iframe
+              *ngIf="currentSong"
               width="100%"
               height="100%"
               [src]="getCurrentVideoUrl()"
@@ -22,41 +38,111 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen>
             </iframe>
+            <div class="video-overlay" *ngIf="!currentSong">
+              <div class="overlay-content">
+                <i class="pi pi-music"></i>
+                <p>Chọn bài hát để bắt đầu nghe nhạc</p>
+              </div>
+            </div>
           </div>
-          <div class="current-song-info" *ngIf="currentSong">
-            <div class="song-details">
-              <h3 class="mt-0">{{ currentSong.title }}</h3>
-              <p class="mb-0">{{ currentSong.artist }}</p>
+          
+          <!-- Now Playing Info -->
+          <div class="now-playing" *ngIf="currentSong">
+            <div class="song-info">
+              <h3 class="song-title">{{ currentSong.title }}</h3>
+              <p class="song-artist">{{ currentSong.artist }}</p>
+              <span class="song-category">{{ currentSong.category }}</span>
+            </div>
+            <div class="equalizer">
+              <div class="bar bar-1"></div>
+              <div class="bar bar-2"></div>
+              <div class="bar bar-3"></div>
+              <div class="bar bar-4"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Song List -->
-      <div class="playlist-wrapper">
-        <div class="playlist-header">
-          <h3>Danh Sách Phát</h3>
+      <!-- Songs List Section -->
+      <div class="songs-list-section">
+        <div class="list-header">
+          <div class="header-info">
+            <i class="pi pi-music"></i>
+            <h3>Danh Sách Bài Hát</h3>
+          </div>
+          <div class="songs-count">{{ filteredSongs.length }} bài hát</div>
         </div>
 
-        <div class="songs-list">
-          <div class="song-item"
+        <div class="songs-grid">
+          <div class="song-card"
                *ngFor="let song of filteredSongs; let i = index"
                [class.active]="currentSong?.id === song.id"
                (click)="playSong(song)">
+            
+            <div class="card-glow"></div>
+            
+            <div class="song-number">{{ i + 1 }}</div>
+            
             <div class="song-thumbnail">
-              <img [src]="song.thumbnail" [alt]="song.title">
-              <div class="play-indicator">
-                <i class="pi" [ngClass]="currentSong?.id === song.id ? 'pi-pause' : 'pi-play'"></i>
+              <img [src]="song.thumbnail" [alt]="song.title" loading="lazy">
+              <div class="thumbnail-overlay">
+                <div class="play-button">
+                  <i class="pi" [ngClass]="currentSong?.id === song.id ? 'pi-pause' : 'pi-play'"></i>
+                </div>
+              </div>
+              <div class="playing-indicator" *ngIf="currentSong?.id === song.id">
+                <div class="wave wave-1"></div>
+                <div class="wave wave-2"></div>
+                <div class="wave wave-3"></div>
               </div>
             </div>
+
             <div class="song-content">
-              <div class="song-number">{{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}</div>
-              <div class="song-info">
-                <h4>{{ song.title }}</h4>
-                <p>{{ song.artist }}</p>
+              <div class="song-meta">
+                <h4 class="song-title">{{ song.title }}</h4>
+                <p class="song-artist">{{ song.artist }}</p>
+                <span class="song-category">{{ song.category }}</span>
               </div>
+              <p class="song-story" *ngIf="song.story">{{ song.story }}</p>
+            </div>
+
+            <div class="card-particles">
+              <div class="particle" *ngFor="let p of [].constructor(5)"></div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Music Stats -->
+    <div class="music-stats">
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-music"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">{{ filteredSongs.length }}</span>
+          <span class="stat-label">Bài Hát</span>
+        </div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-heart-fill"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Yêu Thương</span>
+        </div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-icon">
+          <i class="pi pi-clock"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label">Lắng Nghe</span>
         </div>
       </div>
     </div>
