@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { WelcomeDialogComponent } from './shared/components/welcome-dialog/welcome-dialog.component';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { filter } from 'rxjs/operators';
@@ -15,7 +16,8 @@ import { filter } from 'rxjs/operators';
     RouterOutlet,
     NavbarComponent,
     CommonModule,
-    FooterComponent
+    FooterComponent,
+    WelcomeDialogComponent
   ],
   animations: [
     trigger('routeAnimations', [

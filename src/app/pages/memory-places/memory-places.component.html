@@ -1,269 +1,435 @@
-<!-- Main Container -->
-<div class="memory-places-container" [class.filter-collapsed]="isFilterCollapsed">
-  <!-- Desktop Filter Toggle -->
-  <button
-    *ngIf="!isMobile"
-    class="desktop-filter-toggle"
-    (click)="toggleFilterCollapse()"
-    [class.collapsed]="isFilterCollapsed">
-    <i class="pi" [ngClass]="isFilterCollapsed ? 'pi-angle-right' : 'pi-angle-left'"></i>
-  </button>
+<!-- Modern Memory Places Container -->
+<div class="memory-places-wrapper">
+  <!-- Hero Header Section -->
+  <section class="hero-header">
+    <div class="hero-background">
+      <div class="hero-pattern"></div>
+      <div class="hero-gradient"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <i class="pi pi-heart"></i>
+          <span>Kỷ Niệm Yêu Thương</span>
+        </div>
+        <h1 class="hero-title">Địa Điểm Kỷ Niệm</h1>
+        <p class="hero-description">
+          Khám phá những nơi chúng tôi đã cùng nhau tạo nên những khoảnh khắc đẹp nhất
+        </p>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-number">{{ places.length }}</div>
+            <div class="stat-label">Địa điểm</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{ filteredPlaces.length }}</div>
+            <div class="stat-label">Hiển thị</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{ getActiveFilters().length }}</div>
+            <div class="stat-label">Bộ lọc</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="main-container">
+    <!-- Advanced Filter Sidebar -->
+    <aside class="filter-sidebar" [class.collapsed]="isFilterCollapsed">
+      <div class="filter-header">
+        <div class="filter-title">
+          <i class="pi pi-filter"></i>
+          <span>Bộ Lọc Thông Minh</span>
+        </div>
+        <button class="filter-toggle" (click)="toggleFilterCollapse()">
+          <i class="pi" [ngClass]="isFilterCollapsed ? 'pi-chevron-right' : 'pi-chevron-left'"></i>
+        </button>
+      </div>
+
+      <div class="filter-content" *ngIf="!isFilterCollapsed">
+        <!-- Quick Search -->
+        <div class="search-section">
+          <div class="search-box">
+            <i class="pi pi-search"></i>
+            <input
+              type="text"
+              [(ngModel)]="searchText"
+              (ngModelChange)="onSearch($event)"
+              placeholder="Tìm kiếm địa điểm..."
+              class="search-input">
+            <button *ngIf="searchText" class="clear-btn" (click)="clearSearch()">
+              <i class="pi pi-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Categories -->
+        <div class="filter-categories">
+          <!-- Location Type Filter -->
+          <div class="filter-group">
+            <h3 class="filter-group-title">
+              <i class="pi pi-globe"></i>
+              <span>Loại Địa Điểm</span>
+            </h3>
+            <div class="filter-options">
+              <label *ngFor="let type of locationTypes" class="filter-option">
+                <input
+                  type="checkbox"
+                  [value]="type.value"
+                  [checked]="selectedFilters.locationType.includes(type.value)"
+                  (change)="onLocationTypeChange(type.value, $event)">
+                <div class="option-content">
+                  <i [class]="type.icon"></i>
+                  <span>{{ type.label }}</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Region Filter -->
+          <div class="filter-group">
+            <h3 class="filter-group-title">
+              <i class="pi pi-map"></i>
+              <span>Khu Vực</span>
+            </h3>
+            <div class="filter-options">
+              <label *ngFor="let region of regions" class="filter-option">
+                <input
+                  type="checkbox"
+                  [value]="region.value"
+                  [checked]="selectedFilters.region.includes(region.value)"
+                  (change)="onRegionChange(region.value, $event)">
+                <div class="option-content">
+                  <i class="pi pi-map-marker"></i>
+                  <span>{{ region.label }}</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Features Filter -->
+          <div class="filter-group">
+            <h3 class="filter-group-title">
+              <i class="pi pi-star"></i>
+              <span>Đặc Trưng</span>
+            </h3>
+            <div class="filter-options">
+              <label *ngFor="let feature of features" class="filter-option">
+                <input
+                  type="checkbox"
+                  [value]="feature.value"
+                  [checked]="selectedFilters.features.includes(feature.value)"
+                  (change)="onFeatureChange(feature.value, $event)">
+                <div class="option-content">
+                  <i [class]="feature.icon"></i>
+                  <span>{{ feature.label }}</span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Actions -->
+        <div class="filter-actions">
+          <button class="reset-btn" (click)="resetFilters()" [disabled]="getActiveFilters().length === 0">
+            <i class="pi pi-refresh"></i>
+            <span>Đặt Lại</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content Area -->
+    <main class="content-area" [class.sidebar-collapsed]="isFilterCollapsed">
+      <!-- Active Filters & Controls -->
+      <div class="content-header">
+        <!-- Active Filters -->
+        <div class="active-filters" *ngIf="getActiveFilters().length > 0">
+          <div class="filters-info">
+            <span class="filters-count">{{ getActiveFilters().length }} bộ lọc đang áp dụng</span>
+            <button class="clear-all" (click)="resetFilters()">
+              <i class="pi pi-times"></i>
+              Xóa tất cả
+            </button>
+          </div>
+          <div class="filter-chips">
+            <div
+              *ngFor="let tag of getActiveFilters()"
+              class="filter-chip">
+              <span>{{ tag.label }}</span>
+              <i class="pi pi-times"
+                 (click)="removeFilter(tag)"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- View Controls -->
+        <div class="view-controls">
+          <div class="results-info">
+            <span class="results-count">{{ filteredPlaces.length }} kết quả</span>
+          </div>
+
+          <div class="control-buttons">
+            <div class="view-toggle">
+              <button
+                class="view-btn"
+                [class.active]="viewMode === 'grid'"
+                (click)="setViewMode('grid')">
+                <i class="pi pi-th-large"></i>
+              </button>
+              <button
+                class="view-btn"
+                [class.active]="viewMode === 'list'"
+                (click)="setViewMode('list')">
+                <i class="pi pi-list"></i>
+              </button>
+            </div>
+
+            <button class="sort-btn" (click)="toggleSort()">
+              <i class="pi" [ngClass]="getSortIcon()"></i>
+              <span>{{ getSortLabel() }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-container" *ngIf="loading">
+        <div class="loading-card">
+          <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+          </div>
+          <h3>Đang tải địa điểm...</h3>
+          <p>Vui lòng chờ trong giây lát</p>
+        </div>
+      </div>
+
+      <!-- Places Content -->
+      <div class="places-content" *ngIf="!loading">
+        <!-- Grid View -->
+        <div class="places-grid" *ngIf="viewMode === 'grid'">
+          <div
+            *ngFor="let place of paginatedPlaces; trackBy: trackByPlace"
+            class="place-card-modern"
+            (click)="navigateToDetail(place.id)">
+            <div class="card-image">
+              <img [src]="place.image" [alt]="place.name" loading="lazy">
+              <div class="image-overlay">
+                <div class="overlay-content">
+                  <i class="pi pi-eye"></i>
+                  <span>Xem chi tiết</span>
+                </div>
+              </div>
+              <div class="card-badge" *ngIf="place.features && place.features.length > 0">
+                <i class="pi" [ngClass]="getFeatureIcon(place.features[0])"></i>
+              </div>
+            </div>
+            <div class="card-content">
+              <div class="card-header">
+                <h3 class="card-title">{{ place.name }}</h3>
+                <div class="card-location">
+                  <i class="pi pi-map-marker"></i>
+                  <span>{{ place.location }}</span>
+                </div>
+              </div>
+              <p class="card-description">{{ place.description | slice:0:100 }}{{ place.description.length > 100 ? '...' : '' }}</p>
+              <div class="card-features" *ngIf="place.features && place.features.length > 0">
+                <span
+                  *ngFor="let feature of place.features.slice(0, 3)"
+                  class="feature-tag">
+                  {{ getFeatureLabel(feature) }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- List View -->
+        <div class="places-list-modern" *ngIf="viewMode === 'list'">
+          <div
+            *ngFor="let place of paginatedPlaces; trackBy: trackByPlace"
+            class="place-list-modern"
+            (click)="navigateToDetail(place.id)">
+            <div class="list-image">
+              <img [src]="place.image" [alt]="place.name" loading="lazy">
+              <div class="image-overlay">
+                <i class="pi pi-arrow-right"></i>
+              </div>
+            </div>
+            <div class="list-content">
+              <div class="list-header">
+                <h3 class="list-title">{{ place.name }}</h3>
+                <div class="list-location">
+                  <i class="pi pi-map-marker"></i>
+                  <span>{{ place.location }}</span>
+                </div>
+              </div>
+              <p class="list-description">{{ place.description }}</p>
+              <div class="list-features" *ngIf="place.features && place.features.length > 0">
+                <span
+                  *ngFor="let feature of place.features"
+                  class="feature-badge">
+                  <i class="pi" [ngClass]="getFeatureIcon(feature)"></i>
+                  {{ getFeatureLabel(feature) }}
+                </span>
+              </div>
+            </div>
+            <div class="list-action">
+              <button class="action-btn">
+                <i class="pi pi-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="filteredPlaces.length === 0">
+          <div class="empty-illustration">
+            <i class="pi pi-search"></i>
+          </div>
+          <h3 class="empty-title">Không tìm thấy địa điểm</h3>
+          <p class="empty-description">
+            Không có địa điểm nào phù hợp với tiêu chí tìm kiếm của bạn
+          </p>
+          <button class="empty-action" (click)="resetFilters()">
+            <i class="pi pi-refresh"></i>
+            <span>Đặt lại bộ lọc</span>
+          </button>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container" *ngIf="filteredPlaces.length > 0 && totalPages > 1">
+          <div class="pagination-info">
+            <span>
+              Hiển thị {{ (currentPage - 1) * itemsPerPage + 1 }} -
+              {{ Math.min(currentPage * itemsPerPage, totalItems) }}
+              trong số {{ totalItems }} địa điểm
+            </span>
+          </div>
+          <nav class="pagination-nav">
+            <button
+              class="page-btn prev"
+              [disabled]="currentPage === 1"
+              (click)="goToPreviousPage()">
+              <i class="pi pi-chevron-left"></i>
+            </button>
+
+            <div class="page-numbers">
+              <button
+                *ngFor="let page of getPageNumbers()"
+                class="page-btn"
+                [class.active]="page === currentPage"
+                (click)="goToPage(page)">
+                {{ page }}
+              </button>
+            </div>
+
+            <button
+              class="page-btn next"
+              [disabled]="currentPage === totalPages"
+              (click)="goToNextPage()">
+              <i class="pi pi-chevron-right"></i>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Mobile Filter Modal -->
+  <div class="mobile-filter-overlay" *ngIf="isMobile && !isFilterCollapsed" (click)="toggleFilterCollapse()">
+    <div class="mobile-filter-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Bộ Lọc Tìm Kiếm</h3>
+        <button class="modal-close" (click)="toggleFilterCollapse()">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+      <div class="modal-content">
+        <!-- Mobile Search -->
+        <div class="mobile-search">
+          <div class="search-box">
+            <i class="pi pi-search"></i>
+            <input
+              type="text"
+              [(ngModel)]="searchText"
+              (ngModelChange)="onSearch($event)"
+              placeholder="Tìm kiếm địa điểm..."
+              class="search-input">
+            <button *ngIf="searchText" class="clear-btn" (click)="clearSearch()">
+              <i class="pi pi-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Filter Groups -->
+        <div class="mobile-filter-groups">
+          <!-- Location Types -->
+          <div class="mobile-filter-group">
+            <h4>Loại Địa Điểm</h4>
+            <div class="mobile-options">
+              <button
+                *ngFor="let type of locationTypes"
+                class="mobile-option"
+                [class.selected]="selectedFilters.locationType.includes(type.value)"
+                (click)="toggleLocationTypeFilter(type.value)">
+                <i [class]="type.icon"></i>
+                <span>{{ type.label }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Regions -->
+          <div class="mobile-filter-group">
+            <h4>Khu Vực</h4>
+            <div class="mobile-options">
+              <button
+                *ngFor="let region of regions"
+                class="mobile-option"
+                [class.selected]="selectedFilters.region.includes(region.value)"
+                (click)="toggleRegionFilter(region.value)">
+                <i class="pi pi-map-marker"></i>
+                <span>{{ region.label }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Features -->
+          <div class="mobile-filter-group">
+            <h4>Đặc Trưng</h4>
+            <div class="mobile-options">
+              <button
+                *ngFor="let feature of features"
+                class="mobile-option"
+                [class.selected]="selectedFilters.features.includes(feature.value)"
+                (click)="toggleFeatureFilter(feature.value)">
+                <i [class]="feature.icon"></i>
+                <span>{{ feature.label }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="reset-mobile" (click)="resetFilters()" [disabled]="getActiveFilters().length === 0">
+          <i class="pi pi-refresh"></i>
+          Đặt lại
+        </button>
+        <button class="apply-mobile" (click)="toggleFilterCollapse()">
+          Áp dụng ({{ filteredPlaces.length }})
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Mobile Filter Toggle -->
-  <button
-    *ngIf="isMobile"
-    class="filter-toggle-btn"
-    (click)="toggleFilterCollapse()">
+  <button class="mobile-filter-toggle" *ngIf="isMobile" (click)="toggleFilterCollapse()">
     <i class="pi pi-filter"></i>
     <span>Bộ lọc</span>
     <div class="filter-count" *ngIf="getActiveFilters().length > 0">
       {{ getActiveFilters().length }}
     </div>
   </button>
-
-  <!-- Desktop Filter Sidebar -->
-  <aside class="filters-sidebar" [class.collapsed]="isFilterCollapsed" *ngIf="!isMobile">
-    <div class="filter-content">
-      <app-memory-places-filter
-        [locationTypes]="locationTypes"
-        [regions]="regions"
-        [features]="features"
-        [selectedFilters]="selectedFilters"
-        [searchText]="searchText"
-        [isResetting]="isResetting"
-        (filterChange)="onFilterChange($event)"
-        (searchChange)="onSearch($event)"
-        (resetFilters)="resetFilters()">
-      </app-memory-places-filter>
-    </div>
-  </aside>
-
-  <!-- Mobile Filter Modal -->
-  <div class="filter-modal" *ngIf="isMobile && !isFilterCollapsed" (click)="closeFilterModal($event)">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2>Bộ lọc tìm kiếm</h2>
-        <button class="close-modal" (click)="toggleFilterCollapse()">
-          <i class="pi pi-times"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <app-memory-places-filter
-          [locationTypes]="locationTypes"
-          [regions]="regions"
-          [features]="features"
-          [selectedFilters]="selectedFilters"
-          [searchText]="searchText"
-          [isResetting]="isResetting"
-          (filterChange)="toggleFilter($event.type, $event.value)"
-          (searchChange)="onSearch($event)"
-          (resetFilters)="resetFilters()">
-        </app-memory-places-filter>
-      </div>
-      <div class="modal-footer">
-        <button class="apply-filters" (click)="applyFiltersAndClose()">
-          <span>Áp dụng</span>
-          <div class="filter-count" *ngIf="getActiveFilters().length > 0">
-            {{ getActiveFilters().length }}
-          </div>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Content Area -->
-  <main class="main-content">
-
-    <!-- Content Header -->
-    <header class="content-header">
-      <div class="title-section">
-        <h1>Địa Điểm Kỷ Niệm</h1>
-        <div class="place-count">
-          <i class="pi pi-map-marker"></i>
-          <span>{{ filteredPlaces.length }} địa điểm</span>
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <button class="sort-btn" (click)="toggleSort()"
-                [title]="sortMode === 'none' ? 'Sắp xếp theo tên' : 'Thay đổi thứ tự sắp xếp'">
-          <i class="pi" [ngClass]="{
-            'pi-sort': sortMode === 'none',
-            'pi-sort-alpha-down': sortMode === 'asc',
-            'pi-sort-alpha-up': sortMode === 'desc'
-          }"></i>
-          <span>{{ sortMode === 'none' ? 'Sắp xếp' : sortMode === 'asc' ? 'A đến Z' : 'Z đến A' }}</span>
-        </button>
-
-        <div class="view-toggle">
-          <button
-            class="view-btn"
-            [class.active]="viewMode === 'grid'"
-            (click)="viewMode = 'grid'"
-            title="Xem dạng lưới">
-            <i class="pi pi-th-large"></i>
-          </button>
-          <button
-            class="view-btn"
-            [class.active]="viewMode === 'list'"
-            (click)="viewMode = 'list'"
-            title="Xem dạng danh sách">
-            <i class="pi pi-list"></i>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <!-- Selected Filters -->
-    <section class="selected-filters" *ngIf="hasActiveFilters()">
-      <div class="filter-tags">
-        <div class="filter-tag" *ngFor="let filter of getActiveFilters()">
-          <span>{{ filter.label }}</span>
-          <button class="remove-filter" (click)="removeFilter(filter)">
-            <i class="pi pi-times"></i>
-          </button>
-        </div>
-      </div>
-      <button class="clear-all-btn" (click)="resetFilters()">
-        <i class="pi pi-trash"></i>
-        <span>Xóa tất cả</span>
-      </button>
-    </section>
-
-    <!-- Loading State -->
-    <div class="loading-state" *ngIf="loading">
-      <div class="loading-spinner">
-        <i class="pi pi-spin pi-spinner"></i>
-      </div>
-      <p>Đang tải địa điểm...</p>
-    </div>
-
-    <!-- Places Display -->
-    <section class="places-container" *ngIf="!loading">
-
-
-      <!-- Places List -->
-      @if (viewMode === 'list') {
-        <div class="places-list list-view">
-          <div
-            *ngFor="let place of paginatedPlaces; trackBy: trackByPlace"
-            class="place-list-item"
-            role="link"
-            [attr.aria-label]="'Xem chi tiết ' + place.name"
-            (click)="navigateToDetail(place.id)">
-            <div class="place-image">
-              <img [src]="place.image" [alt]="place.name" loading="lazy">
-              <div class="image-overlay">
-                <i class="pi pi-eye"></i>
-                <span>Xem chi tiết</span>
-              </div>
-            </div>
-            <div class="place-content">
-              <div class="place-header">
-                <h3 class="place-name">{{ place.name }}</h3>
-                <div class="place-location">
-                  <i class="pi pi-map-marker"></i>
-                  <span>{{ place.location }}</span>
-                </div>
-              </div>
-              <p class="place-description">{{ place.description }}</p>
-              <div class="place-actions">
-                <i class="pi pi-arrow-right"></i>
-                <span>Xem chi tiết</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      } @else {
-        <!-- Grid View -->
-        <div class="places-grid">
-          <app-place-card
-            *ngFor="let place of paginatedPlaces; trackBy: trackByPlace"
-            [place]="place"
-            class="place-card-grid">
-          </app-place-card>
-        </div>
-      }
-
-      <!-- No Results -->
-      <div class="no-results" *ngIf="filteredPlaces.length === 0">
-        <div class="no-results-icon">
-          <i class="pi pi-search"></i>
-        </div>
-        <h3>Không tìm thấy địa điểm</h3>
-        <p>Không có địa điểm nào phù hợp với bộ lọc đã chọn</p>
-        <button class="reset-btn" (click)="resetFilters()">
-          <i class="pi pi-refresh"></i>
-          <span>Đặt lại bộ lọc</span>
-        </button>
-      </div>
-
-      <!-- Pagination Controls -->
-      <div class="pagination-section" *ngIf="filteredPlaces.length > 0 && totalPages > 1">
-        <div class="pagination-info">
-          <span>Hiển thị {{ (currentPage - 1) * itemsPerPage + 1 }}
-            - {{ currentPage * itemsPerPage > totalItems ? totalItems : currentPage * itemsPerPage }}
-            trong số {{ totalItems }} địa điểm</span>
-
-          <div class="items-per-page">
-            <label>Hiển thị:</label>
-            <select [value]="itemsPerPage" (change)="changeItemsPerPage(+$any($event.target).value)">
-              <option value="12">12</option>
-              <option value="24">24</option>
-              <option value="36">36</option>
-              <option value="48">48</option>
-            </select>
-            <span>/ trang</span>
-          </div>
-        </div>
-
-        <nav class="pagination-controls">
-          <button
-            class="pagination-btn first-btn"
-            [disabled]="currentPage === 1"
-            (click)="goToFirstPage()"
-            title="Trang đầu">
-            <i class="pi pi-angle-double-left"></i>
-          </button>
-
-          <button
-            class="pagination-btn prev-btn"
-            [disabled]="currentPage === 1"
-            (click)="goToPreviousPage()"
-            title="Trang trước">
-            <i class="pi pi-angle-left"></i>
-          </button>
-
-          <div class="page-numbers">
-            <button
-              *ngFor="let page of getPageNumbers()"
-              class="pagination-btn page-btn"
-              [class.active]="page === currentPage"
-              (click)="goToPage(page)">
-              {{ page }}
-            </button>
-          </div>
-
-          <button
-            class="pagination-btn next-btn"
-            [disabled]="currentPage === totalPages"
-            (click)="goToNextPage()"
-            title="Trang sau">
-            <i class="pi pi-angle-right"></i>
-          </button>
-
-          <button
-            class="pagination-btn last-btn"
-            [disabled]="currentPage === totalPages"
-            (click)="goToLastPage()"
-            title="Trang cuối">
-            <i class="pi pi-angle-double-right"></i>
-          </button>
-        </nav>
-      </div>
-
-    </section>
-
-  </main>
-
 </div>

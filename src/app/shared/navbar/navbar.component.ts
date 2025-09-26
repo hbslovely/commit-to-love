@@ -19,6 +19,7 @@ interface MenuItem {
 })
 export class NavbarComponent implements OnInit {
   isMobileMenuOpen = false;
+  isScrolled = false;
   menuItems: MenuItem[] = [];
 
   constructor(private http: HttpClient) {}
@@ -34,6 +35,18 @@ export class NavbarComponent implements OnInit {
       });
   }
 
+  @HostListener('window:scroll', ['$event'])
+  onScroll() {
+    this.isScrolled = window.scrollY > 50;
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    if (window.innerWidth > 768 && this.isMobileMenuOpen) {
+      this.closeMobileMenu();
+    }
+  }
+
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
     document.body.style.overflow = this.isMobileMenuOpen ? 'hidden' : '';
@@ -44,20 +57,18 @@ export class NavbarComponent implements OnInit {
     document.body.style.overflow = '';
   }
 
-  @HostListener('window:resize')
-  onResize() {
-    if (window.innerWidth > 768 && this.isMobileMenuOpen) {
-      this.closeMobileMenu();
-    }
+  trackByFn(index: number, item: MenuItem): string {
+    return item.link;
   }
 
   getShortText(text: string): string {
     const textMap: { [key: string]: string } = {
-      'Trang Chủ Yêu Thương': 'Xin Chào Bạn!',
+      'Trang Chủ Yêu Thương': 'Trang Chủ',
       'Chuyện Tình Đẹp': 'Về Chúng Tôi',
-      'Nàng Thơ Của Anh': 'Về Em Ấy',
-      'Chàng Trai Của Em': 'Về Anh Ấy',
+      'Nàng Thơ Của Anh': 'Thông Tin Vợ',
+      'Chàng Trai Của Em': 'Thông Tin Chồng',
       'Khoảnh Khắc Yêu Thương': 'Album Ảnh',
+      'Điểm Đến': 'Địa Điểm'
     };
     return textMap[text] || text;
   }

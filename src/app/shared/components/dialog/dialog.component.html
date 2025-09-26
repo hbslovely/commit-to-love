@@ -1,0 +1,178 @@
+<div class="dialog-overlay" *ngIf="dialogData" (click)="onOverlayClick($event)">
+  <div class="dialog-container" (click)="$event.stopPropagation()">
+    <!-- Dialog Header -->
+    <div class="dialog-header">
+      <h2 class="dialog-title">{{ dialogData.title }}</h2>
+      <button class="dialog-close" (click)="closeDialog()">
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+
+    <!-- Dialog Content -->
+    <div class="dialog-content">
+      <ng-container [ngSwitch]="dialogData.type">
+        
+        <!-- Love Statistics Dialog -->
+        <div *ngSwitchCase="'love-stats'" class="feature-content">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="pi pi-heart-fill"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number">2,095</div>
+                <div class="stat-label">Ngày Yêu Nhau</div>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="pi pi-images"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number">1,247</div>
+                <div class="stat-label">Ảnh Kỷ Niệm</div>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="pi pi-map-marker"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number">89</div>
+                <div class="stat-label">Địa Điểm</div>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="pi pi-star-fill"></i>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Tình Yêu</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="love-progress">
+            <h3>Mức Độ Hạnh Phúc</h3>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width]="'100%'"></div>
+            </div>
+            <p>Tình yêu của chúng ta luôn ở mức tối đa! 💖</p>
+          </div>
+        </div>
+
+        <!-- Calendar Dialog -->
+        <div *ngSwitchCase="'calendar'" class="feature-content">
+          <div class="calendar-container">
+            <h3>Những Ngày Đặc Biệt</h3>
+            <div class="event-list">
+              <div class="event-item">
+                <div class="event-date">
+                  <span class="day">14</span>
+                  <span class="month">Tháng 2</span>
+                </div>
+                <div class="event-info">
+                  <h4>Valentine's Day</h4>
+                  <p>Ngày lễ tình nhân đầu tiên của chúng ta</p>
+                </div>
+              </div>
+              
+              <div class="event-item">
+                <div class="event-date">
+                  <span class="day">01</span>
+                  <span class="month">Tháng 1</span>
+                </div>
+                <div class="event-info">
+                  <h4>Ngày Bắt Đầu</h4>
+                  <p>Ngày chúng ta chính thức yêu nhau</p>
+                </div>
+              </div>
+              
+              <div class="event-item">
+                <div class="event-date">
+                  <span class="day">25</span>
+                  <span class="month">Tháng 12</span>
+                </div>
+                <div class="event-info">
+                  <h4>Giáng Sinh</h4>
+                  <p>Giáng sinh đầu tiên bên nhau</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes Dialog -->
+        <div *ngSwitchCase="'notes'" class="feature-content">
+          <div class="notes-container">
+            <h3>Ghi Chú Yêu Thương</h3>
+            <div class="note-input">
+              <textarea 
+                placeholder="Viết ghi chú yêu thương của bạn..." 
+                rows="4"
+                [(ngModel)]="newNote">
+              </textarea>
+              <button class="add-note-btn" (click)="addNote()">
+                <i class="pi pi-plus"></i> Thêm Ghi Chú
+              </button>
+            </div>
+            
+            <div class="notes-list">
+              <div class="note-item" *ngFor="let note of notes">
+                <div class="note-content">{{ note.content }}</div>
+                <div class="note-date">{{ note.date | date:'dd/MM/yyyy' }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Share Dialog -->
+        <div *ngSwitchCase="'share'" class="feature-content">
+          <div class="share-container">
+            <h3>Chia Sẻ Kỷ Niệm</h3>
+            <p>Chia sẻ những khoảnh khắc đẹp với bạn bè</p>
+            
+            <div class="share-options">
+              <button class="share-btn facebook">
+                <i class="pi pi-facebook"></i>
+                Facebook
+              </button>
+              
+              <button class="share-btn instagram">
+                <i class="pi pi-instagram"></i>
+                Instagram
+              </button>
+              
+              <button class="share-btn link">
+                <i class="pi pi-link"></i>
+                Copy Link
+              </button>
+              
+              <button class="share-btn download">
+                <i class="pi pi-download"></i>
+                Tải Xuống
+              </button>
+            </div>
+            
+            <div class="share-preview">
+              <h4>Xem Trước</h4>
+              <div class="preview-card">
+                <div class="preview-image"></div>
+                <div class="preview-text">
+                  <h5>Kỷ Niệm Yêu Thương</h5>
+                  <p>Những khoảnh khắc đẹp nhất của chúng tôi</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </ng-container>
+    </div>
+  </div>
+</div>
+

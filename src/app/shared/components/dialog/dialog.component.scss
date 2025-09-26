@@ -1,0 +1,419 @@
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.dialog-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+  
+  @media (max-width: 768px) {
+    width: 95%;
+    max-height: 90vh;
+  }
+}
+
+.dialog-header {
+  background: linear-gradient(135deg, #1a4d3a 0%, #2d5a3d 50%, #22543d 100%);
+  color: white;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  .dialog-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  
+  .dialog-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.dialog-content {
+  padding: 2rem;
+  max-height: calc(80vh - 120px);
+  overflow-y: auto;
+}
+
+.feature-content {
+  h3 {
+    color: #22543d;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}
+
+// Love Statistics Styles
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-card {
+  background: #f7fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  border-left: 4px solid #68d391;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(104, 211, 145, 0.15);
+  }
+  
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(104, 211, 145, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    
+    i {
+      font-size: 1.5rem;
+      color: #68d391;
+    }
+  }
+  
+  .stat-info {
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #22543d;
+      line-height: 1;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: #4a5568;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+.love-progress {
+  background: #f7fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  
+  h3 {
+    margin-bottom: 1rem;
+    color: #22543d;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #68d391, #48bb78);
+      transition: width 0.5s ease;
+    }
+  }
+  
+  p {
+    margin: 0;
+    color: #4a5568;
+    font-style: italic;
+  }
+}
+
+// Calendar Styles
+.calendar-container {
+  .event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .event-item {
+    display: flex;
+    align-items: center;
+    background: #f7fafc;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid #68d391;
+    
+    .event-date {
+      background: #68d391;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-right: 1rem;
+      min-width: 80px;
+      
+      .day {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+      
+      .month {
+        display: block;
+        font-size: 0.8rem;
+        opacity: 0.9;
+      }
+    }
+    
+    .event-info {
+      h4 {
+        margin: 0 0 0.5rem 0;
+        color: #22543d;
+        font-size: 1.1rem;
+      }
+      
+      p {
+        margin: 0;
+        color: #4a5568;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+// Notes Styles
+.notes-container {
+  .note-input {
+    margin-bottom: 2rem;
+    
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: vertical;
+      margin-bottom: 1rem;
+      transition: border-color 0.3s ease;
+      
+      &:focus {
+        outline: none;
+        border-color: #68d391;
+      }
+      
+      &::placeholder {
+        color: #a0aec0;
+      }
+    }
+    
+    .add-note-btn {
+      background: #68d391;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      
+      &:hover {
+        background: #48bb78;
+        transform: translateY(-1px);
+      }
+    }
+  }
+  
+  .notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    .note-item {
+      background: #f7fafc;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      border-left: 3px solid #68d391;
+      
+      .note-content {
+        color: #2d3748;
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+      }
+      
+      .note-date {
+        color: #718096;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// Share Styles
+.share-container {
+  p {
+    color: #4a5568;
+    margin-bottom: 2rem;
+  }
+  
+  .share-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+    
+    .share-btn {
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      
+      &.facebook {
+        background: #3b5998;
+        color: white;
+        
+        &:hover {
+          background: #2d4373;
+        }
+      }
+      
+      &.instagram {
+        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        color: white;
+        
+        &:hover {
+          transform: translateY(-1px);
+        }
+      }
+      
+      &.link {
+        background: #4a5568;
+        color: white;
+        
+        &:hover {
+          background: #2d3748;
+        }
+      }
+      
+      &.download {
+        background: #68d391;
+        color: white;
+        
+        &:hover {
+          background: #48bb78;
+        }
+      }
+    }
+  }
+  
+  .share-preview {
+    h4 {
+      color: #22543d;
+      margin-bottom: 1rem;
+    }
+    
+    .preview-card {
+      background: #f7fafc;
+      padding: 1rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      
+      .preview-image {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #68d391, #48bb78);
+        border-radius: 8px;
+        margin-right: 1rem;
+      }
+      
+      .preview-text {
+        h5 {
+          margin: 0 0 0.5rem 0;
+          color: #22543d;
+        }
+        
+        p {
+          margin: 0;
+          color: #4a5568;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+

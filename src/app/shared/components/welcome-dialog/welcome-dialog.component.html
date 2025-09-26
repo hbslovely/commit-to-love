@@ -1,0 +1,137 @@
+<!-- Welcome Letter Dialog -->
+<div class="welcome-overlay" 
+     *ngIf="isVisible" 
+     @overlayAnimation
+     (click)="onOverlayClick($event)">
+  
+  <div class="welcome-dialog" @dialogAnimation>
+    <!-- Letter Header -->
+    <div class="letter-header">
+      <div class="letter-seal">
+        <i class="pi pi-heart-fill"></i>
+      </div>
+      <h2 class="letter-title">Thư Tình Gửi Bạn</h2>
+      <p class="letter-subtitle">Từ trái tim P & Q</p>
+    </div>
+
+    <!-- Letter Content -->
+    <div class="letter-content">
+      <!-- Left Side - Photo -->
+      <div class="letter-left">
+        <div class="couple-photo">
+          <img src="assets/images/anh-chu-dao/avatar-couple.png" alt="P & Q" />
+          <div class="photo-frame"></div>
+          <div class="photo-hearts">
+            <i class="pi pi-heart-fill heart-1"></i>
+            <i class="pi pi-heart heart-2"></i>
+            <i class="pi pi-heart-fill heart-3"></i>
+          </div>
+        </div>
+        
+        <div class="couple-names">
+          <div class="name-tag name-p">
+            <span class="name-letter">P</span>
+            <span class="name-label">Phát</span>
+          </div>
+          <div class="love-connector">
+            <i class="pi pi-heart-fill"></i>
+            <div class="love-line"></div>
+            <i class="pi pi-heart-fill"></i>
+          </div>
+          <div class="name-tag name-q">
+            <span class="name-letter">Q</span>
+            <span class="name-label">Quyên</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side - Message -->
+      <div class="letter-right">
+        <div class="greeting">
+          <div class="greeting-header">
+            <i class="pi pi-sparkle"></i>
+            <span class="greeting-title">Chào mừng bạn!</span>
+            <i class="pi pi-sparkle"></i>
+          </div>
+          
+          <div class="welcome-message">
+            <p>
+              Chào mừng bạn đến với không gian kỷ niệm yêu thương của chúng tôi! 
+              Đây là nơi lưu giữ những khoảnh khắc đẹp nhất, những câu chuyện 
+              tình yêu ngọt ngào và hành trình cùng nhau xây dựng hạnh phúc.
+            </p>
+          </div>
+        </div>
+
+        <div class="letter-signature">
+          <div class="signature-decoration">
+            <div class="deco-line"></div>
+            <i class="pi pi-heart-fill deco-heart"></i>
+            <div class="deco-line"></div>
+          </div>
+          
+          <div class="signature-content">
+            <div class="signature-text">
+              <i class="pi pi-heart"></i>
+              <span>Gửi bạn với trái tim đầy yêu thương</span>
+              <i class="pi pi-heart"></i>
+            </div>
+            <div class="signature-from">
+              <span class="from-text">Từ</span>
+              <div class="signature-names">
+                <span class="name name-p">P</span>
+                <i class="pi pi-heart-fill heart-separator"></i>
+                <span class="name name-q">Q</span>
+              </div>
+            </div>
+            <div class="signature-date">
+              <i class="pi pi-calendar"></i>
+              {{ getCurrentDate() }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Letter Footer -->
+    <div class="letter-footer">
+      <div class="decorative-line"></div>
+      <button class="close-button" (click)="closeDialog()">
+        <i class="pi pi-check"></i>
+        <span>Đã hiểu rồi, cảm ơn nhé!</span>
+      </button>
+      <div class="footer-note">
+        <i class="pi pi-info-circle"></i>
+        <span>Thư này chỉ hiển thị một lần duy nhất</span>
+      </div>
+    </div>
+
+    <!-- Watermark Background Icons -->
+    <div class="watermark-icons">
+      <div class="watermark-icon watermark-1">
+        <i class="pi pi-heart"></i>
+      </div>
+      <div class="watermark-icon watermark-2">
+        <i class="pi pi-star"></i>
+      </div>
+      <div class="watermark-icon watermark-3">
+        <i class="pi pi-heart-fill"></i>
+      </div>
+      <div class="watermark-icon watermark-4">
+        <i class="pi pi-sparkle"></i>
+      </div>
+      <div class="watermark-icon watermark-5">
+        <i class="pi pi-star-fill"></i>
+      </div>
+      <div class="watermark-icon watermark-6">
+        <i class="pi pi-heart"></i>
+      </div>
+      <div class="watermark-icon watermark-7">
+        <i class="pi pi-sun"></i>
+      </div>
+      <div class="watermark-icon watermark-8">
+        <i class="pi pi-moon"></i>
+      </div>
+    </div>
+  </div>
+</div>

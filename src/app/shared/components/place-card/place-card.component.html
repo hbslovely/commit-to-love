@@ -1,30 +1,72 @@
-<div class="place-card">
+<article class="place-card-professional" (click)="navigateToDetail()" [attr.aria-label]="'Xem chi tiết ' + place.name">
+  <!-- Card Header with Gradient -->
+  <div class="card-header-section">
+    <div class="header-gradient"></div>
+    <div class="header-content">
+      <div class="location-badge">
+        <i class="pi pi-map-marker"></i>
+        <span>{{ place.location }}</span>
+      </div>
+      <div class="feature-indicator" *ngIf="place.features && place.features.length > 0">
+        <i class="pi" [ngClass]="getFeatureIcon(place.features[0])"></i>
+      </div>
+    </div>
+  </div>
+
   <!-- Image Section -->
-  <div class="image-section">
-    <img [src]="place.image" [alt]="place.name">
+  <div class="card-image-container">
+    <div class="image-wrapper">
+      <img [src]="place.image" [alt]="place.name" loading="lazy">
+      <div class="image-gradient-overlay"></div>
+    </div>
+    
+    <!-- Hover Action Button -->
+    <div class="action-overlay">
+      <button class="action-button" type="button" [attr.aria-label]="'Xem chi tiết ' + place.name">
+        <i class="pi pi-arrow-right"></i>
+        <span>Khám phá</span>
+      </button>
+    </div>
   </div>
 
   <!-- Content Section -->
-  <div class="content-section">
-    <div class="watermark">
-      <i class="pi pi-map-marker"></i>
+  <div class="card-body">
+    <div class="content-main">
+      <h3 class="place-title">{{ place.name }}</h3>
+      <p class="place-description">
+        {{ place.description | slice:0:120 }}{{ place.description.length > 120 ? '...' : '' }}
+      </p>
     </div>
-    <h3 class="place-name">{{ place.name }}</h3>
-    <div class="location">
-      <i class="pi pi-compass"></i>
-      <span>{{ place.location }}</span>
+
+    <!-- Features Section -->
+    <div class="features-section" *ngIf="place.features && place.features.length > 0">
+      <div class="features-list">
+        <div 
+          *ngFor="let feature of place.features.slice(0, 4)" 
+          class="feature-chip"
+          [title]="getFeatureLabel(feature)">
+          <i class="pi" [ngClass]="getFeatureIcon(feature)"></i>
+          <span>{{ getFeatureLabel(feature) }}</span>
+        </div>
+      </div>
+      <div class="more-features" *ngIf="place.features.length > 4">
+        +{{ place.features.length - 4 }} thêm
+      </div>
+    </div>
+
+    <!-- Card Footer -->
+    <div class="card-footer">
+      <div class="view-details">
+        <span>Xem chi tiết</span>
+        <i class="pi pi-chevron-right"></i>
+      </div>
     </div>
   </div>
 
-  <!-- Hover Overlay -->
-  <div class="hover-overlay">
-    <div class="overlay-watermark">
-      <i class="pi pi-heart-fill"></i>
-    </div>
-    <p class="description">{{ place.description }}</p>
-    <a [routerLink]="['/place', place.id]" class="view-more">
-      <span>Xem chi tiết</span>
-      <i class="pi pi-arrow-right"></i>
-    </a>
+  <!-- Decorative Elements -->
+  <div class="card-decoration">
+    <div class="decoration-dot decoration-1"></div>
+    <div class="decoration-dot decoration-2"></div>
+    <div class="decoration-line"></div>
   </div>
-</div>
+</article>

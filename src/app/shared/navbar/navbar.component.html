@@ -1,89 +1,108 @@
-<!-- Main Navigation -->
-<nav class="navbar">
-  <!-- Background Effects -->
-  <div class="nav-background">
-    <div class="bg-pattern"></div>
-    <div class="bg-gradient"></div>
-    <div class="floating-particles">
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
+<!-- Modern Flat Navigation -->
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="navbar-container">
+    <!-- Brand Logo -->
+    <div class="navbar-brand">
+      <a routerLink="/chao-mung" class="brand-link" title="Kỷ Niệm Yêu Thương">
+        <div class="brand-avatar">
+          <img src="assets/images/anh-chu-dao/avatar-couple.png" alt="P&Q" />
+        </div>
+        <div class="brand-content">
+          <h1 class="brand-title">P&Q</h1>
+          <span class="brand-subtitle">Love Story</span>
+        </div>
+      </a>
     </div>
-    <div class="wave-animation">
-      <div class="wave wave1"></div>
-      <div class="wave wave2"></div>
-      <div class="wave wave3"></div>
+
+    <!-- Desktop Navigation Menu -->
+    <div class="navbar-menu">
+      <ul class="nav-list">
+        <li class="nav-item" *ngFor="let item of menuItems; trackBy: trackByFn">
+          <a [routerLink]="item.link"
+             routerLinkActive="active"
+             class="nav-link"
+             [title]="item.description">
+            <i [class]="item.icon" class="nav-icon"></i>
+            <span class="nav-label">{{ getShortText(item.text) }}</span>
+          </a>
+        </li>
+      </ul>
     </div>
-  </div>
 
-  <div class="container">
-    <!-- Logo/Home Link -->
-    <a routerLink="/chao-mung" class="brand" title="Trang chủ">
-      <div class="avatar-wrapper">
-        <img src="assets/images/anh-chu-dao/avatar-couple.png" alt="Avatar đôi" />
-        <div class="avatar-ring"></div>
-      </div>
-      <div class="brand-text">P&Q</div>
-    </a>
-
-    <!-- Desktop Navigation -->
-    <ul class="nav-menu">
-      <li class="nav-item" *ngFor="let item of menuItems">
-        <a [routerLink]="item.link"
-           routerLinkActive="active"
-           class="nav-link"
-           [title]="item.description">
-          <div class="icon-wrapper">
-            <i [class]="item.icon"></i>
-          </div>
-          <span class="nav-text">{{ getShortText(item.text) }}</span>
-          <div class="link-indicator"></div>
-        </a>
-      </li>
-    </ul>
-
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [class.active]="isMobileMenuOpen">
-      <span class="toggle-bar"></span>
-      <span class="toggle-bar"></span>
-      <span class="toggle-bar"></span>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-toggle" 
+            (click)="toggleMobileMenu()" 
+            [class.active]="isMobileMenuOpen"
+            aria-label="Toggle menu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
     </button>
   </div>
 </nav>
 
-<!-- Mobile Navigation Drawer -->
-<div class="mobile-nav-drawer" [class.open]="isMobileMenuOpen">
-  <div class="drawer-header">
-    <a routerLink="/chao-mung" class="mobile-brand" title="Trang chủ" (click)="closeMobileMenu()">
+<!-- Mobile Navigation Overlay -->
+<div class="mobile-overlay" 
+     [class.active]="isMobileMenuOpen" 
+     (click)="closeMobileMenu()">
+</div>
+
+<!-- Mobile Navigation Menu -->
+<div class="mobile-menu" [class.active]="isMobileMenuOpen">
+  <!-- Mobile Header -->
+  <div class="mobile-header">
+    <div class="mobile-brand">
       <div class="mobile-avatar">
-        <img src="assets/images/anh-chu-dao/avatar-couple.png" alt="Avatar đôi" />
+        <img src="assets/images/anh-chu-dao/avatar-couple.png" alt="P&Q" />
       </div>
-      <div class="mobile-brand-text">P&Q</div>
-    </a>
-    <button class="close-drawer" (click)="toggleMobileMenu()">
+      <div class="mobile-brand-info">
+        <h2 class="mobile-title">P&Q Love Story</h2>
+        <p class="mobile-tagline">Kỷ Niệm Yêu Thương</p>
+      </div>
+    </div>
+    <button class="mobile-close" (click)="closeMobileMenu()" aria-label="Close menu">
       <i class="pi pi-times"></i>
     </button>
   </div>
 
-  <div class="drawer-content">
-    <div class="mobile-menu-items">
-      <a *ngFor="let item of menuItems"
-         [routerLink]="item.link"
-         routerLinkActive="active"
-         class="mobile-menu-item"
-         [title]="item.description"
-         (click)="closeMobileMenu()">
-        <i [class]="item.icon"></i>
-        <span>{{ item.text }}</span>
-      </a>
+  <!-- Mobile Menu Items -->
+  <div class="mobile-nav-content">
+    <ul class="mobile-nav-list">
+      <li class="mobile-nav-item" *ngFor="let item of menuItems; trackBy: trackByFn">
+        <a [routerLink]="item.link"
+           routerLinkActive="active"
+           class="mobile-nav-link"
+           [title]="item.description"
+           (click)="closeMobileMenu()">
+          <div class="mobile-nav-icon">
+            <i [class]="item.icon"></i>
+          </div>
+          <div class="mobile-nav-content-text">
+            <span class="mobile-nav-title">{{ item.text }}</span>
+            <small class="mobile-nav-desc">{{ item.description }}</small>
+          </div>
+          <i class="pi pi-chevron-right mobile-nav-arrow"></i>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile Footer -->
+    <div class="mobile-footer">
+      <div class="mobile-stats">
+        <div class="stat-item">
+          <span class="stat-number">1,247</span>
+          <span class="stat-label">Kỷ Niệm</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">89</span>
+          <span class="stat-label">Địa Điểm</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">2,095</span>
+          <span class="stat-label">Ngày Yêu</span>
+        </div>
+      </div>
+      <p class="mobile-copyright">© 2025 P&Q Love Story</p>
     </div>
   </div>
-</div>
-
-<!-- Mobile Menu Overlay -->
-<div class="mobile-menu-overlay" 
-     [class.active]="isMobileMenuOpen" 
-     (click)="closeMobileMenu()">
 </div>

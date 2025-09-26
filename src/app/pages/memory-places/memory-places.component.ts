@@ -51,7 +51,7 @@ interface FilterTag {
 @Component({
   selector: 'app-memory-places',
   standalone: true,
-  imports: [CommonModule, PlaceCardComponent, FormsModule, MemoryPlacesFilterComponent, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './memory-places.component.html',
   styleUrls: ['./memory-places.component.scss']
 })
@@ -550,4 +550,104 @@ export class MemoryPlacesComponent implements OnInit {
       document.body.style.overflow = '';
     }
   }
+
+  // New methods for modern UI
+  clearSearch() {
+    this.searchText = '';
+    this.onSearch('');
+  }
+
+  getFeatureIcon(feature: string): string {
+    const featureObj = this.features.find(f => f.value === feature);
+    return featureObj ? featureObj.icon : 'pi pi-star';
+  }
+
+  getFeatureLabel(feature: string): string {
+    const featureObj = this.features.find(f => f.value === feature);
+    return featureObj ? featureObj.label : feature;
+  }
+
+  getSortIcon(): string {
+    switch (this.sortMode) {
+      case 'asc': return 'pi-sort-alpha-down';
+      case 'desc': return 'pi-sort-alpha-up';
+      default: return 'pi-sort';
+    }
+  }
+
+  getSortLabel(): string {
+    switch (this.sortMode) {
+      case 'asc': return 'A-Z';
+      case 'desc': return 'Z-A';
+      default: return 'Sắp xếp';
+    }
+  }
+
+  // Mobile filter toggle methods
+  toggleLocationTypeFilter(value: string) {
+    if (this.selectedFilters.locationType.includes(value)) {
+      this.selectedFilters.locationType = this.selectedFilters.locationType.filter(v => v !== value);
+    } else {
+      this.selectedFilters.locationType.push(value);
+    }
+    this.applyFilters();
+  }
+
+  toggleRegionFilter(value: string) {
+    if (this.selectedFilters.region.includes(value)) {
+      this.selectedFilters.region = this.selectedFilters.region.filter(v => v !== value);
+    } else {
+      this.selectedFilters.region.push(value);
+    }
+    this.applyFilters();
+  }
+
+  toggleFeatureFilter(value: string) {
+    if (this.selectedFilters.features.includes(value)) {
+      this.selectedFilters.features = this.selectedFilters.features.filter(v => v !== value);
+    } else {
+      this.selectedFilters.features.push(value);
+    }
+    this.applyFilters();
+  }
+
+  onLocationTypeChange(value: string, event: any) {
+    if (event.target.checked) {
+      if (!this.selectedFilters.locationType.includes(value)) {
+        this.selectedFilters.locationType.push(value);
+      }
+    } else {
+      this.selectedFilters.locationType = this.selectedFilters.locationType.filter(v => v !== value);
+    }
+    this.applyFilters();
+  }
+
+  onRegionChange(value: string, event: any) {
+    if (event.target.checked) {
+      if (!this.selectedFilters.region.includes(value)) {
+        this.selectedFilters.region.push(value);
+      }
+    } else {
+      this.selectedFilters.region = this.selectedFilters.region.filter(v => v !== value);
+    }
+    this.applyFilters();
+  }
+
+  onFeatureChange(value: string, event: any) {
+    if (event.target.checked) {
+      if (!this.selectedFilters.features.includes(value)) {
+        this.selectedFilters.features.push(value);
+      }
+    } else {
+      this.selectedFilters.features = this.selectedFilters.features.filter(v => v !== value);
+    }
+    this.applyFilters();
+  }
+
+  setViewMode(mode: 'grid' | 'list') {
+    this.viewMode = mode;
+  }
+
+  // Add Math reference for template
+  Math = Math;
 }
