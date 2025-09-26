@@ -1,91 +1,257 @@
-<div class="album-detail" *ngIf="album">
-  <app-album-detail-header
-    [title]="album.title"
-    [description]="album.description"
-    [coverImage]="album.coverImage"
-    [photoCount]="album.photos?.length ?? 0"
-    [previewPhotos]="getAlbumPreviewPhotos()">
-  </app-album-detail-header>
+<!-- Modern Album Detail Page -->
+<div class="album-detail-modern" *ngIf="album">
+  <!-- Hero Header -->
+  <section class="album-hero">
+    <div class="hero-background">
+      <img [src]="album.coverImage" [alt]="album.title" class="hero-bg-image">
+      <div class="hero-overlay"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-navigation">
+        <button class="nav-btn back-btn" (click)="goBack()" title="Quay lại">
+          <i class="pi pi-arrow-left"></i>
+          <span>Quay lại</span>
+        </button>
+        <div class="breadcrumb">
+          <span>Album</span>
+          <i class="pi pi-chevron-right"></i>
+          <span>{{ album.title }}</span>
+        </div>
+      </div>
+      
+      <div class="hero-info">
+        <div class="album-badge">
+          <i class="pi pi-images"></i>
+          <span>Album Ảnh</span>
+        </div>
+        <h1 class="album-title">{{ album.title }}</h1>
+        <p class="album-description">{{ album.description }}</p>
+        
+      </div>
+    </div>
+  </section>
 
-  <div class="view-controls">
-    <button class="view-btn" (click)="goBack()" title="Quay lại">
-      <div class="btn-content">
-        <i class="pi pi-arrow-left"></i>
-        <span>Quay lại</span>
+  <!-- Controls Section -->
+  <div class="controls-section">
+    <div class="controls-container">
+      <div class="view-controls">
+        <div class="control-group">
+          <label class="control-label">Chế độ xem:</label>
+          <div class="view-toggle">
+            <button 
+              class="view-btn"
+              [class.active]="viewMode === 'masonry'"
+              (click)="setViewMode('masonry')"
+              title="Xem dạng lưới">
+              <i class="pi pi-th-large"></i>
+              <span>Lưới</span>
+            </button>
+            <button 
+              class="view-btn"
+              [class.active]="viewMode === 'carousel'"
+              (click)="setViewMode('carousel')"
+              title="Xem dạng trình chiếu">
+              <i class="pi pi-play"></i>
+              <span>Slideshow</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="action-controls">
+          <button class="action-btn" (click)="toggleFullscreen()" title="Xem toàn màn hình">
+            <i class="pi pi-window-maximize"></i>
+            <span>Toàn màn hình</span>
+          </button>
+          <button class="action-btn" (click)="startSlideshow()" title="Bắt đầu slideshow">
+            <i class="pi pi-play"></i>
+            <span>Slideshow</span>
+          </button>
+          <button class="action-btn" (click)="downloadAlbum()" title="Tải album">
+            <i class="pi pi-download"></i>
+            <span>Tải về</span>
+          </button>
+        </div>
       </div>
-    </button>
-    <button class="view-btn" [class.active]="viewMode === 'masonry'" (click)="setViewMode('masonry')" title="Xem dạng lưới">
-      <div class="btn-content">
-        <i class="pi pi-images"></i>
-        <span>Lưới ảnh</span>
+      
+      <!-- Search and Filter -->
+      <div class="photo-controls" *ngIf="album.photos && album.photos.length > 12">
+        <div class="search-box">
+          <i class="pi pi-search"></i>
+          <input 
+            type="text" 
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="onSearchChange()"
+            placeholder="Tìm kiếm ảnh..."
+            class="search-input">
+          <button *ngIf="searchQuery" class="clear-btn" (click)="clearSearch()">
+            <i class="pi pi-times"></i>
+          </button>
+        </div>
       </div>
-    </button>
-    <button class="view-btn" [class.active]="viewMode === 'carousel'" (click)="setViewMode('carousel')" title="Xem dạng trình chiếu">
-      <div class="btn-content">
-        <i class="pi pi-camera"></i>
-        <span>Trình chiếu</span>
-      </div>
-    </button>
+    </div>
   </div>
 
-  <div class="container">
-
+  <!-- Photo Content -->
+  <div class="photos-container">
     <!-- Masonry View -->
-    <div class="photos-masonry" *ngIf="viewMode === 'masonry'">
-      <div class="masonry-column" *ngFor="let column of getMasonryColumns()">
-        <div class="photo-card" *ngFor="let photo of column" (click)="openPhotoViewer(photo)">
+    <div class="masonry-view" *ngIf="viewMode === 'masonry'">
+      <div class="masonry-grid">
+        <div 
+          *ngFor="let photo of getFilteredPhotos(); trackBy: trackByPhoto; let i = index"
+          class="photo-item-modern"
+          [style.animation-delay]="(i * 0.05) + 's'"
+          (click)="openPhotoViewer(photo, i)">
+          
           <div class="photo-wrapper">
-            <img [src]="photo.url" [alt]="photo.title" title="Click to view fullscreen">
+            <img [src]="photo.url" [alt]="photo.title" loading="lazy">
             <div class="photo-overlay">
-              <div class="photo-info">
-                <h4>{{ photo.title }}</h4>
-                <p *ngIf="photo.description">{{ photo.description }}</p>
-              </div>
-              <div class="fullscreen-hint">
-                <i class="pi pi-search-plus"></i>
-                <span>Click to enlarge</span>
+              <div class="overlay-content">
+                <div class="photo-actions">
+                  <button class="action-icon" title="Xem chi tiết">
+                    <i class="pi pi-eye"></i>
+                  </button>
+                  <button class="action-icon" title="Chia sẻ" (click)="sharePhoto(photo, $event)">
+                    <i class="pi pi-share-alt"></i>
+                  </button>
+                </div>
+                <div class="photo-info">
+                  <h4 class="photo-title">{{ photo.title }}</h4>
+                  <p class="photo-desc" *ngIf="photo.description">{{ photo.description | slice:0:60 }}{{ photo.description.length > 60 ? '...' : '' }}</p>
+                </div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>
     </div>
 
     <!-- Carousel View -->
-    <div class="photos-carousel" *ngIf="viewMode === 'carousel'">
-      <div class="carousel-hint">
-        <i class="pi pi-info-circle"></i>
-        <span>Click on any image to view fullscreen</span>
+    <div class="carousel-view" *ngIf="viewMode === 'carousel'">
+      <div class="carousel-container">
+        <div class="carousel-main">
+          <button class="carousel-nav prev" (click)="prevCarouselPhoto()" [disabled]="currentPhotoIndex === 0">
+            <i class="pi pi-chevron-left"></i>
+          </button>
+          
+          <div class="main-photo">
+            <img 
+              [src]="currentPhoto?.url" 
+              [alt]="currentPhoto?.title"
+              class="main-image">
+            <div class="photo-info-overlay">
+              <h3>{{ currentPhoto?.title }}</h3>
+              <p *ngIf="currentPhoto?.description">{{ currentPhoto?.description }}</p>
+              <div class="photo-meta">
+                <span>{{ currentPhotoIndex + 1 }} / {{ filteredPhotosLength }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <button class="carousel-nav next" (click)="nextCarouselPhoto()" [disabled]="currentPhotoIndex === filteredPhotosLength - 1">
+            <i class="pi pi-chevron-right"></i>
+          </button>
+        </div>
+        
+        <!-- Thumbnails -->
+        <div class="carousel-thumbnails">
+          <div class="thumbnails-scroll">
+            <div 
+              *ngFor="let photo of getFilteredPhotos(); let i = index"
+              class="thumbnail-item"
+              [class.active]="i === currentPhotoIndex"
+              (click)="setCurrentPhoto(i)">
+              <img [src]="photo.url" [alt]="photo.title">
+            </div>
+          </div>
+        </div>
       </div>
-      <app-album-gallery
-        [images]="albumPhotos"
-        (imageClick)="onCarouselImageClick($event)">
-      </app-album-gallery>
+    </div>
+
+
+    <!-- Empty State -->
+    <div class="empty-photos" *ngIf="getFilteredPhotos().length === 0 && searchQuery">
+      <div class="empty-illustration">
+        <i class="pi pi-search"></i>
+      </div>
+      <h3>Không tìm thấy ảnh</h3>
+      <p>Không có ảnh nào phù hợp với từ khóa "{{ searchQuery }}"</p>
+      <button class="clear-search-btn" (click)="clearSearch()">
+        <i class="pi pi-times"></i>
+        Xóa tìm kiếm
+      </button>
     </div>
   </div>
 </div>
 
-<!-- Photo Viewer -->
-<div class="photo-viewer" *ngIf="selectedPhoto" (click)="closePhotoViewer()">
-  <div class="viewer-content" (click)="$event.stopPropagation()">
-    <button class="close-btn" (click)="closePhotoViewer()">
-      <i class="pi pi-times"></i>
-    </button>
-
-    <button class="nav-btn prev" *ngIf="canNavigatePrev()" (click)="prevPhoto($event)">
-      <i class="pi pi-chevron-left"></i>
-    </button>
-
-    <div class="photo-container">
-      <img [src]="selectedPhoto.url" [alt]="selectedPhoto.title">
-      <div class="photo-info">
+<!-- Enhanced Photo Viewer -->
+<div class="photo-viewer-modern" *ngIf="selectedPhoto" (click)="closePhotoViewer()">
+  <div class="viewer-overlay"></div>
+  <div class="viewer-container" (click)="$event.stopPropagation()">
+    <!-- Viewer Header -->
+    <div class="viewer-header">
+      <div class="viewer-info">
         <h3>{{ selectedPhoto.title }}</h3>
-        <p *ngIf="selectedPhoto.description">{{ selectedPhoto.description }}</p>
+        <p class="viewer-description" *ngIf="selectedPhoto.description">{{ selectedPhoto.description }}</p>
+        <p class="viewer-counter">{{ selectedPhotoIndex + 1 }} / {{ filteredPhotosLength }}</p>
+      </div>
+      <div class="viewer-actions">
+        <button class="viewer-btn" (click)="sharePhoto(selectedPhoto)" title="Chia sẻ">
+          <i class="pi pi-share-alt"></i>
+        </button>
+        <button class="viewer-btn" (click)="downloadPhoto(selectedPhoto)" title="Tải về">
+          <i class="pi pi-download"></i>
+        </button>
+        <button class="viewer-btn close-btn" (click)="closePhotoViewer()" title="Đóng">
+          <i class="pi pi-times"></i>
+        </button>
       </div>
     </div>
 
-    <button class="nav-btn next" *ngIf="canNavigateNext()" (click)="nextPhoto($event)">
+    <!-- Navigation -->
+    <button class="viewer-nav prev" *ngIf="canNavigatePrev()" (click)="prevPhoto($event)">
+      <i class="pi pi-chevron-left"></i>
+    </button>
+    <button class="viewer-nav next" *ngIf="canNavigateNext()" (click)="nextPhoto($event)">
       <i class="pi pi-chevron-right"></i>
     </button>
+
+    <!-- Main Image -->
+    <div class="viewer-content">
+      <img [src]="selectedPhoto.url" [alt]="selectedPhoto.title" class="viewer-image">
+    </div>
+
+    <!-- Thumbnails Navigation -->
+    <div class="viewer-thumbnails">
+      <div class="thumbnails-container">
+        <div 
+          *ngFor="let photo of getFilteredPhotos(); let i = index"
+          class="viewer-thumbnail"
+          [class.active]="i === selectedPhotoIndex"
+          (click)="selectPhoto(i)">
+          <img [src]="photo.url" [alt]="photo.title">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slideshow Mode -->
+<div class="slideshow-mode" *ngIf="isSlideshow" (click)="stopSlideshow()">
+    <div class="slideshow-content">
+      <img [src]="currentSlideshowPhoto?.url" [alt]="currentSlideshowPhoto?.title">
+      <div class="slideshow-info">
+        <h3>{{ currentSlideshowPhoto?.title }}</h3>
+        <p class="slideshow-progress">{{ slideshowIndex + 1 }} / {{ filteredPhotosLength }}</p>
+      </div>
+    <div class="slideshow-controls">
+      <button (click)="pauseSlideshow(); $event.stopPropagation()">
+        <i class="pi" [ngClass]="slideshowPaused ? 'pi-play' : 'pi-pause'"></i>
+      </button>
+      <button (click)="stopSlideshow(); $event.stopPropagation()">
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
   </div>
 </div>
