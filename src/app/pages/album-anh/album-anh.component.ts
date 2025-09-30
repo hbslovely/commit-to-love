@@ -7,7 +7,7 @@ import { Album, AlbumData, AlbumDataResponse } from '../../shared/models';
 @Component({
   selector: 'app-album-anh',
   standalone: true,
-  imports: [ CommonModule, FormsModule ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './album-anh.component.html',
   styleUrls: ['./album-anh.component.scss']
 })
@@ -17,6 +17,11 @@ export class AlbumAnhComponent implements OnInit {
   sortBy: 'default' | 'name' | 'photos' | 'date' = 'default';
   previewPhotos: string[] = [];
   favoriteAlbums: Set<string> = new Set();
+  
+  // New properties for professional header
+  searchQuery: string = '';
+  currentFilter: 'all' | 'recent' | 'favorites' = 'all';
+  isSortOpen: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -49,9 +54,6 @@ export class AlbumAnhComponent implements OnInit {
     return shuffled.slice(0, count);
   }
 
-  openAlbum(id: string) {
-    this.router.navigate(['/album-anh', id]);
-  }
 
   // New methods for enhanced functionality
   getYearsOfMemories(): number {
@@ -139,5 +141,54 @@ export class AlbumAnhComponent implements OnInit {
       // Fallback: copy to clipboard
       navigator.clipboard.writeText(window.location.href + '/' + album.id);
     }
+  }
+
+  // New methods for professional header
+  onSearchChange(): void {
+    // Implement search functionality
+    console.log('Search query:', this.searchQuery);
+  }
+
+  clearSearch(): void {
+    this.searchQuery = '';
+    this.onSearchChange();
+  }
+
+  setFilter(filter: 'all' | 'recent' | 'favorites'): void {
+    this.currentFilter = filter;
+    // Implement filter logic
+  }
+
+  toggleSort(): void {
+    this.isSortOpen = !this.isSortOpen;
+  }
+
+  setSortBy(sortBy: 'default' | 'name' | 'photos' | 'date'): void {
+    this.sortBy = sortBy;
+    this.isSortOpen = false;
+    this.onSortChange();
+  }
+
+  getSortLabel(): string {
+    switch (this.sortBy) {
+      case 'name': return 'Theo tên';
+      case 'photos': return 'Số lượng ảnh';
+      case 'date': return 'Ngày tạo';
+      default: return 'Mặc định';
+    }
+  }
+
+  refreshAlbums(): void {
+    // Implement refresh functionality
+    this.ngOnInit();
+  }
+
+  createNewAlbum(): void {
+    // Implement create new album functionality
+    console.log('Create new album');
+  }
+
+  openAlbum(albumId: string): void {
+    this.router.navigate(['/album-anh', albumId]);
   }
 }

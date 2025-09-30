@@ -39,6 +39,18 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
   // Liked photos
   likedPhotos: Set<string> = new Set();
   
+  // Mobile-specific properties
+  isMobileMenuOpen: boolean = false;
+  isInfoExpanded: boolean = false;
+  isViewerMenuOpen: boolean = false;
+  
+  // Touch handling
+  private touchStartX: number = 0;
+  private touchStartY: number = 0;
+  private touchStartTime: number = 0;
+  private swipeThreshold: number = 50;
+  private tapThreshold: number = 10;
+  
   // Computed properties for better performance
   get currentPhoto(): Photo | undefined {
     return this.filteredPhotos[this.currentPhotoIndex];
@@ -154,10 +166,112 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
   goBack() {
     this.router.navigate(['/album-anh']);
   }
+  
+  // Mobile menu methods
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+  
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+  }
+  
+  toggleViewerMenu(): void {
+    this.isViewerMenuOpen = !this.isViewerMenuOpen;
+  }
+  
+  toggleInfoPanel(): void {
+    this.isInfoExpanded = !this.isInfoExpanded;
+  }
+  
+  shareAlbum(): void {
+    if (navigator.share && this.album) {
+      navigator.share({
+        title: this.album.title,
+        text: this.album.description,
+        url: window.location.href
+      }).catch(console.error);
+    }
+  }
 
   // New enhanced methods
   setViewMode(mode: 'masonry' | 'carousel'): void {
     this.viewMode = mode;
+  }
+  
+  // Touch event handlers for photos
+  onPhotoTouchStart(event: TouchEvent, photo: Photo, index: number): void {
+    const touch = event.touches[0];
+    this.touchStartX = touch.clientX;
+    this.touchStartY = touch.clientY;
+    this.touchStartTime = Date.now();
+  }
+  
+  onPhotoTouchEnd(event: TouchEvent): void {
+    // Handle tap vs long press for mobile interactions
+    const touchDuration = Date.now() - this.touchStartTime;
+    if (touchDuration < 300) {
+      // Quick tap - open photo viewer (handled by click event)
+    }
+  }
+  
+  // Touch event handlers for carousel
+  onCarouselTouchStart(event: TouchEvent): void {
+    const touch = event.touches[0];
+    this.touchStartX = touch.clientX;
+    this.touchStartY = touch.clientY;
+  }
+  
+  onCarouselTouchMove(event: TouchEvent): void {
+    event.preventDefault(); // Prevent scrolling
+  }
+  
+  onCarouselTouchEnd(event: TouchEvent): void {
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - this.touchStartX;
+    const deltaY = Math.abs(touch.clientY - this.touchStartY);
+    
+    // Only handle horizontal swipes
+    if (Math.abs(deltaX) > this.swipeThreshold && deltaY < this.swipeThreshold) {
+      if (deltaX > 0 && this.currentPhotoIndex > 0) {
+        // Swipe right - previous photo
+        this.prevCarouselPhoto();
+      } else if (deltaX < 0 && this.currentPhotoIndex < this.filteredPhotosLength - 1) {
+        // Swipe left - next photo
+        this.nextCarouselPhoto();
+      }
+    }
+  }
+  
+  // Touch event handlers for photo viewer
+  onViewerTouchStart(event: TouchEvent): void {
+    const touch = event.touches[0];
+    this.touchStartX = touch.clientX;
+    this.touchStartY = touch.clientY;
+  }
+  
+  onViewerTouchMove(event: TouchEvent): void {
+    event.preventDefault(); // Prevent scrolling
+  }
+  
+  onViewerTouchEnd(event: TouchEvent): void {
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - this.touchStartX;
+    const deltaY = Math.abs(touch.clientY - this.touchStartY);
+    
+    // Handle swipe gestures
+    if (Math.abs(deltaX) > this.swipeThreshold && deltaY < this.swipeThreshold) {
+      if (deltaX > 0 && this.canNavigatePrev()) {
+        // Swipe right - previous photo
+        this.prevPhoto(event as any);
+      } else if (deltaX < 0 && this.canNavigateNext()) {
+        // Swipe left - next photo
+        this.nextPhoto(event as any);
+      }
+    } else if (Math.abs(deltaX) < this.tapThreshold && deltaY < this.tapThreshold) {
+      // Tap to toggle info panel
+      this.toggleInfoPanel();
+    }
   }
 
   // Search functionality

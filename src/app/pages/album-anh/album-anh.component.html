@@ -52,46 +52,164 @@
 
   <!-- Main Content -->
   <div class="main-container">
-    <!-- Content Header -->
-    <div class="content-header">
-      <div class="header-info">
-        <h2 class="section-title">Bộ Sưu Tập</h2>
-        <p class="section-subtitle">{{ albums.length }} album với {{ getTotalPhotos() }} khoảnh khắc đẹp</p>
+    <!-- Professional Content Header -->
+    <div class="content-header-professional">
+      <!-- Header Top Section -->
+      <div class="header-top">
+        <div class="header-main">
+          <div class="title-section">
+            <div class="title-wrapper">
+              <div class="title-icon">
+                <i class="pi pi-folder-open"></i>
+              </div>
+              <div class="title-content">
+                <h2 class="section-title">Bộ Sưu Tập</h2>
+                <div class="title-underline"></div>
+              </div>
+            </div>
+            <p class="section-subtitle">
+              <span class="highlight-number">{{ albums.length }}</span> album với 
+              <span class="highlight-number">{{ getTotalPhotos() }}</span> khoảnh khắc đẹp
+            </p>
+          </div>
+          
+          <!-- Quick Stats -->
+          <div class="quick-stats">
+            <div class="stat-item">
+              <div class="stat-icon">
+                <i class="pi pi-images"></i>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number">{{ albums.length }}</span>
+                <span class="stat-label">Albums</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">
+                <i class="pi pi-camera"></i>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number">{{ getTotalPhotos() }}</span>
+                <span class="stat-label">Photos</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">
+                <i class="pi pi-heart"></i>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number">{{ getYearsOfMemories() }}</span>
+                <span class="stat-label">Years</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       
-      <!-- View Controls -->
-      <div class="view-controls">
-        <div class="control-group">
-          <label class="control-label">Hiển thị:</label>
-          <div class="view-toggle">
-            <button 
-              class="view-btn"
-              [class.active]="viewMode === 'grid'"
-              (click)="viewMode = 'grid'"
-              title="Xem dạng lưới">
-              <i class="pi pi-th-large"></i>
-              <span>Lưới</span>
-            </button>
-            <button 
-              class="view-btn"
-              [class.active]="viewMode === 'list'"
-              (click)="viewMode = 'list'"
-              title="Xem dạng danh sách">
+      <!-- Header Controls Section -->
+      <div class="header-controls">
+        <div class="controls-left">
+          <!-- Search Bar -->
+          <div class="search-container">
+            <div class="search-box">
+              <i class="pi pi-search search-icon"></i>
+              <input 
+                type="text" 
+                placeholder="Tìm kiếm album..." 
+                class="search-input"
+                [(ngModel)]="searchQuery"
+                (ngModelChange)="onSearchChange()">
+              <button *ngIf="searchQuery" class="clear-search" (click)="clearSearch()">
+                <i class="pi pi-times"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Filter Tags -->
+          <div class="filter-tags">
+            <button class="filter-tag active" (click)="setFilter('all')">
               <i class="pi pi-list"></i>
-              <span>Danh sách</span>
+              <span>Tất cả</span>
+            </button>
+            <button class="filter-tag" (click)="setFilter('recent')">
+              <i class="pi pi-clock"></i>
+              <span>Gần đây</span>
+            </button>
+            <button class="filter-tag" (click)="setFilter('favorites')">
+              <i class="pi pi-heart"></i>
+              <span>Yêu thích</span>
             </button>
           </div>
         </div>
         
-        <!-- Sort Controls -->
-        <div class="control-group">
-          <label class="control-label">Sắp xếp:</label>
-          <select class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange()">
-            <option value="default">Mặc định</option>
-            <option value="name">Theo tên</option>
-            <option value="photos">Số lượng ảnh</option>
-            <option value="date">Ngày tạo</option>
-          </select>
+        <div class="controls-right">
+          <!-- View Toggle -->
+          <div class="view-controls-modern">
+            <div class="view-toggle-modern">
+              <button 
+                class="view-btn-modern"
+                [class.active]="viewMode === 'grid'"
+                (click)="viewMode = 'grid'"
+                title="Xem dạng lưới">
+                <i class="pi pi-th-large"></i>
+              </button>
+              <button 
+                class="view-btn-modern"
+                [class.active]="viewMode === 'list'"
+                (click)="viewMode = 'list'"
+                title="Xem dạng danh sách">
+                <i class="pi pi-list"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Sort Dropdown -->
+          <div class="sort-container">
+            <div class="sort-dropdown" [class.open]="isSortOpen" (click)="toggleSort()">
+              <div class="sort-trigger">
+                <i class="pi pi-sort-alt"></i>
+                <span class="sort-text">{{ getSortLabel() }}</span>
+                <i class="pi pi-chevron-down sort-arrow" [class.rotated]="isSortOpen"></i>
+              </div>
+              <div class="sort-menu" *ngIf="isSortOpen">
+                <button class="sort-option" 
+                        [class.active]="sortBy === 'default'"
+                        (click)="setSortBy('default')">
+                  <i class="pi pi-list"></i>
+                  <span>Mặc định</span>
+                </button>
+                <button class="sort-option" 
+                        [class.active]="sortBy === 'name'"
+                        (click)="setSortBy('name')">
+                  <i class="pi pi-sort-alpha-down"></i>
+                  <span>Theo tên</span>
+                </button>
+                <button class="sort-option" 
+                        [class.active]="sortBy === 'photos'"
+                        (click)="setSortBy('photos')">
+                  <i class="pi pi-images"></i>
+                  <span>Số lượng ảnh</span>
+                </button>
+                <button class="sort-option" 
+                        [class.active]="sortBy === 'date'"
+                        (click)="setSortBy('date')">
+                  <i class="pi pi-calendar"></i>
+                  <span>Ngày tạo</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button class="action-btn secondary" (click)="refreshAlbums()" title="Làm mới">
+              <i class="pi pi-refresh"></i>
+            </button>
+            <button class="action-btn primary" (click)="createNewAlbum()" title="Tạo album mới">
+              <i class="pi pi-plus"></i>
+              <span class="btn-text">Tạo mới</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

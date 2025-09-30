@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter, withHashLocation, withPreloading } from '@angular/router';
+import { provideRouter, withHashLocation, withPreloading, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
@@ -11,7 +11,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withHashLocation(),
-      withPreloading(CustomPreloadingStrategy)
+      withPreloading(CustomPreloadingStrategy),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'disabled',
+        anchorScrolling: 'disabled'
+      })
     ),
     provideHttpClient(withFetch()),
     provideAnimations()

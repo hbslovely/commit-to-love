@@ -6,6 +6,7 @@ import { WelcomeDialogComponent } from './shared/components/welcome-dialog/welco
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { filter } from 'rxjs/operators';
+import { ScrollService } from './shared/services/scroll.service';
 
 @Component({
   selector: 'app-root',
@@ -31,13 +32,28 @@ import { filter } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   title = 'ky-niem-web';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private scrollService: ScrollService
+  ) {}
 
   ngOnInit() {
+    // Scroll to top on route changes
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      window.scrollTo(0, 0);
+    ).subscribe((event: NavigationEnd) => {
+      // Use multiple approaches to ensure scroll works
+      setTimeout(() => {
+        this.scrollService.scrollToTop();
+      }, 0);
+      
+      // Also try immediate scroll
+      this.scrollService.scrollToTop();
+      
+      // Additional fallback with longer delay
+      setTimeout(() => {
+        this.scrollService.scrollToTop();
+      }, 100);
     });
   }
 
