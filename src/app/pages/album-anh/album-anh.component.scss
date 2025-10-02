@@ -1616,8 +1616,8 @@
 // Lock indicator styles
 .lock-indicator {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   color: #fbbf24;
@@ -1636,8 +1636,8 @@
 
 .lock-indicator-list {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.5rem;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   color: #fbbf24;
