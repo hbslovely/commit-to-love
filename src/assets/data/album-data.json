@@ -1164,68 +1164,8 @@
       "description": "Những khoảnh khắc ngọt ngào của hai chúng mình bên nhau - Từ những ngày đầu quen biết đến hiện tại, mỗi bức ảnh là một câu chuyện tình yêu đẹp",
       "coverImage": "assets/images/phat/phat-quyen-ben-nhau.png",
       "photoCount": 10,
-      "photos": [
-        {
-          "id": "together-1",
-          "url": "assets/images/phat/phat-quyen-ben-nhau.png",
-          "title": "Hạnh Phúc Bên Nhau",
-          "description": "Khoảnh khắc ngọt ngào của đôi ta trong cuộc sống hàng ngày"
-        },
-        {
-          "id": "together-2",
-          "url": "assets/images/ki-niem/cung-nhau.jpg",
-          "title": "Những Ngày Đầu",
-          "description": "Những khoảnh khắc đầu tiên khi chúng mình mới yêu nhau"
-        },
-        {
-          "id": "together-3",
-          "url": "assets/images/ki-niem/cuoi-hoi.png",
-          "title": "Ngày Vui Trọng Đại",
-          "description": "Khoảnh khắc hạnh phúc trong ngày cưới của chúng mình"
-        },
-        {
-          "id": "together-4",
-          "url": "assets/images/ki-niem/dam-cuoi-nha-hang.png",
-          "title": "Tiệc Cưới Hạnh Phúc",
-          "description": "Niềm vui ngập tràn trong tiệc cưới của đôi ta"
-        },
-        {
-          "id": "together-5",
-          "url": "assets/images/ki-niem/gap-mat-gia-dinh.png",
-          "title": "Gặp Gỡ Gia Đình",
-          "description": "Những buổi sum vầy ấm áp cùng gia đình hai bên"
-        },
-        {
-          "id": "together-6",
-          "url": "assets/images/ki-niem/ky-niem-quen-nhau.png",
-          "title": "Kỷ Niệm Quen Nhau",
-          "description": "Nhìn lại những kỷ niệm đẹp từ ngày đầu quen biết"
-        },
-        {
-          "id": "together-7",
-          "url": "assets/images/ki-niem/lan-dau-gap-nhau.png",
-          "title": "Lần Đầu Gặp Gỡ",
-          "description": "Khoảnh khắc đáng nhớ của lần đầu tiên gặp nhau"
-        },
-        {
-          "id": "together-8",
-          "url": "assets/images/ki-niem/trao-duyen.png",
-          "title": "Trao Duyên",
-          "description": "Giây phút thiêng liêng khi chúng mình trao nhau lời hẹn ước"
-        },
-        {
-          "id": "together-9",
-          "url": "assets/images/gallery/ben-nhau.png",
-          "title": "Bên Nhau Mỗi Ngày",
-          "description": "Những khoảnh khắc bình dị nhưng đầy ý nghĩa khi ở bên nhau"
-        },
-        {
-          "id": "together-10",
-          "url": "assets/images/gallery/nam-tay-yeu-thuong.png",
-          "title": "Nắm Tay Nhau",
-          "description": "Cùng nắm tay nhau đi qua mọi khoảnh khắc của cuộc sống"
-        }
-      ]
+      "isLocked": true,
+      "encryptedPhotos": "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"
     }
   ]
 }

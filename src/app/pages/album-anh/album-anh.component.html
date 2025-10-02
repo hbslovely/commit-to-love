@@ -229,6 +229,10 @@
             <div class="image-wrapper">
               <img [src]="album.coverImage" [alt]="album.title" loading="lazy">
               <div class="image-gradient"></div>
+              <!-- Lock Icon for Locked Albums -->
+              <div class="lock-indicator" *ngIf="album.isLocked">
+                <i class="pi pi-lock"></i>
+              </div>
             </div>
             
             <!-- Hover Overlay -->
@@ -311,6 +315,10 @@
                   <span>{{ album.photoCount }}</span>
                 </div>
               </div>
+              <!-- Lock Icon for Locked Albums -->
+              <div class="lock-indicator-list" *ngIf="album.isLocked">
+                <i class="pi pi-lock"></i>
+              </div>
             </div>
             
             <!-- Album Preview Strip -->
@@ -384,3 +392,11 @@
     </div>
   </section>
 </div>
+
+<!-- Password Modal -->
+<app-password-modal
+  [isVisible]="showPasswordModal"
+  [albumTitle]="selectedLockedAlbum?.title || ''"
+  (passwordSubmit)="onPasswordSubmit($event)"
+  (modalClose)="onPasswordModalClose()">
+</app-password-modal>

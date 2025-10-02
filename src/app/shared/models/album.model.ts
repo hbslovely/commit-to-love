@@ -12,6 +12,7 @@ export interface Album {
   coverImage: string;
   photoCount?: number;
   photos?: Photo[];
+  isLocked?: boolean;
 }
 
 export interface AlbumData {
@@ -19,7 +20,10 @@ export interface AlbumData {
   title: string;
   description: string;
   coverImage: string;
-  photos: string[];
+  photos?: Photo[];
+  photoCount?: number;
+  isLocked?: boolean;
+  encryptedPhotos?: string;
 }
 
 export interface AlbumDataResponse {

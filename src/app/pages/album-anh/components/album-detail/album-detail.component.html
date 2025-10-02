@@ -319,3 +319,11 @@
     </div>
   </div>
 </div>
+
+<!-- Password Modal -->
+<app-password-modal
+  [isVisible]="showPasswordModal"
+  [albumTitle]="album?.title || 'Album được bảo vệ'"
+  (passwordSubmit)="onPasswordSubmit($event)"
+  (modalClose)="onPasswordModalClose()">
+</app-password-modal>

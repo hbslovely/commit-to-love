@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Album, AlbumData, AlbumDataResponse } from '../../shared/models';
+import { AlbumAuthService } from '../../shared/services/album-auth.service';
+import { PasswordModalComponent } from '../../shared/components/password-modal/password-modal.component';
 
 @Component({
   selector: 'app-album-anh',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PasswordModalComponent],
   templateUrl: './album-anh.component.html',
   styleUrls: ['./album-anh.component.scss']
 })
@@ -23,7 +25,16 @@ export class AlbumAnhComponent implements OnInit {
   currentFilter: 'all' | 'recent' | 'favorites' = 'all';
   isSortOpen: boolean = false;
 
-  constructor(private router: Router) {}
+  // Password modal properties
+  showPasswordModal = false;
+  selectedLockedAlbum: Album | null = null;
+  @ViewChild(PasswordModalComponent) passwordModal!: PasswordModalComponent;
+
+
+  constructor(
+    private router: Router,
+    private albumAuthService: AlbumAuthService
+  ) {}
 
   async ngOnInit() {
     try {
@@ -34,7 +45,8 @@ export class AlbumAnhComponent implements OnInit {
         title: album.title,
         description: album.description,
         coverImage: album.coverImage,
-        photoCount: album.photos.length
+        photoCount: album.photos?.length || album.photoCount || 0,
+        isLocked: album.isLocked || false
       }));
       
       // Generate preview photos once after data is loaded
@@ -189,6 +201,48 @@ export class AlbumAnhComponent implements OnInit {
   }
 
   openAlbum(albumId: string): void {
-    this.router.navigate(['/album-anh', albumId]);
+    const album = this.albums.find(a => a.id === albumId);
+    
+    if (album?.isLocked && !this.albumAuthService.isAlbumAuthenticated(albumId)) {
+      // Show password modal for locked albums
+      this.selectedLockedAlbum = album;
+      this.showPasswordModal = true;
+    } else {
+      // Navigate to album for unlocked or authenticated albums
+      this.router.navigate(['/album-anh', albumId]);
+    }
+  }
+
+  async onPasswordSubmit(password: string): Promise<void> {
+    if (!this.selectedLockedAlbum) return;
+
+    try {
+      // Get the encrypted data for this album
+      const response = await fetch('assets/data/album-data.json');
+      const data = await response.json();
+      const albumData = data.albums.find((a: any) => a.id === this.selectedLockedAlbum!.id);
+      
+      if (albumData?.encryptedPhotos && this.albumAuthService.authenticateAlbum(this.selectedLockedAlbum.id, password, albumData.encryptedPhotos)) {
+        // Password correct, navigate to album
+        this.showPasswordModal = false;
+        this.router.navigate(['/album-anh', this.selectedLockedAlbum.id]);
+        this.selectedLockedAlbum = null;
+      } else {
+        // Password incorrect, show error
+        if (this.passwordModal) {
+          this.passwordModal.setError('Mật khẩu không đúng. Vui lòng thử lại.');
+        }
+      }
+    } catch (error) {
+      console.error('Error validating password:', error);
+      if (this.passwordModal) {
+        this.passwordModal.setError('Có lỗi xảy ra. Vui lòng thử lại.');
+      }
+    }
+  }
+
+  onPasswordModalClose(): void {
+    this.showPasswordModal = false;
+    this.selectedLockedAlbum = null;
   }
 }

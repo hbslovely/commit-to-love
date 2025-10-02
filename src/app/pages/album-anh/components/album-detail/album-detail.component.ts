@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Album, Photo, AlbumGalleryImage } from '../../../../shared/models';
+import { Album, Photo, AlbumGalleryImage, AlbumData, AlbumDataResponse } from '../../../../shared/models';
+import { AlbumAuthService } from '../../../../shared/services/album-auth.service';
+import { PasswordModalComponent } from '../../../../shared/components/password-modal/password-modal.component';
 import JSZip from 'jszip';
 
 
@@ -11,7 +13,8 @@ import JSZip from 'jszip';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    PasswordModalComponent
   ],
   templateUrl: './album-detail.component.html',
   styleUrls: ['./album-detail.component.scss']
@@ -64,9 +67,14 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
     return this.filteredPhotos.length;
   }
 
+  // Password modal
+  showPasswordModal = false;
+  isLoadingAlbum = false;
+
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private albumAuthService: AlbumAuthService
   ) {}
 
   async ngOnInit() {
@@ -76,18 +84,64 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    try {
-      const response = await fetch('assets/data/album-data.json');
-      const data = await response.json();
-      this.album = data.albums.find((a: Album) => a.id === albumId);
+    await this.loadAlbum(albumId);
+  }
 
-      if (!this.album || !this.album.photos) {
+  private async loadAlbum(albumId: string) {
+    try {
+      this.isLoadingAlbum = true;
+      const response = await fetch('assets/data/album-data.json');
+      const data: AlbumDataResponse = await response.json();
+      const albumData = data.albums.find((a: AlbumData) => a.id === albumId);
+
+      if (!albumData) {
         this.router.navigate(['/album-anh']);
         return;
       }
 
+      // Check if album is locked and not authenticated
+      if (albumData.isLocked && !this.albumAuthService.isAlbumAuthenticated(albumId)) {
+        this.showPasswordModal = true;
+        this.isLoadingAlbum = false;
+        return;
+      }
+
+      // Load album photos
+      let photos: Photo[] = [];
+      if (albumData.isLocked && albumData.encryptedPhotos) {
+        // For locked albums, we need the password to decrypt
+        // This should only happen if the album is already authenticated
+        // If not authenticated, the password modal should have been shown
+        if (!this.albumAuthService.isAlbumAuthenticated(albumId)) {
+          console.error('Album not authenticated but trying to decrypt');
+          this.router.navigate(['/album-anh']);
+          return;
+        }
+        
+        // Decrypt photos using the stored password
+        try {
+          photos = this.albumAuthService.decryptAlbumData(albumData.encryptedPhotos, albumId);
+        } catch (error) {
+          console.error('Failed to decrypt album data:', error);
+          this.router.navigate(['/album-anh']);
+          return;
+        }
+      } else if (albumData.photos) {
+        photos = albumData.photos;
+      }
+
+      this.album = {
+        id: albumData.id,
+        title: albumData.title,
+        description: albumData.description,
+        coverImage: albumData.coverImage,
+        photoCount: photos.length,
+        photos: photos,
+        isLocked: albumData.isLocked
+      };
+
       // Properly map photos to match AlbumGalleryImage interface
-      this.albumPhotos = this.album.photos.map(photo => ({
+      this.albumPhotos = photos.map(photo => ({
         src: photo.url,
         name: photo.title,
         description: photo.description,
@@ -96,7 +150,8 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
         caption: photo.description
       }));
       
-      this.filteredPhotos = [...this.album.photos];
+      this.filteredPhotos = [...photos];
+      this.isLoadingAlbum = false;
     } catch (error) {
       console.error('Error loading album data:', error);
       this.router.navigate(['/album-anh']);
@@ -107,6 +162,42 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
     if (this.slideshowInterval) {
       clearInterval(this.slideshowInterval);
     }
+  }
+
+  // Password modal methods
+  async onPasswordSubmit(password: string): Promise<void> {
+    const albumId = this.route.snapshot.paramMap.get('id');
+    if (!albumId) return;
+
+    try {
+      // Get the encrypted data for this album
+      const response = await fetch('assets/data/album-data.json');
+      const data = await response.json();
+      const albumData = data.albums.find((a: any) => a.id === albumId);
+      
+      if (albumData?.encryptedPhotos && this.albumAuthService.authenticateAlbum(albumId, password, albumData.encryptedPhotos)) {
+        // Password is correct, reload the album
+        this.showPasswordModal = false;
+        this.loadAlbum(albumId);
+      } else {
+        // Show error in modal
+        const modal = document.querySelector('app-password-modal') as any;
+        if (modal) {
+          modal.setError('Mật khẩu không đúng. Vui lòng thử lại.');
+        }
+      }
+    } catch (error) {
+      console.error('Error validating password:', error);
+      const modal = document.querySelector('app-password-modal') as any;
+      if (modal) {
+        modal.setError('Có lỗi xảy ra. Vui lòng thử lại.');
+      }
+    }
+  }
+
+  onPasswordModalClose(): void {
+    this.showPasswordModal = false;
+    this.router.navigate(['/album-anh']);
   }
 
   getAlbumPreviewPhotos(): string[] {
