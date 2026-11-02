@@ -1,43 +1,85 @@
 # Daily patch for the completed UTC day. Runs 00:05 UTC and evaluates *yesterday*
 # so delayed runners never skip commits from the day that just ended (23:55 + date
 # at 00:10 would wrongly check the new calendar day).
+#
+# Runs once per target branch: the default branch PLUS every release/* branch, so a
+# release/2026.06 branch keeps getting 2026.06.n → 2026.06.(n+1) patches independently
+# of what master is doing. Each branch's daily marker is scoped per branch so a master
+# release does not suppress a release-branch patch on the same day.
 
 name: Daily patch release
 
 on:
   schedule:
-    - cron: "5 0 * * *"
+    - cron: '5 0 * * *'
   workflow_dispatch:
     inputs:
       date:
-        description: "UTC date to evaluate (YYYY-MM-DD); default yesterday UTC"
+        description: 'UTC date to evaluate (YYYY-MM-DD); default yesterday UTC'
         required: false
         type: string
       force:
-        description: "Release even with no commits that day"
+        description: 'Release even with no commits that day'
         required: false
-        default: "false"
+        default: 'false'
         type: choice
         options:
-          - "false"
-          - "true"
+          - 'false'
+          - 'true'
 
 permissions:
   contents: write
 
-concurrency:
-  group: daily-patch-${{ github.event.inputs.date || 'auto' }}
-  cancel-in-progress: false
-
 jobs:
-  release:
-    name: Daily patch if changed
+  enumerate:
+    name: Enumerate target branches
     runs-on: ubuntu-latest
+    outputs:
+      branches: ${{ steps.list.outputs.branches }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.RELEASE_PAT }}
+
+      - name: List default + release/* branches
+        id: list
+        run: |
+          set -euo pipefail
+          DEFAULT="${{ github.event.repository.default_branch }}"
+          # Query the remote directly (checkout only fetches the default branch ref,
+          # so `git branch -r` would not see release/* branches).
+          {
+            printf '%s\n' "${DEFAULT}"
+            git ls-remote --heads origin 'refs/heads/release/*' \
+              | awk -F'\t' '{ print $2 }' \
+              | sed 's,^refs/heads/,,' \
+              || true
+          } | jq -R . | jq -s . > /tmp/branches.json
+
+          echo "Targets:"
+          jq -r '.[]' /tmp/branches.json
+
+          echo "branches=$(cat /tmp/branches.json)" >> "${GITHUB_OUTPUT}"
+
+  release:
+    name: Daily patch if changed (${{ matrix.branch }})
+    needs: enumerate
+    strategy:
+      fail-fast: false
+      matrix:
+        branch: ${{ fromJson(needs.enumerate.outputs.branches) }}
+    runs-on: ubuntu-latest
+    concurrency:
+      group: daily-patch-${{ matrix.branch }}-${{ github.event.inputs.date || 'auto' }}
+      cancel-in-progress: false
+    steps:
+      - name: Checkout target branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ matrix.branch }}
           token: ${{ secrets.RELEASE_PAT }}
 
       - name: Evaluate day and prepare release
@@ -54,14 +96,25 @@ jobs:
             DAY="$(date -u -d 'yesterday' +%Y-%m-%d)"
           fi
 
-          echo "Evaluating commits for UTC day: ${DAY}"
+          echo "Evaluating commits for UTC day: ${DAY} on branch: ${{ matrix.branch }}"
 
           if ! echo "${DAY}" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
             echo "Invalid date: ${DAY}"
             exit 1
           fi
 
-          DAILY_MARKER="daily/${DAY}"
+          # Scope the daily marker per branch so a master release on the same day
+          # does not suppress a release-branch patch. Default branch keeps the
+          # legacy `daily/<DAY>` form for backward compatibility.
+          DEFAULT_BRANCH="${{ github.event.repository.default_branch }}"
+          BRANCH="${{ matrix.branch }}"
+          if [ "${BRANCH}" = "${DEFAULT_BRANCH}" ]; then
+            DAILY_MARKER="daily/${DAY}"
+          else
+            SLUG="$(printf '%s' "${BRANCH}" | tr '/' '-')"
+            DAILY_MARKER="daily/${SLUG}/${DAY}"
+          fi
+
           NEXT_DAY="$(date -u -d "${DAY} + 1 day" +%Y-%m-%d)"
           SINCE="${DAY}T00:00:00Z"
           BEFORE="${NEXT_DAY}T00:00:00Z"
@@ -70,7 +123,7 @@ jobs:
           echo "daily_marker=${DAILY_MARKER}" >> "${GITHUB_OUTPUT}"
 
           if git rev-parse "refs/tags/${DAILY_MARKER}" >/dev/null 2>&1; then
-            echo "Daily release for ${DAY} already exists."
+            echo "Daily release for ${DAY} on ${BRANCH} already exists (${DAILY_MARKER})."
             echo "should_release=false" >> "${GITHUB_OUTPUT}"
             exit 0
           fi
@@ -82,7 +135,7 @@ jobs:
 
           FORCE="${{ github.event.inputs.force || 'false' }}"
           if [ "${COMMIT_COUNT}" -eq 0 ] && [ "${FORCE}" != "true" ]; then
-            echo "No non-release commits on ${DAY} (UTC)."
+            echo "No non-release commits on ${DAY} (UTC) for ${BRANCH}."
             echo "should_release=false" >> "${GITHUB_OUTPUT}"
             exit 0
           fi
@@ -105,6 +158,8 @@ jobs:
           {
             echo "## Daily patch ${RELEASE_TAG}"
             echo ""
+            echo "**Branch:** \`${BRANCH}\`"
+            echo ""
             echo "**UTC date:** ${DAY}"
             echo ""
             echo "**package.json:** \`${CURRENT}\` → \`${PACKAGE_VERSION}\`"
@@ -122,7 +177,7 @@ jobs:
           .github/scripts/commit-package-version.sh \
             "${{ steps.prep.outputs.package_version }}" \
             "chore(release): daily patch v${{ steps.prep.outputs.package_version }} (${{ steps.prep.outputs.release_day }} UTC)" \
-            "${{ github.event.repository.default_branch }}"
+            "${{ matrix.branch }}"
 
       - name: Push release tag
         if: steps.prep.outputs.should_release == 'true'
@@ -136,12 +191,13 @@ jobs:
         if: steps.prep.outputs.should_release == 'true'
         run: |
           set -euo pipefail
+          BRANCH="${{ matrix.branch }}"
           DAILY_MARKER="${{ steps.prep.outputs.daily_marker }}"
           RELEASE_TAG="${{ steps.prep.outputs.release_tag }}"
           if git rev-parse "refs/tags/${DAILY_MARKER}" >/dev/null 2>&1; then
             exit 0
           fi
-          git tag -a "${DAILY_MARKER}" -m "Daily marker → ${RELEASE_TAG}"
+          git tag -a "${DAILY_MARKER}" -m "Daily marker (${BRANCH}) → ${RELEASE_TAG}"
           git push --force-with-lease origin "refs/tags/${DAILY_MARKER}"
 
       - name: Create GitHub Release

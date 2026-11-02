@@ -4,17 +4,17 @@ name: Monthly release
 
 on:
   schedule:
-    - cron: "0 9 1 * *"
+    - cron: '0 9 1 * *'
   workflow_dispatch:
     inputs:
       force:
-        description: "Create release even if no new commits since last monthly tag"
+        description: 'Create release even if no new commits since last monthly tag'
         required: false
-        default: "false"
+        default: 'false'
         type: choice
         options:
-          - "false"
-          - "true"
+          - 'false'
+          - 'true'
 
 permissions:
   contents: write
@@ -109,6 +109,32 @@ jobs:
             "${{ steps.prep.outputs.monthly_tag }}" \
             "${{ steps.prep.outputs.package_version }}" \
             "Monthly release ${{ steps.prep.outputs.monthly_tag }}"
+
+      - name: Cut release branch for previous month
+        if: steps.prep.outputs.should_release == 'true'
+        run: |
+          set -euo pipefail
+          # The monthly commit (HEAD) is the FIRST commit on the new month's version.
+          # Its parent is therefore the LAST commit on the previous month's series —
+          # the right point to branch release/<prev-month> from so it can continue
+          # <prev-month>.n-rc.y → <prev-month>.n → <prev-month>.(n+1) independently.
+          PREV_TAG="${{ steps.prep.outputs.previous_tag }}"
+          if [ -z "${PREV_TAG}" ]; then
+            echo "No previous monthly tag — skipping release branch cut."
+            exit 0
+          fi
+          PREV_MONTH="${PREV_TAG#v}"
+          RELEASE_BRANCH="release/${PREV_MONTH}"
+
+          if git ls-remote --exit-code --heads origin "${RELEASE_BRANCH}" >/dev/null 2>&1; then
+            echo "Branch ${RELEASE_BRANCH} already exists upstream — skipping cut."
+            exit 0
+          fi
+
+          CUT_SHA="$(git rev-parse 'HEAD~1')"
+          git branch "${RELEASE_BRANCH}" "${CUT_SHA}"
+          git push origin "${RELEASE_BRANCH}:refs/heads/${RELEASE_BRANCH}"
+          echo "Cut ${RELEASE_BRANCH} from $(git rev-parse --short "${CUT_SHA}") (last ${PREV_MONTH}.x commit)."
 
       - name: Create GitHub Release
         if: steps.prep.outputs.should_release == 'true'
