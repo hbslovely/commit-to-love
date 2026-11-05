@@ -31,6 +31,14 @@ import { APP_WINDOW_LOADERS } from '../../config/app-window-loaders';
   `,
   styles: [
     `
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+      }
+
       .window-app-loading {
         display: flex;
         align-items: center;
@@ -97,7 +105,8 @@ export class WindowAppContentComponent implements OnChanges, AfterViewInit, OnDe
       this.componentRef = this.host.createComponent(componentType);
       this.applyInputsAndOutputs(this.componentRef);
       this.loading.set(false);
-    } catch {
+    } catch (err) {
+      console.error(`Failed to load window app "${this.componentId}"`, err);
       if (token === this.loadToken) {
         this.loading.set(false);
       }
@@ -110,6 +119,10 @@ export class WindowAppContentComponent implements OnChanges, AfterViewInit, OnDe
     switch (this.componentId) {
       case 'my-info':
         ref.setInput('url', 'https://hpphat1992.vercel.app');
+        break;
+      case 'love':
+        ref.setInput('url', 'https://hbslovely.vercel.app/');
+        ref.setInput('title', 'Love Application');
         break;
       case 'text-viewer':
         ref.setInput('filePath', data['path']);

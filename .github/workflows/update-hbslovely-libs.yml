@@ -54,7 +54,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          PACKAGES=("@hbslovely/expense" "@hbslovely/baby-feeding")
+          PACKAGES=("@hbslovely/expense" "@hbslovely/baby-feeding" "@hbslovely/commit-to-love")
           UPDATED=()
 
           for PKG in "${PACKAGES[@]}"; do

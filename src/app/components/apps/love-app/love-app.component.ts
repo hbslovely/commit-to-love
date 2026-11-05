@@ -26,17 +26,13 @@ export class LoveAppComponent {
   isLoading = signal(true);
   hasError = signal(false);
 
-  // Convert to computed signal to prevent infinite loading
   safeUrl = computed(() => {
     const url = this._url();
     if (!url) return null;
 
-    // Convert Facebook URLs to use proxy
     let processedUrl = url;
     if (url.includes('facebook.com')) {
-      // Replace https://www.facebook.com with /api/facebook
       processedUrl = url.replace(/^https?:\/\/www\.facebook\.com/, '/api/facebook');
-      // Also handle facebook.com without www
       processedUrl = processedUrl.replace(/^https?:\/\/facebook\.com/, '/api/facebook');
     }
 
@@ -56,10 +52,8 @@ export class LoveAppComponent {
   reloadIframe() {
     this.isLoading.set(true);
     this.hasError.set(false);
-    // Force reload by changing src
-    const iframe = document.querySelector('iframe') as HTMLIFrameElement;
+    const iframe = document.querySelector('app-love-app iframe') as HTMLIFrameElement;
     if (iframe) {
-      // eslint-disable-next-line no-self-assign
       iframe.src = iframe.src;
     }
   }

@@ -1,5 +1,4 @@
 <div class="love-container">
-  <!-- Loading indicator -->
   @if (isLoading()) {
     <div class="loading-overlay">
       <div class="loading-spinner">
@@ -9,7 +8,6 @@
     </div>
   }
 
-  <!-- Error state -->
   @if (hasError()) {
     <div class="error-overlay">
       <div class="error-content">
@@ -24,7 +22,6 @@
     </div>
   }
 
-  <!-- Iframe -->
   @if (safeUrl()) {
     <iframe
       [src]="safeUrl()"

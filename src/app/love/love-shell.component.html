@@ -1,0 +1,15 @@
+<div class="floating-elements">
+  @for (_ of floatingDots; track $index) {
+    <div class="floating-element"></div>
+  }
+</div>
+
+<app-navbar></app-navbar>
+<main>
+  <div [@routeAnimations]="prepareRoute(outlet)" class="route-container">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</main>
+
+<app-footer></app-footer>
+<app-welcome-dialog></app-welcome-dialog>

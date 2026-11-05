@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
+import { loveRouteBranch } from './love/love.routes';
 
 /**
- * TEMP: only `/feeding` is registered — other standalone pages removed for faster focus on baby-feeding.
- * Restore from git history: boi-vui, hello-2026, chi-tieu, pit, tax, my-timesheet, …
+ * Standalone journey routes (`/feeding`, `/love`). Other pages live in git history.
  */
 export const routes: Routes = [
   {
@@ -10,4 +10,5 @@ export const routes: Routes = [
     loadComponent: () => import('@hbslovely/baby-feeding').then((m) => m.FeedingComponent),
     title: 'Life with baby',
   },
+  loveRouteBranch,
 ];

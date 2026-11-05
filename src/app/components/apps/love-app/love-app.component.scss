@@ -38,7 +38,7 @@ iframe {
 
   i {
     font-size: 32px;
-    color: #e91e63; /* Pink color for love theme */
+    color: #0078d4;
   }
 }
 
@@ -72,7 +72,7 @@ iframe {
 
   p {
     color: #666666;
-    margin: 0 0 24px 0;
+    margin: 0 0 16px 0;
     font-size: 14px;
     line-height: 1.5;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -84,24 +84,15 @@ iframe {
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  background: #e91e63; /* Pink color for love theme */
-  color: #ffffff;
   border: none;
   border-radius: 4px;
   font-size: 14px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  background: #0078d4;
+  color: #ffffff;
 
   &:hover {
-    background: #c2185b;
-  }
-
-  &:active {
-    background: #ad1457;
-  }
-
-  i {
-    font-size: 12px;
+    background: #106ebe;
   }
 }
