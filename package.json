@@ -1,6 +1,6 @@
 {
   "name": "commit-to-love",
-  "version": "2026.11.0",
+  "version": "2026.11.0-rc.01",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 3000",
