@@ -3,6 +3,26 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "commit-to-love-lib": {
+      "projectType": "library",
+      "root": "projects/commit-to-love-lib",
+      "sourceRoot": "projects/commit-to-love-lib/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/commit-to-love-lib/ng-package.json",
+            "tsConfig": "projects/commit-to-love-lib/tsconfig.lib.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/commit-to-love-lib/tsconfig.lib.prod.json"
+            }
+          }
+        }
+      }
+    },
     "ky-niem-web": {
       "projectType": "application",
       "schematics": {
@@ -20,9 +40,7 @@
             "outputPath": "dist/ky-niem-web",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -35,13 +53,9 @@
               }
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src"
-              ]
+              "includePaths": ["src"]
             },
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -95,10 +109,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -107,10 +118,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "node_modules/primeflex/primeflex.css",
-              "src/styles.scss"
-            ],
+            "styles": ["node_modules/primeflex/primeflex.css", "src/styles.scss"],
             "scripts": []
           }
         }

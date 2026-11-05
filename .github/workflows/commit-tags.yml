@@ -1,0 +1,75 @@
+# Each push to main: commit package.json -rc version, then tag v<version>.
+# Next RC uses max(existing v{base}-rc.* tags, package.json) + 1.
+# Skips chore(release) commits to avoid infinite loops.
+
+name: Commit RC version
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'package.json'
+      - 'package-lock.json'
+      - 'src/app/app-info.ts'
+      - 'projects/commit-to-love-lib/package.json'
+      - 'projects/commit-to-love-lib/src/love-src/version.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: commit-rc-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  rc:
+    name: Commit version then tag
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.head_commit != null &&
+        !startsWith(github.event.head_commit.message, 'chore(release):')
+      )
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.BOT_TOKEN }}
+
+      - name: Compute next RC version
+        id: version
+        run: |
+          set -euo pipefail
+          CURRENT="$(jq -r '.version' package.json)"
+          PACKAGE_VERSION="$(node .github/scripts/release-version.mjs next-rc "${CURRENT}")"
+          RELEASE_TAG="v${PACKAGE_VERSION}"
+
+          if [ "${PACKAGE_VERSION}" = "${CURRENT}" ]; then
+            echo "Version unchanged (${CURRENT}) — skipping."
+            echo "should_bump=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          echo "should_bump=true" >> "${GITHUB_OUTPUT}"
+          echo "previous_version=${CURRENT}" >> "${GITHUB_OUTPUT}"
+          echo "package_version=${PACKAGE_VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "release_tag=${RELEASE_TAG}" >> "${GITHUB_OUTPUT}"
+
+      - name: Commit package.json version
+        if: steps.version.outputs.should_bump == 'true'
+        run: |
+          .github/scripts/commit-package-version.sh \
+            "${{ steps.version.outputs.package_version }}" \
+            "chore(release): set version to ${{ steps.version.outputs.package_version }}" \
+            "${{ github.event.repository.default_branch }}"
+
+      - name: Push release tag
+        if: steps.version.outputs.should_bump == 'true'
+        run: |
+          .github/scripts/push-release-tag.sh \
+            "${{ steps.version.outputs.release_tag }}" \
+            "${{ steps.version.outputs.package_version }}" \
+            "RC ${{ steps.version.outputs.release_tag }} (was ${{ steps.version.outputs.previous_version }})"

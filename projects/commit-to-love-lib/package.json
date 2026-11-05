@@ -1,0 +1,54 @@
+{
+  "name": "@hbslovely/commit-to-love",
+  "version": "2026.11.0",
+  "description": "Commit to Love — Angular journey library for a couple's memory site (albums, places, profiles, timeline)",
+  "keywords": [
+    "angular",
+    "love",
+    "memories",
+    "album",
+    "timeline",
+    "journey"
+  ],
+  "author": "Hong Phung Phat <quyenninh.720@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hbslovely/commit-to-love.git"
+  },
+  "homepage": "https://github.com/hbslovely/commit-to-love#readme",
+  "bugs": {
+    "url": "https://github.com/hbslovely/commit-to-love/issues"
+  },
+  "peerDependencies": {
+    "@angular/animations": ">=19.0.0",
+    "@angular/common": ">=19.0.0",
+    "@angular/core": ">=19.0.0",
+    "@angular/forms": ">=19.0.0",
+    "@angular/platform-browser": ">=19.0.0",
+    "@angular/router": ">=19.0.0",
+    "rxjs": ">=7.4.0",
+    "tslib": ">=2.3.0"
+  },
+  "peerDependenciesMeta": {
+    "primeng": {
+      "optional": true
+    },
+    "primeicons": {
+      "optional": true
+    },
+    "primeflex": {
+      "optional": true
+    },
+    "swiper": {
+      "optional": true
+    },
+    "crypto-js": {
+      "optional": true
+    },
+    "jszip": {
+      "optional": true
+    }
+  },
+  "sideEffects": false
+}

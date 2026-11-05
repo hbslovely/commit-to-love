@@ -1,0 +1,59 @@
+# Publishes @hbslovely/commit-to-love to npm on every GitHub Release.
+# Triggered by: GitHub Release creation (from monthly-release or patch-release workflows).
+#
+# Required GitHub Secrets:
+#   NPM_TOKEN  — npm token with publish rights for @hbslovely/commit-to-love
+
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (build + pack, no publish)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: Build library & publish to npm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'release' && github.event.release.tag_name || 'main' }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Build library
+        run: npm run build:lib
+
+      - name: Pack (dry run inspection)
+        working-directory: dist/commit-to-love-lib
+        run: npm pack --dry-run
+
+      - name: Publish to npm
+        if: ${{ github.event_name == 'release' || github.event.inputs.dry_run == 'false' }}
+        working-directory: dist/commit-to-love-lib
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

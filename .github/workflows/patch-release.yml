@@ -1,0 +1,152 @@
+# Daily patch release when there are code commits since the last shipped vYYYY.M.N tag.
+#
+# Scheduled: every day 00:05 UTC — skips if nothing changed since last patch.
+# Manual: Actions → "Patch release" → Run workflow — same logic, bumps patch (not -rc).
+#
+# RC bumps stay on commit-tags.yml (every push to main). This workflow only ships
+# plain patch versions (v2026.11.1, not v2026.11.1-rc.01).
+
+name: Patch release
+
+on:
+  schedule:
+    - cron: "5 0 * * *" # Daily 00:05 UTC
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Release even with no code commits since the last patch tag"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: patch-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Patch release if changed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_PAT }}
+
+      - name: Evaluate commits since last patch and prepare release
+        id: prep
+        run: |
+          set -euo pipefail
+
+          RUNNER_NOW="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "Runner UTC now: ${RUNNER_NOW}"
+
+          PREV_TAG="$(node .github/scripts/release-version.mjs latest-patch-tag)"
+          echo "previous_tag=${PREV_TAG}" >> "${GITHUB_OUTPUT}"
+
+          if [ -n "${PREV_TAG}" ] && git rev-parse "refs/tags/${PREV_TAG}" >/dev/null 2>&1; then
+            RELEASE_RANGE="${PREV_TAG}..HEAD"
+            echo "Comparing commits since last patch tag: ${PREV_TAG}"
+          else
+            RELEASE_RANGE="HEAD"
+            echo "No previous patch tag found — evaluating all commits on HEAD."
+          fi
+
+          COMMIT_COUNT="$(git rev-list --count \
+            --grep='^chore\(release\):' --extended-regexp --invert-grep \
+            "${RELEASE_RANGE}")"
+          echo "commit_count=${COMMIT_COUNT}" >> "${GITHUB_OUTPUT}"
+
+          FORCE="${{ github.event.inputs.force || 'false' }}"
+          if [ "${COMMIT_COUNT}" -eq 0 ] && [ "${FORCE}" != "true" ]; then
+            echo "No code commits since ${PREV_TAG:-'(no previous patch)'} — skipping patch release."
+            echo "should_release=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          CURRENT="$(jq -r '.version' package.json)"
+          PACKAGE_VERSION="$(node .github/scripts/release-version.mjs daily "${CURRENT}")"
+          RELEASE_TAG="v${PACKAGE_VERSION}"
+
+          if git rev-parse "refs/tags/${RELEASE_TAG}" >/dev/null 2>&1; then
+            echo "Tag ${RELEASE_TAG} already exists."
+            echo "should_release=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          echo "should_release=true" >> "${GITHUB_OUTPUT}"
+          echo "package_version=${PACKAGE_VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "release_tag=${RELEASE_TAG}" >> "${GITHUB_OUTPUT}"
+          echo "previous_version=${CURRENT}" >> "${GITHUB_OUTPUT}"
+
+          RELEASED_AT="$(date -u +'%Y-%m-%d %H:%M UTC')"
+          ICT_TIME="$(date -u -d '+7 hours' +'%Y-%m-%d %H:%M ICT' 2>/dev/null || date -u +'%Y-%m-%d %H:%M UTC')"
+          COMMIT_SHA="$(git rev-parse --short HEAD)"
+          BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
+          {
+            echo "## 🚀 Patch ${RELEASE_TAG}"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| **Version** | \`${CURRENT}\` → \`${PACKAGE_VERSION}\` |"
+            echo "| **Released at** | ${RELEASED_AT} (${ICT_TIME}) |"
+            echo "| **Commits** | ${COMMIT_COUNT} code change(s) since last patch |"
+            echo "| **Branch** | \`${BRANCH}\` @ \`${COMMIT_SHA}\` |"
+            if [ -n "${PREV_TAG}" ]; then
+              echo "| **Since** | \`${PREV_TAG}\` |"
+            fi
+            echo "| **npm** | \`npm install @hbslovely/commit-to-love@${PACKAGE_VERSION}\` |"
+            echo ""
+            echo "---"
+            echo ""
+            echo "### 📝 Changes"
+            echo ""
+            git log --pretty=format:'- %s (`%h`) — _%an_' \
+              --grep='^chore\(release\):' --extended-regexp --invert-grep \
+              "${RELEASE_RANGE}" || true
+            echo ""
+            echo ""
+            echo "---"
+            echo ""
+            echo "### 📦 Install"
+            echo ""
+            echo '```bash'
+            echo "npm install @hbslovely/commit-to-love@${PACKAGE_VERSION}"
+            echo '```'
+          } > release-notes.md
+
+      - name: Commit package.json version
+        if: steps.prep.outputs.should_release == 'true'
+        run: |
+          .github/scripts/commit-package-version.sh \
+            "${{ steps.prep.outputs.package_version }}" \
+            "chore(release): set version to ${{ steps.prep.outputs.package_version }}" \
+            "${{ github.event.repository.default_branch }}"
+
+      - name: Push release tag
+        if: steps.prep.outputs.should_release == 'true'
+        run: |
+          .github/scripts/push-release-tag.sh \
+            "${{ steps.prep.outputs.release_tag }}" \
+            "${{ steps.prep.outputs.package_version }}" \
+            "Patch ${{ steps.prep.outputs.release_tag }}"
+
+      - name: Create GitHub Release
+        if: steps.prep.outputs.should_release == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.RELEASE_PAT }}
+          tag_name: ${{ steps.prep.outputs.release_tag }}
+          name: Patch ${{ steps.prep.outputs.release_tag }}
+          body_path: release-notes.md
+          generate_release_notes: false
+          draft: false
+          prerelease: false
