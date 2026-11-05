@@ -1,58 +1,13 @@
 import { Routes } from '@angular/router';
 
+/**
+ * TEMP: only `/feeding` is registered — other standalone pages removed for faster focus on baby-feeding.
+ * Restore from git history: boi-vui, hello-2026, chi-tieu, pit, tax, my-timesheet, …
+ */
 export const routes: Routes = [
-  {
-    path: 'boi-vui',
-    loadComponent: () => import('./pages/boi-vui/boi-vui.component').then((m) => m.BoiVuiComponent),
-    title: 'Bói Vui',
-  },
-  {
-    path: 'hello-2026',
-    loadComponent: () =>
-      import('./pages/hello-2026/hello-2026.component').then((m) => m.Hello2026Component),
-    title: 'Vòng Quay Tết 2026',
-  },
-  {
-    path: 'ten-cua-boi-2026',
-    loadComponent: () =>
-      import('./pages/ten-cua-boi-2026/ten-cua-boi-2026.component').then(
-        (m) => m.TenCuaBoi2026Component
-      ),
-    title: 'Tên của Bối',
-  },
-  {
-    path: 'pit',
-    loadComponent: () =>
-      import('./pages/pit-2026/pit-2026.component').then((m) => m.Pit2026Component),
-    title: 'Công cụ tính thuế TNCN 2026',
-  },
   {
     path: 'feeding',
     loadComponent: () => import('@hbslovely/baby-feeding').then((m) => m.FeedingComponent),
     title: 'Life with baby',
-  },
-  {
-    path: 'tax',
-    loadComponent: () =>
-      import('./pages/pit-2026/pit-2026.component').then((m) => m.Pit2026Component),
-    title: 'Công cụ tính thuế TNCN 2026',
-  },
-  {
-    path: 'chi-tieu-gia-dinh-cua-toi',
-    loadComponent: () =>
-      import('./pages/chi-tieu/chi-tieu.component').then((m) => m.ChiTieuPageComponent),
-    title: 'Chi tiêu gia đình',
-  },
-  {
-    path: 'chi-tieu',
-    loadComponent: () =>
-      import('./pages/chi-tieu/chi-tieu.component').then((m) => m.ChiTieuPageComponent),
-    title: 'Chi tiêu gia đình',
-  },
-  {
-    path: 'my-timesheet',
-    loadComponent: () =>
-      import('./pages/my-timesheet/my-timesheet.component').then((m) => m.MyTimesheetComponent),
-    title: 'My Timesheet - Submit to Productive.io',
   },
 ];

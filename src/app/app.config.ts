@@ -1,19 +1,10 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-import { APP_INFO_TOKEN, provideFeedingConfig } from '@hbslovely/baby-feeding';
 
 import { routes } from './app.routes';
-import { APP_INFO } from './app-info';
-import { environment } from '../environments/environment';
 
+/** Desktop shell — feeding config lives in feeding-app.config.ts (fast /feeding entry). */
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideRouter(routes),
-    provideHttpClient(),
-    { provide: APP_INFO_TOKEN, useValue: APP_INFO },
-    provideFeedingConfig({
-      ...environment
-    }),
-  ],
+  providers: [provideRouter(routes), provideHttpClient()],
 };
