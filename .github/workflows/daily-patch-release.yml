@@ -56,12 +56,13 @@ jobs:
               | awk -F'\t' '{ print $2 }' \
               | sed 's,^refs/heads/,,' \
               || true
-          } | jq -R . | jq -s . > /tmp/branches.json
+          } | jq -R . | jq -sc . > /tmp/branches.json
 
           echo "Targets:"
           jq -r '.[]' /tmp/branches.json
 
-          echo "branches=$(cat /tmp/branches.json)" >> "${GITHUB_OUTPUT}"
+          # GITHUB_OUTPUT values must be a single line; pretty JSON breaks parsing.
+          echo "branches=$(jq -c . /tmp/branches.json)" >> "${GITHUB_OUTPUT}"
 
   release:
     name: Daily patch if changed (${{ matrix.branch }})
