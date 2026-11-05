@@ -10,6 +10,7 @@ export { CHaoMungRoutes } from './love-src/pages/chao-mung/chao-mung.routes';
 export { VeChungToiRoutes } from './love-src/pages/ve-chung-toi/ve-chung-toi.routes';
 export { ThongTinVoRoutes } from './love-src/pages/thong-tin-vo/thong-tin-vo.routes';
 export { ThongTinChongRoutes } from './love-src/pages/thong-tin-chong/thong-tin-chong.routes';
+export { ThongTinBoiRoutes } from './love-src/pages/thong-tin-boi/thong-tin-boi.routes';
 export { ALBUM_ANH_ROUTES } from './love-src/pages/album-anh/album-anh.routes';
 export { MEMORY_PLACES_ROUTES } from './love-src/pages/memory-places/memory-places.routes';
 

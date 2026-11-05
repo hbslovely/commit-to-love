@@ -67,8 +67,9 @@ export class NavbarComponent implements OnInit {
       'Chuyện Tình Đẹp': 'Về Chúng Tôi',
       'Nàng Thơ Của Anh': 'Thông Tin Vợ',
       'Chàng Trai Của Em': 'Thông Tin Chồng',
+      'Thông tin của Bối': 'Bối',
       'Khoảnh Khắc Yêu Thương': 'Album Ảnh',
-      'Điểm Đến': 'Địa Điểm'
+      'Điểm Đến': 'Địa Điểm',
     };
     return textMap[text] || text;
   }

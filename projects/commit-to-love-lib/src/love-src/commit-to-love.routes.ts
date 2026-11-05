@@ -28,6 +28,11 @@ export const COMMIT_TO_LOVE_ROUTES: Routes = [
       import('./pages/thong-tin-chong/thong-tin-chong.routes').then((m) => m.ThongTinChongRoutes),
   },
   {
+    path: 'thong-tin-boi',
+    loadChildren: () =>
+      import('./pages/thong-tin-boi/thong-tin-boi.routes').then((m) => m.ThongTinBoiRoutes),
+  },
+  {
     path: 'album-anh',
     loadChildren: () =>
       import('./pages/album-anh/album-anh.routes').then((m) => m.ALBUM_ANH_ROUTES),

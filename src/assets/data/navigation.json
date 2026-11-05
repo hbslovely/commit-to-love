@@ -25,6 +25,12 @@
       "description": "Người đàn ông em yêu thương"
     },
     {
+      "text": "Thông tin của Bối",
+      "link": "/thong-tin-boi",
+      "icon": "icon-baby",
+      "description": "Bé Bối của bố mẹ"
+    },
+    {
       "text": "Khoảnh Khắc Yêu Thương",
       "link": "/album-anh",
       "icon": "pi pi-camera",

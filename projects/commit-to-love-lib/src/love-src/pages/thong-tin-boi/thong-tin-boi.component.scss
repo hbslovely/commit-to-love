@@ -1,0 +1,33 @@
+.coming-soon {
+  min-height: calc(100vh - 8rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+}
+
+.coming-soon__card {
+  text-align: center;
+  max-width: 28rem;
+}
+
+.coming-soon__icon {
+  display: block;
+  font-size: 3.5rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.coming-soon__title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 600;
+  color: #3d2c3e;
+}
+
+.coming-soon__message {
+  margin: 0;
+  font-size: 1.125rem;
+  color: #8a6f7a;
+  letter-spacing: 0.02em;
+}

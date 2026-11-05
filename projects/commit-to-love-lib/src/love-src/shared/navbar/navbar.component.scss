@@ -644,6 +644,17 @@
   }
 }
 
+// Baby menu icon (PrimeIcons has no baby glyph)
+.icon-baby {
+  font-style: normal !important;
+  font-family: inherit !important;
+
+  &::before {
+    content: '👶';
+    font-style: normal;
+  }
+}
+
 // Print styles
 @media print {
   .navbar {
